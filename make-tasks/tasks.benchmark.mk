@@ -1,15 +1,11 @@
+benchmark:									\
+	benchmark-serialization-performance		\
+	benchmark-deserialization-performance
 
 
-benchmark:				\
-	benchmark-serialization		\
-	benchmark-deserialization
+benchmark-serialization-performance:
+	@$(call benchmark,serializationperf)
 
 
-
-
-benchmark-serialization:
-	@$(call benchmark,serialization)
-
-
-benchmark-deserialization:
-	@$(call benchmark,deserialization)
+benchmark-deserialization-performance:
+	@$(call benchmark,deserializationperf)
