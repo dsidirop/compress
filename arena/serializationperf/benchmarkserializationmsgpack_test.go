@@ -9,7 +9,7 @@ import (
 
 // these tests are invoked multiple times by the benchmarking framework
 
-func BenchmarkTest___Serialization___MessagePack(t *testing.B) {
+func Benchmark___Serialization___MessagePack(t *testing.B) {
 	datasourceArrayLength := len(arena.Datasource)
 
 	for i := 0; i < t.N; i++ {

@@ -7,7 +7,7 @@ import (
 	"github.com/vmihailenco/msgpack/v5"
 )
 
-func BenchmarkTest___Deserialization___MessagePack(t *testing.B) {
+func Benchmark___Deserialization___MessagePack(t *testing.B) {
 	item := arena.FooItem{}
 	datasourceArrayLength := len(arena.Datasource)
 

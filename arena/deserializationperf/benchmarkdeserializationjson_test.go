@@ -7,7 +7,7 @@ import (
 	"github.com/klauspost/compress/arena"
 )
 
-func BenchmarkTest___Deserialization___Json(t *testing.B) {
+func Benchmark___Deserialization___Json(t *testing.B) {
 	item := arena.FooItem{}
 	datasourceArrayLength := len(arena.Datasource)
 

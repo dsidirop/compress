@@ -24,7 +24,7 @@ set grid
 set output graphic_file_name
 
 # the graphic's main title
-set title "performance comparison"
+set title "Comparison"
 
 # since the input file is a CSV file, we need to tell gnuplot that data fields are separated by comma
 set datafile separator ","
