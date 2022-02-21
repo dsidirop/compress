@@ -1,7 +1,7 @@
-package serialization
+package serialization_eventual_message_size_footprint
 
 import (
-	"log"
+	"fmt"
 	"testing"
 
 	"github.com/fxamacker/cbor/v2"
@@ -16,5 +16,5 @@ func Test___SerializationMessageSizeFootprint___Cbor(t *testing.T) {
 		panic(err)
 	}
 
-	log.Printf("** CBOR %d bytes\n", len(rawBytes))
+	fmt.Printf("** CBOR %d bytes\n", len(rawBytes))
 }

@@ -1,10 +1,10 @@
-define benchmark-serialization-eventual-message-size-footprint =
+define benchmark-single-metric =
        cd  './arena/$(1)/'                                                                                                                            \
                                                                                                                                                       \
     && go  test   -bench=.   |    tee   './$(1)---benchmark-raw-output.dat'                                                                           \
                                                                                                                                                       \
     && awk                                                                                                                                            \
-              '/[*][*]/{count++; printf("%d,%s,%s\n", count, $$4, $$5); }'                                                                            \
+              '/[*][*]/{count++; printf("%d,%s,%s\n", count, $$2, $$3); }'                                                                            \
                 './$(1)---benchmark-raw-output.dat'                                                                                                   \
               > './$(1)---benchmark-output-parsed.dat'                                                                                                \
                                                                                                                                                       \
@@ -15,11 +15,11 @@ define benchmark-serialization-eventual-message-size-footprint =
     && tempDir=`mktemp -d -t golang-compression-libs-arena.XXXX`                                                                                      \
                                                                                                                                                       \
     && cp            '../plot.gp'                                        "$${tempDir}/plot.gp"                                                        \
-    && sed    -i     's/___TITLE___/\[$(1)\] Eventual Size in Bytes/g'   "$${tempDir}/plot.gp"                                                        \
+    && sed    -i     's/___TITLE___/\[$(1)\] $(2)/g'   "$${tempDir}/plot.gp"                                                                          \
     && gnuplot                                                                                                                                        \
             -e "    file_path='./$(1)---benchmark-output-parsed.dat'                                             "                                    \
             -e "    graphic_file_name='../../arena-results/$(1)--eventual-message-size-footprint--result.png'    "                                    \
-            -e "    y_label='bytes'                                                                              "                                    \
+            -e "    y_label='$(3)'                                                                               "                                    \
             -e "    y_range_min='0000''                                                                          "                                    \
             -e "    y_range_max='$${messageSizeMaxRoundedUpwards}'                                               "                                    \
             -e "    column_1=1                                                                                   "                                    \

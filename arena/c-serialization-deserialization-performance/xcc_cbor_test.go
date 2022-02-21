@@ -1,4 +1,4 @@
-package serialization
+package serialization_deserialization_performance
 
 import (
 	"testing"

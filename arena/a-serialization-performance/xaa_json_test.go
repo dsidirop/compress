@@ -1,4 +1,4 @@
-package serialization
+package serialization_performance
 
 import (
 	"encoding/json"

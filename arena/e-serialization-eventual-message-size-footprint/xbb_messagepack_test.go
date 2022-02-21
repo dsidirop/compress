@@ -1,7 +1,7 @@
-package serialization
+package serialization_eventual_message_size_footprint
 
 import (
-	"log"
+	"fmt"
 	"testing"
 
 	"github.com/klauspost/compress/arena"
@@ -16,5 +16,5 @@ func Test___SerializationMessageSizeFootprint___MessagePack(t *testing.T) {
 		panic(err)
 	}
 
-	log.Printf("** MessagePack %d bytes\n", len(rawBytes))
+	fmt.Printf("** MessagePack %d bytes\n", len(rawBytes))
 }

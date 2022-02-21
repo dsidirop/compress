@@ -1,4 +1,4 @@
-package arena
+package deserialization_performance
 
 import (
 	"encoding/json"
