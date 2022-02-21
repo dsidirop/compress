@@ -13,20 +13,20 @@ define benchmark-performance =
             -e "graphic_file_name='../../arena-results/$(1)--operations-count.png' "                  \
             -e "y_label='operations#'                                              "                  \
             -e "y_range_min='0000000''                                             "                  \
-            -e "y_range_max='1000000'                                              "                  \
+            -e "y_range_max='1500000'                                              "                  \
             -e "column_1=1                                                         "                  \
             -e "column_2=3                                                         "                  \
-            ../plot.gp                                                                         \
+            ../plot.gp                                                                                \
                                                                                                       \
     && gnuplot                                                                                        \
             -e "file_path='./$(1)--benchmark-output-parsed.dat'                      "                \
             -e "graphic_file_name='../../arena-results/$(1)--time-per-operation.png' "                \
             -e "y_label='nanoseconds / operation'                                    "                \
             -e "y_range_min='00000''                                                 "                \
-            -e "y_range_max='45000'                                                  "                \
+            -e "y_range_max='5000'                                                   "                \
             -e "column_1=1                                                           "                \
             -e "column_2=4                                                           "                \
-            ../plot.gp                                                                         \
+            ../plot.gp                                                                                \
                                                                                                       \
     && gnuplot                                                                                        \
             -e "file_path='./$(1)--benchmark-output-parsed.dat'                        "              \
@@ -36,7 +36,7 @@ define benchmark-performance =
             -e "y_range_max='2000'                                                     "              \
             -e "column_1=1                                                             "              \
             -e "column_2=5                                                             "              \
-            ../plot.gp                                                                         \
+            ../plot.gp                                                                                \
                                                                                                       \
     && gnuplot                                                                                        \
             -e "file_path='./$(1)--benchmark-output-parsed.dat'                              "        \
@@ -46,7 +46,7 @@ define benchmark-performance =
             -e "y_range_max='40'                                                             "        \
             -e "column_1=1                                                                   "        \
             -e "column_2=6                                                                   "        \
-            ../plot.gp                                                                         \
+            ../plot.gp                                                                                \
                                                                                                       \
     && cp    ./$(1)--benchmark-output-parsed.dat    ../../arena-results                               \
                                                                                                       \

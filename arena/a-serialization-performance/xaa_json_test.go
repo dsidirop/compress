@@ -7,9 +7,7 @@ import (
 	"github.com/klauspost/compress/arena"
 )
 
-// these tests are invoked multiple times by the benchmarking framework
-
-func Benchmark___Serialization___Json(t *testing.B) {
+func Benchmark___SerializationPerformance___Json(t *testing.B) {
 	datasourceArrayLength := len(arena.Datasource)
 
 	for i := 0; i < t.N; i++ {

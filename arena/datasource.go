@@ -4,10 +4,12 @@ import (
 	"encoding/json"
 	"time"
 
+	"github.com/fxamacker/cbor/v2"
 	"github.com/vmihailenco/msgpack/v5"
 )
 
 var DatasourceSerializedJson [][]byte
+var DatasourceSerializedCbor [][]byte
 var DatasourceSerializedMessagePack [][]byte
 
 func init() {
@@ -19,13 +21,18 @@ func init() {
 		if err != nil {
 			panic(err)
 		}
+		DatasourceSerializedJson = append(DatasourceSerializedJson, jsonBytes)
+
+		cborBytes, err := cbor.Marshal(x)
+		if err != nil {
+			panic(err)
+		}
+		DatasourceSerializedCbor = append(DatasourceSerializedCbor, cborBytes)
 
 		messagePackBytes, err := msgpack.Marshal(x)
 		if err != nil {
 			panic(err)
 		}
-
-		DatasourceSerializedJson = append(DatasourceSerializedJson, jsonBytes)
 		DatasourceSerializedMessagePack = append(DatasourceSerializedMessagePack, messagePackBytes)
 	}
 }
