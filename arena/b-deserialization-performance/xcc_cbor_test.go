@@ -12,7 +12,7 @@ func Benchmark___Deserialization___Cbor(t *testing.B) {
 	datasourceArrayLength := len(arena.Datasource)
 
 	for i := 0; i < t.N; i++ {
-		bytes := arena.DatasourceSerializedCbor[i%datasourceArrayLength]
+		bytes := arena.SerializedDataSources.Cbor[i%datasourceArrayLength]
 
 		err := cbor.Unmarshal(bytes, &item)
 		if err != nil {

@@ -12,7 +12,7 @@ func Benchmark___Deserialization___Json(t *testing.B) {
 	datasourceArrayLength := len(arena.Datasource)
 
 	for i := 0; i < t.N; i++ {
-		bytes := arena.DatasourceSerializedJson[i%datasourceArrayLength]
+		bytes := arena.SerializedDataSources.Json[i%datasourceArrayLength]
 
 		err := json.Unmarshal(bytes, &item)
 		if err != nil {

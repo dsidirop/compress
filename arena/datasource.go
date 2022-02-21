@@ -8,9 +8,13 @@ import (
 	"github.com/vmihailenco/msgpack/v5"
 )
 
-var DatasourceSerializedJson [][]byte
-var DatasourceSerializedCbor [][]byte
-var DatasourceSerializedMessagePack [][]byte
+type serializedDataSources struct {
+	Json        [][]byte
+	Cbor        [][]byte
+	MessagePack [][]byte
+}
+
+var SerializedDataSources = serializedDataSources{}
 
 func init() {
 	datasourceArrayLength := len(Datasource)
@@ -21,19 +25,19 @@ func init() {
 		if err != nil {
 			panic(err)
 		}
-		DatasourceSerializedJson = append(DatasourceSerializedJson, jsonBytes)
+		SerializedDataSources.Json = append(SerializedDataSources.Json, jsonBytes)
 
 		cborBytes, err := cbor.Marshal(x)
 		if err != nil {
 			panic(err)
 		}
-		DatasourceSerializedCbor = append(DatasourceSerializedCbor, cborBytes)
+		SerializedDataSources.Cbor = append(SerializedDataSources.Cbor, cborBytes)
 
 		messagePackBytes, err := msgpack.Marshal(x)
 		if err != nil {
 			panic(err)
 		}
-		DatasourceSerializedMessagePack = append(DatasourceSerializedMessagePack, messagePackBytes)
+		SerializedDataSources.MessagePack = append(SerializedDataSources.MessagePack, messagePackBytes)
 	}
 }
 
