@@ -1,7 +1,7 @@
 define benchmark-performance =
        cd ./arena/$(1)/                                                                               \
                                                                                                       \
-    && go  test  -benchmem  -bench=.   |    tee './$(1)---benchmark-raw-output.dat'                   \
+    && go  test  -benchmem  -cpu=1   -bench=.   |    tee './$(1)---benchmark-raw-output.dat'          \
                                                                                                       \
     && awk                                                                                            \
               '/Benchmark_/{count++; gsub(/Benchmark_+.*?_+/, ""); gsub(/[-][0-9]+ /, ""); printf("%d,%s,%s,%s,%s,%s\n", count, $$1, $$2, $$3, $$5, $$7); }'    \
