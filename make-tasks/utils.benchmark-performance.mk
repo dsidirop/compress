@@ -20,52 +20,52 @@ define benchmark-performance =
                                                                                                                                                      \
     && tempDir=`mktemp -d -t golang-compression-libs-arena.XXXX`                                      \
                                                                                                       \
-    && cp            '../plot.gp'                    "$${tempDir}/plot.gp"                            \
-    && sed    -i     's/___TITLE___/Operations#/g'   "$${tempDir}/plot.gp"                            \
+    && cp            '../plot.gp'                             "$${tempDir}/plot.gp"                   \
+    && sed    -i     's/___TITLE___/\[$(1)\] Operations#/g'   "$${tempDir}/plot.gp"                   \
     && gnuplot                                                                                        \
-            -e "file_path='./$(1)---benchmark-output-parsed.dat'                    "                 \
-            -e "graphic_file_name='../../arena-results/$(1)--operations-count.png'  "                 \
-            -e "y_label='operations#'                                               "                 \
-            -e "y_range_min='0000000''                                              "                 \
-            -e "y_range_max='$${operationsMaxRoundedUpwards}'                       "                 \
-            -e "column_1=1                                                          "                 \
-            -e "column_2=3                                                          "                 \
+            -e "file_path='./$(1)---benchmark-output-parsed.dat'                            "         \
+            -e "graphic_file_name='../../arena-results/$(1)--operations-count--result.png'  "         \
+            -e "y_label='operations#'                                                       "         \
+            -e "y_range_min='0000000''                                                      "         \
+            -e "y_range_max='$${operationsMaxRoundedUpwards}'                               "         \
+            -e "column_1=1                                                                  "         \
+            -e "column_2=3                                                                  "         \
             "$${tempDir}/plot.gp"                                                                     \
                                                                                                       \
-    && cp            '../plot.gp'                           "$${tempDir}/plot.gp"                     \
-    && sed    -i     's/___TITLE___/Time (ns) per Operation/g'   "$${tempDir}/plot.gp"                \
+    && cp            '../plot.gp'                                         "$${tempDir}/plot.gp"       \
+    && sed    -i     's/___TITLE___/\[$(1)\] Time (ns) per Operation/g'   "$${tempDir}/plot.gp"       \
     && gnuplot                                                                                        \
-            -e "file_path='./$(1)---benchmark-output-parsed.dat'                     "                \
-            -e "graphic_file_name='../../arena-results/$(1)--time-per-operation.png' "                \
-            -e "y_label='nanoseconds / operation'                                    "                \
-            -e "y_range_min='00000''                                                 "                \
-            -e "y_range_max='$${nanosecondsMaxRoundedUpwards}'                       "                \
-            -e "column_1=1                                                           "                \
-            -e "column_2=4                                                           "                \
+            -e "file_path='./$(1)---benchmark-output-parsed.dat'                                "     \
+            -e "graphic_file_name='../../arena-results/$(1)--time-per-operation--result.png'    "     \
+            -e "y_label='nanoseconds / operation'                                               "     \
+            -e "y_range_min='00000''                                                            "     \
+            -e "y_range_max='$${nanosecondsMaxRoundedUpwards}'                                  "     \
+            -e "column_1=1                                                                      "     \
+            -e "column_2=4                                                                      "     \
             "$${tempDir}/plot.gp"                                                                     \
                                                                                                       \
-    && cp            '../plot.gp'                                "$${tempDir}/plot.gp"                \
-    && sed    -i     's/___TITLE___/RAM Bytes per Operation/g'   "$${tempDir}/plot.gp"                \
+    && cp            '../plot.gp'                                         "$${tempDir}/plot.gp"       \
+    && sed    -i     's/___TITLE___/\[$(1)\] RAM Bytes per Operation/g'   "$${tempDir}/plot.gp"       \
     && gnuplot                                                                                        \
-            -e "file_path='./$(1)---benchmark-output-parsed.dat'                           "          \
-            -e "graphic_file_name='../../arena-results/$(1)--ram-bytes-per-operation.png'  "          \
-            -e "y_label='ram-bytes / operation'                                            "          \
-            -e "y_range_min='0000''                                                        "          \
-            -e "y_range_max='$${ramBytesMaxRoundedUpwards}'                                "          \
-            -e "column_1=1                                                                 "          \
-            -e "column_2=5                                                                 "          \
+            -e "file_path='./$(1)---benchmark-output-parsed.dat'                                   "  \
+            -e "graphic_file_name='../../arena-results/$(1)--ram-bytes-per-operation--result.png'  "  \
+            -e "y_label='ram-bytes / operation'                                                    "  \
+            -e "y_range_min='0000''                                                                "  \
+            -e "y_range_max='$${ramBytesMaxRoundedUpwards}'                                        "  \
+            -e "column_1=1                                                                         "  \
+            -e "column_2=5                                                                         "  \
             "$${tempDir}/plot.gp"                                                                     \
                                                                                                       \
-    && cp            '../plot.gp'                                  "$${tempDir}/plot.gp"              \
-    && sed    -i     's/___TITLE___/Allocations per Operation/g'   "$${tempDir}/plot.gp"              \
+    && cp            '../plot.gp'                                           "$${tempDir}/plot.gp"     \
+    && sed    -i     's/___TITLE___/\[$(1)\] Allocations per Operation/g'   "$${tempDir}/plot.gp"     \
     && gnuplot                                                                                        \
-            -e "file_path='./$(1)---benchmark-output-parsed.dat'                             "        \
-            -e "graphic_file_name='../../arena-results/$(1)--allocations-per-operation.png'  "        \
-            -e "y_label='allocations / operation'                                            "        \
-            -e "y_range_min='000''                                                           "        \
-            -e "y_range_max='$${allocationsMaxRoundedUpwards}'                               "        \
-            -e "column_1=1                                                                   "        \
-            -e "column_2=6                                                                   "        \
+            -e "file_path='./$(1)---benchmark-output-parsed.dat'                                    " \
+            -e "graphic_file_name='../../arena-results/$(1)--allocations-per-operation--result.png' " \
+            -e "y_label='allocations / operation'                                                   " \
+            -e "y_range_min='000''                                                                  " \
+            -e "y_range_max='$${allocationsMaxRoundedUpwards}'                                      " \
+            -e "column_1=1                                                                          " \
+            -e "column_2=6                                                                          " \
             "$${tempDir}/plot.gp"                                                                     \
                                                                                                       \
     && cp   './$(1)---benchmark-output-parsed.dat'   '../../arena-results'                            \

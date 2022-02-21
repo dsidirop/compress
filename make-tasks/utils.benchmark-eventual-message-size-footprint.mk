@@ -14,16 +14,16 @@ define benchmark-serialization-eventual-message-size-footprint =
                                                                                                                                                       \
     && tempDir=`mktemp -d -t golang-compression-libs-arena.XXXX`                                                                                      \
                                                                                                                                                       \
-    && cp            '../plot.gp'                               "$${tempDir}/plot.gp"                                                                 \
-    && sed    -i     's/___TITLE___/Eventual Size in Bytes/g'   "$${tempDir}/plot.gp"                                                                 \
+    && cp            '../plot.gp'                                        "$${tempDir}/plot.gp"                                                        \
+    && sed    -i     's/___TITLE___/\[$(1)\] Eventual Size in Bytes/g'   "$${tempDir}/plot.gp"                                                        \
     && gnuplot                                                                                                                                        \
-            -e "    file_path='./$(1)---benchmark-output-parsed.dat'                                     "                                            \
-            -e "    graphic_file_name='../../arena-results/$(1)--eventual-message-size-footprint.png'    "                                            \
-            -e "    y_label='bytes'                                                                      "                                            \
-            -e "    y_range_min='0000''                                                                  "                                            \
-            -e "    y_range_max='$${messageSizeMaxRoundedUpwards}'                                       "                                            \
-            -e "    column_1=1                                                                           "                                            \
-            -e "    column_2=3                                                                           "                                            \
+            -e "    file_path='./$(1)---benchmark-output-parsed.dat'                                             "                                    \
+            -e "    graphic_file_name='../../arena-results/$(1)--eventual-message-size-footprint--result.png'    "                                    \
+            -e "    y_label='bytes'                                                                              "                                    \
+            -e "    y_range_min='0000''                                                                          "                                    \
+            -e "    y_range_max='$${messageSizeMaxRoundedUpwards}'                                               "                                    \
+            -e "    column_1=1                                                                                   "                                    \
+            -e "    column_2=3                                                                                   "                                    \
             "$${tempDir}/plot.gp"                                                                                                                     \
                                                                                                                                                       \
     && cp       './$(1)---benchmark-output-parsed.dat'   '../../arena-results'                                                                        \
