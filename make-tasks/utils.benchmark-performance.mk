@@ -40,7 +40,7 @@ define benchmark-performance =
                                                                                                       \
     && gnuplot                                                                                        \
             -e "file_path='./$(1)---benchmark-output-parsed.dat'                       "              \
-            -e "graphic_file_name='../../arena-results/$(1)--bytes-per-operations.png' "              \
+            -e "graphic_file_name='../../arena-results/$(1)--bytes-per-operation.png'  "              \
             -e "y_label='bytes / operation'                                            "              \
             -e "y_range_min='0000''                                                    "              \
             -e "y_range_max='$${bytesMaxRoundedUpwards}'                               "              \
@@ -50,7 +50,7 @@ define benchmark-performance =
                                                                                                       \
     && gnuplot                                                                                        \
             -e "file_path='./$(1)---benchmark-output-parsed.dat'                             "        \
-            -e "graphic_file_name='../../arena-results/$(1)--allocations-per-operations.png' "        \
+            -e "graphic_file_name='../../arena-results/$(1)--allocations-per-operation.png'  "        \
             -e "y_label='allocations / operation'                                            "        \
             -e "y_range_min='000''                                                           "        \
             -e "y_range_max='$${allocationsMaxRoundedUpwards}'                               "        \
