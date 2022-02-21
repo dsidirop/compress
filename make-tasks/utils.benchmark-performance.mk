@@ -20,16 +20,16 @@ define benchmark-performance =
                                                                                                                                                      \
     && tempDir=`mktemp -d -t golang-compression-libs-arena.XXXX`                                      \
                                                                                                       \
-    && cp            '../plot.gp'                             "$${tempDir}/plot.gp"                   \
-    && sed    -i     's/___TITLE___/\[$(1)\] Operations#/g'   "$${tempDir}/plot.gp"                   \
+    && cp            '../plot.gp'                                 "$${tempDir}/plot.gp"               \
+    && sed    -i     's/___TITLE___/\[$(1)\] CPU Operations#/g'   "$${tempDir}/plot.gp"               \
     && gnuplot                                                                                        \
-            -e "file_path='./$(1)---benchmark-output-parsed.dat'                            "         \
-            -e "graphic_file_name='../../arena-results/$(1)--operations-count--result.png'  "         \
-            -e "y_label='operations#'                                                       "         \
-            -e "y_range_min='0000000''                                                      "         \
-            -e "y_range_max='$${operationsMaxRoundedUpwards}'                               "         \
-            -e "column_1=1                                                                  "         \
-            -e "column_2=3                                                                  "         \
+            -e "file_path='./$(1)---benchmark-output-parsed.dat'                                "     \
+            -e "graphic_file_name='../../arena-results/$(1)--cpu-operations-count--result.png'  "     \
+            -e "y_label='cpu-ops#'                                                              "     \
+            -e "y_range_min='0000000''                                                          "     \
+            -e "y_range_max='$${operationsMaxRoundedUpwards}'                                   "     \
+            -e "column_1=1                                                                      "     \
+            -e "column_2=3                                                                      "     \
             "$${tempDir}/plot.gp"                                                                     \
                                                                                                       \
     && cp            '../plot.gp'                                         "$${tempDir}/plot.gp"       \

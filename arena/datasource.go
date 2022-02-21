@@ -6,12 +6,14 @@ import (
 
 	"github.com/fxamacker/cbor/v2"
 	"github.com/vmihailenco/msgpack/v5"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 type serializedDataSources struct {
 	Json        [][]byte
 	Cbor        [][]byte
 	MessagePack [][]byte
+	Bson        [][]byte
 }
 
 var SerializedDataSources = serializedDataSources{}
@@ -38,6 +40,12 @@ func init() {
 			panic(err)
 		}
 		SerializedDataSources.MessagePack = append(SerializedDataSources.MessagePack, messagePackBytes)
+
+		bsonBytes, err := bson.Marshal(x)
+		if err != nil {
+			panic(err)
+		}
+		SerializedDataSources.Bson = append(SerializedDataSources.Bson, bsonBytes)
 	}
 }
 
