@@ -18,4 +18,4 @@ benchmark-deserialization-performance:
 .PHONY:\
 benchmark-serialization-message-size-footprint
 benchmark-serialization-message-size-footprint:
-	@$(call benchmark-serialization-eventual-message-size-footprint,c-serialization-eventual-message-size-footprint)
+	@$(call benchmark-serialization-eventual-message-size-footprint,d-serialization-eventual-message-size-footprint)
