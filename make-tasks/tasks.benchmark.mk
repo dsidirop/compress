@@ -1,3 +1,5 @@
+# https://github.com/glycerine/golang-thrift-minimal-example/blob/master/serialize.go
+
 cpucount ?= 1
 
 .PHONY:\
@@ -33,7 +35,7 @@ benchmark-serialization-deserialization-performance:
 .PHONY:\
 benchmark-serialization-message-size-footprint
 benchmark-serialization-message-size-footprint:
-	@$(call benchmark-single-metric,e-serialization-eventual-message-size-footprint,Average Size in Bytes\\n(lower is better),bytes,$(cpucount))
+	@$(call benchmark-single-metric,e-serialization-eventual-message-size-footprint,Eventual Size in Bytes\\n(lower is better),bytes,$(cpucount))
 
 .PHONY:\
 merge-output-images-of-plots
