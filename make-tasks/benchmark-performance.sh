@@ -26,8 +26,8 @@ awk \
 tempDir=`mktemp -d -t golang-compression-libs-arena.XXXX`
 tempPlotConfigFile="${tempDir}/plot.gp"
 
-cp            '../plot.gp'                               "${tempPlotConfigFile}"
-sed    -i     "s/___TITLE___/[${1}] CPU Operations#/g"   "${tempPlotConfigFile}"
+cp            '../plot.gp'                                                     "${tempPlotConfigFile}"
+sed    -i     "s/___TITLE___/[${1}] CPU Operations#\\\\n(lower is better)/g"   "${tempPlotConfigFile}"
 gnuplot \
 -e "file_path='./${1}---benchmark-output-parsed.dat'                                        "  \
 -e "graphic_file_name='../../arena-results/${1}--cpu-operations-count--result.png'          "  \
@@ -36,8 +36,8 @@ gnuplot \
 -e "column_2=3                                                                              "  \
 "${tempPlotConfigFile}"
 
-cp            '../plot.gp'                                       "${tempPlotConfigFile}"
-sed    -i     "s/___TITLE___/[${1}] Time (ns) per Operation/g"   "${tempPlotConfigFile}"
+cp            '../plot.gp'                                                             "${tempPlotConfigFile}"
+sed    -i     "s/___TITLE___/[${1}] Time (ns) per Operation\\\\n(lower is better)/g"   "${tempPlotConfigFile}"
 gnuplot \
 -e "file_path='./${1}---benchmark-output-parsed.dat'                                        "  \
 -e "graphic_file_name='../../arena-results/${1}--time-per-operation--result.png'            "  \
@@ -46,8 +46,8 @@ gnuplot \
 -e "column_2=4                                                                              "  \
 "${tempPlotConfigFile}"
 
-cp            '../plot.gp'                                       "${tempPlotConfigFile}"
-sed    -i     "s/___TITLE___/[${1}] RAM Bytes per Operation/g"   "${tempPlotConfigFile}"
+cp            '../plot.gp'                                                             "${tempPlotConfigFile}"
+sed    -i     "s/___TITLE___/[${1}] RAM Bytes per Operation\\\\n(lower is better)/g"   "${tempPlotConfigFile}"
 gnuplot \
 -e "file_path='./${1}---benchmark-output-parsed.dat'                                        "  \
 -e "graphic_file_name='../../arena-results/${1}--ram-bytes-per-operation--result.png'       "  \
@@ -56,8 +56,8 @@ gnuplot \
 -e "column_2=5                                                                              "  \
 "${tempPlotConfigFile}"
 
-cp            '../plot.gp'                                         "${tempPlotConfigFile}"
-sed    -i     "s/___TITLE___/[${1}] Allocations per Operation/g"   "${tempPlotConfigFile}"
+cp            '../plot.gp'                                                               "${tempPlotConfigFile}"
+sed    -i     "s/___TITLE___/[${1}] Allocations per Operation\\\\n(lower is better)/g"   "${tempPlotConfigFile}"
 gnuplot \
 -e "file_path='./${1}---benchmark-output-parsed.dat'                                        "  \
 -e "graphic_file_name='../../arena-results/${1}--allocations-per-operation--result.png'     "  \

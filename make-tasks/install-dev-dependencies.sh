@@ -11,7 +11,6 @@ apt-get    install                                     \
 	          --assume-yes                             \
               make                                     \
               gnuplot                                  \
-              montage
-
-
+              montage                                  \
+              graphicsmagick-imagemagick-compat
 
