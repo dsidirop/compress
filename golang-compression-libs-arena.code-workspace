@@ -1,0 +1,39 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"remoteAuthority": "wsl+Ubuntu",
+	"settings": {
+		"workbench.colorCustomizations": {
+			"activityBar.activeBackground": "#5976f8",
+			"activityBar.activeBorder": "#fba3b3",
+			"activityBar.background": "#5976f8",
+			"activityBar.foreground": "#e7e7e7",
+			"activityBar.inactiveForeground": "#e7e7e799",
+			"activityBarBadge.background": "#fba3b3",
+			"activityBarBadge.foreground": "#15202b",
+			"statusBar.background": "#284ef6",
+			"statusBar.foreground": "#e7e7e7",
+			"statusBarItem.hoverBackground": "#5976f8",
+			"titleBar.activeBackground": "#284ef6",
+			"titleBar.activeForeground": "#e7e7e7",
+			"titleBar.inactiveBackground": "#284ef699",
+			"titleBar.inactiveForeground": "#e7e7e799"
+		},
+		"peacock.remoteColor": "#284ef6"
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Launch Package",
+				"type": "go",
+				"request": "launch",
+				"mode": "auto",
+				"program": "${fileDirname}"
+			}
+		]
+	}
+}

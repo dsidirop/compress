@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package foo.item;
+
+import "google/protobuf/timestamp.proto"; // needed by the created_at timestamp
+
+option go_package = ".;arena"; // can also be   github.com/example/path/gen;gen
+ 
+message PBFooItem {
+	string                     ID         = 1;
+	string                     Email      = 2;
+	repeated string            Roles      = 3;
+	string                     APIKey     = 4;
+	PBFooProfile               Profile    = 5;
+	string                     Username   = 6;
+	google.protobuf.Timestamp  CreatedAt  = 7;
+	google.protobuf.Timestamp  UpdatedAt  = 8;
+}
+
+message PBFooProfile {
+	string          Dob        = 1;
+	string          Name       = 2;
+	string          About      = 3;
+	string          Address    = 4;
+	string          Company    = 5;
+	PBFooLocation   Location   = 6;
+}
+
+message PBFooLocation {
+	double   Lat   = 1;
+	double   Long  = 2;
+}
