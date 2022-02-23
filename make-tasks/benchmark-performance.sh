@@ -66,8 +66,18 @@ gnuplot \
 -e "column_2=6                                                                              "  \
 "${tempPlotConfigFile}"
 
-cp   "./${1}---benchmark-output-parsed.dat"  '../../arena-results'
 
-echo "Plots successfully generated";
+montage                                                                 \
+            -mode concatenate                                           \
+            "../../arena-results/${1}--*--result.png"                   \
+            "../../arena-results/${1}---category-overall-results.png"
+
+
+cp                                                    \
+            "./${1}---benchmark-output-parsed.dat"    \
+            '../../arena-results'
+
+
+echo "Plots successfully generated"
 
 rm -rf "${tempDir}"
