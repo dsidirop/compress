@@ -1,5 +1,5 @@
 define benchmark-performance =
-       cd ./arena/$(1)/                                                                               \
+       cd './arena/$(1)/'                                                                             \
                                                                                                       \
     && go  test  -benchmem  -cpu=1   -bench=.   |    tee './$(1)---benchmark-raw-output.dat'          \
                                                                                                       \
