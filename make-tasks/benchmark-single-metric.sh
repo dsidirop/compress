@@ -33,11 +33,11 @@ title_lowercased_with_dashes=${title_lowercased_with_dashes,,}
 cp            '../plot.gp'                                                                     "${tempPlotConfigFile}"
 sed    -i     "s/___TITLE___/${title}\\\\n[${output_files_name_prefix} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
 gnuplot \
--e "    file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                             "    \
--e "    graphic_file_name='../../arena-results/${output_files_name_prefix}--${title_lowercased_with_dashes}--result.png'    "    \
--e "    y_label='${y_label}'                                                                                                "    \
--e "    column_1=1                                                                                                          "    \
--e "    column_2=3                                                                                                          "    \
+-e "    file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                                 "    \
+-e "    graphic_file_name='../../arena-results/${output_files_name_prefix}--001-${title_lowercased_with_dashes}--result.png'    "    \
+-e "    y_label='${y_label}'                                                                                                    "    \
+-e "    column_1=1                                                                                                              "    \
+-e "    column_2=3                                                                                                              "    \
 "${tempPlotConfigFile}"
 
 

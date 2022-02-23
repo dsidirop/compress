@@ -34,31 +34,32 @@ tempDir=`mktemp -d -t golang-compression-libs-arena.XXXX`
 tempPlotConfigFile="${tempDir}/plot.gp"
 
 
+cp            '../plot.gp'                                                                                                           "${tempPlotConfigFile}"
+sed    -i     "s/___TITLE___/Avg Elapsed Time (ns) per Operation - Lower is better\\\\n[${benchmark_dirname} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
+gnuplot \
+-e "file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                           "  \
+-e "graphic_file_name='../../arena-results/${output_files_name_prefix}--001-time-per-operation--result.png'           "  \
+-e "y_label='nanoseconds / operation'                                                                                 "  \
+-e "column_1=1                                                                                                        "  \
+-e "column_2=4                                                                                                        "  \
+"${tempPlotConfigFile}"
+
+
 cp            '../plot.gp'                                                                                       "${tempPlotConfigFile}"
 sed    -i     "s/___TITLE___/CPU Operations# - Lower is better\\\\n[${benchmark_dirname} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
 gnuplot \
--e "file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                        "  \
--e "graphic_file_name='../../arena-results/${output_files_name_prefix}--cpu-operations-count--result.png'          "  \
--e "y_label='cpu-ops#'                                                                                             "  \
--e "column_1=1                                                                                                     "  \
--e "column_2=3                                                                                                     "  \
+-e "file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                           "  \
+-e "graphic_file_name='../../arena-results/${output_files_name_prefix}--002-cpu-operations-count--result.png'         "  \
+-e "y_label='cpu-ops#'                                                                                                "  \
+-e "column_1=1                                                                                                        "  \
+-e "column_2=3                                                                                                        "  \
 "${tempPlotConfigFile}"
 
 cp            '../plot.gp'                                                                                               "${tempPlotConfigFile}"
-sed    -i     "s/___TITLE___/Time (ns) per Operation - Lower is better\\\\n[${benchmark_dirname} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
-gnuplot \
--e "file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                        "  \
--e "graphic_file_name='../../arena-results/${output_files_name_prefix}--time-per-operation--result.png'            "  \
--e "y_label='nanoseconds / operation'                                                                              "  \
--e "column_1=1                                                                                                     "  \
--e "column_2=4                                                                                                     "  \
-"${tempPlotConfigFile}"
-
-cp            '../plot.gp'                                                                                                   "${tempPlotConfigFile}"
 sed    -i     "s/___TITLE___/RAM Bytes per Operation - Lower is better\\\\n[${benchmark_dirname} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
 gnuplot \
 -e "file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                        "  \
--e "graphic_file_name='../../arena-results/${output_files_name_prefix}--ram-bytes-per-operation--result.png'       "  \
+-e "graphic_file_name='../../arena-results/${output_files_name_prefix}--003-ram-bytes-per-operation--result.png'   "  \
 -e "y_label='ram-bytes / operation'                                                                                "  \
 -e "column_1=1                                                                                                     "  \
 -e "column_2=5                                                                                                     "  \
@@ -68,7 +69,7 @@ cp            '../plot.gp'                                                      
 sed    -i     "s/___TITLE___/Allocations per Operation - Lower is better\\\\n[${benchmark_dirname} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
 gnuplot \
 -e "file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                        "  \
--e "graphic_file_name='../../arena-results/${output_files_name_prefix}--allocations-per-operation--result.png'     "  \
+-e "graphic_file_name='../../arena-results/${output_files_name_prefix}--004-allocations-per-operation--result.png' "  \
 -e "y_label='allocations / operation'                                                                              "  \
 -e "column_1=1                                                                                                     "  \
 -e "column_2=6                                                                                                     "  \
