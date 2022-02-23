@@ -3,20 +3,20 @@ package deserialization_performance
 import (
 	"testing"
 
-	"github.com/fxamacker/cbor/v2"
 	"github.com/klauspost/compress/arena"
+	"google.golang.org/protobuf/proto"
 )
 
-func Benchmark___Deserialization___Cbor(t *testing.B) {
-	item := arena.FooItem{}
+func Benchmark___Deserialization___Protobuf(t *testing.B) {
+	item := arena.PBFooItem{}
 
-	datasource := arena.SerializedDataSources.Cbor
+	datasource := arena.SerializedDataSources.Protobuf
 	datasourceArrayLength := len(datasource)
 
 	for i := 0; i < t.N; i++ {
 		bytes := datasource[i%datasourceArrayLength]
 
-		err := cbor.Unmarshal(bytes, &item)
+		err := proto.Unmarshal(bytes, &item)
 		if err != nil {
 			panic(err)
 		}

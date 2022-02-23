@@ -1,3 +1,0 @@
-package serialization_deserialization_elapsed_time
-
-const NUMBER_OF_ITERATIONS = 2000

@@ -1,53 +1,8 @@
 package arena
 
 import (
-	"encoding/json"
 	"time"
-
-	"github.com/fxamacker/cbor/v2"
-	"github.com/vmihailenco/msgpack/v5"
-	"go.mongodb.org/mongo-driver/bson"
 )
-
-type serializedDataSources struct {
-	Json        [][]byte
-	Cbor        [][]byte
-	MessagePack [][]byte
-	Bson        [][]byte
-}
-
-var SerializedDataSources = serializedDataSources{}
-
-func init() {
-	datasourceArrayLength := len(Datasource)
-	for i := 0; i < datasourceArrayLength; i++ {
-		x := Datasource[i]
-
-		jsonBytes, err := json.Marshal(x)
-		if err != nil {
-			panic(err)
-		}
-		SerializedDataSources.Json = append(SerializedDataSources.Json, jsonBytes)
-
-		cborBytes, err := cbor.Marshal(x)
-		if err != nil {
-			panic(err)
-		}
-		SerializedDataSources.Cbor = append(SerializedDataSources.Cbor, cborBytes)
-
-		messagePackBytes, err := msgpack.Marshal(x)
-		if err != nil {
-			panic(err)
-		}
-		SerializedDataSources.MessagePack = append(SerializedDataSources.MessagePack, messagePackBytes)
-
-		bsonBytes, err := bson.Marshal(x)
-		if err != nil {
-			panic(err)
-		}
-		SerializedDataSources.Bson = append(SerializedDataSources.Bson, bsonBytes)
-	}
-}
 
 const TimeFormat = "2006-01-02T15:04:05.000Z"
 

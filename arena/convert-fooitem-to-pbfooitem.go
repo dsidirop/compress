@@ -1,8 +1,10 @@
 package arena
 
-import timestamppb "google.golang.org/protobuf/types/known/timestamppb"
+import (
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
+)
 
-func convertFooItemToPBFooItem(x FooItem) PBFooItem {
+func ConvertFooItemToPBFooItem(x FooItem) PBFooItem {
 	return PBFooItem{
 		ID:        x.ID,
 		Email:     x.Email,

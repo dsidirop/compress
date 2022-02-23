@@ -9,10 +9,12 @@ import (
 
 func Benchmark___Deserialization___Bson(t *testing.B) {
 	item := arena.FooItem{}
-	datasourceArrayLength := len(arena.Datasource)
+
+	datasource := arena.SerializedDataSources.Bson
+	datasourceArrayLength := len(datasource)
 
 	for i := 0; i < t.N; i++ {
-		bytes := arena.SerializedDataSources.Bson[i%datasourceArrayLength]
+		bytes := datasource[i%datasourceArrayLength]
 
 		err := bson.Unmarshal(bytes, &item)
 		if err != nil {

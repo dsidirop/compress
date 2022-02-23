@@ -9,10 +9,12 @@ import (
 
 func Benchmark___Deserialization___MessagePack(t *testing.B) {
 	item := arena.FooItem{}
-	datasourceArrayLength := len(arena.Datasource)
+
+	datasource := arena.SerializedDataSources.MessagePack
+	datasourceArrayLength := len(datasource)
 
 	for i := 0; i < t.N; i++ {
-		bytes := arena.SerializedDataSources.MessagePack[i%datasourceArrayLength]
+		bytes := datasource[i%datasourceArrayLength]
 
 		err := msgpack.Unmarshal(bytes, &item)
 		if err != nil {

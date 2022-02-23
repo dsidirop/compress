@@ -7,7 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func Benchmark___SerializationDeserializationPerformance___Bson(t *testing.B) { // https://github.com/fxamacker/cbor
+func Benchmark___SerializationDeserializationPerformance___Bson(t *testing.B) {
 	y := arena.FooItem{}
 	datasourceArrayLength := len(arena.Datasource)
 
