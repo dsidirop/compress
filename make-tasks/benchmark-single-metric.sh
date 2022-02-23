@@ -17,7 +17,7 @@ fi
 
 
 awk \
-'/[*][*]/{count++; printf("%d,%s,%s\n", count, $2, $3); }' \
+'/[*][*]/{count++; printf("%d,%s,%s\n", count, $2, $3); }'        \
 "./${output_files_name_prefix}---benchmark-raw-output.dat"        \
 > "./${output_files_name_prefix}---benchmark-output-parsed.dat"
 
@@ -30,8 +30,8 @@ tempPlotConfigFile="${tempDir}/plot.gp"
 title_lowercased_with_dashes=${title// /[-]}
 title_lowercased_with_dashes=${title_lowercased_with_dashes,,}
 
-cp            '../plot.gp'                                                                 "${tempPlotConfigFile}"
-sed    -i     "s/___TITLE___/[${output_files_name_prefix} cpu#=${cpu_count}] ${title}/g"   "${tempPlotConfigFile}"
+cp            '../plot.gp'                                                                     "${tempPlotConfigFile}"
+sed    -i     "s/___TITLE___/${title}\\\\n[${output_files_name_prefix} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
 gnuplot \
 -e "    file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                             "    \
 -e "    graphic_file_name='../../arena-results/${output_files_name_prefix}--${title_lowercased_with_dashes}--result.png'    "    \
@@ -40,8 +40,14 @@ gnuplot \
 -e "    column_2=3                                                                                                          "    \
 "${tempPlotConfigFile}"
 
+
+montage                                                                        \
+            -mode concatenate                                                  \
+            "../../arena-results/${output_files_name_prefix}--*--result.png"   \
+            "../../arena-results/${output_files_name_prefix}----category-overall-results.png"
+
 cp       "./${output_files_name_prefix}---benchmark-output-parsed.dat"   '../../arena-results'
 
-echo     'Plots successfully generated';
+echo     'Plots successfully generated'
 
 rm -rf "${tempDir}"

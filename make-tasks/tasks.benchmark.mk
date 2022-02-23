@@ -27,13 +27,11 @@ benchmark-serialization-deserialization-performance:
 benchmark-serialization-deserialization-elapsed-time
 benchmark-serialization-deserialization-elapsed-time:
 	@$(call benchmark-single-metric,d-serialization-deserialization-elapsed-time,Average Elapsed Time in nsecs\\n(lower is better),ns,1)
-	@montage   -mode concatenate    ./arena-results/d-*--result.png    ./arena-results/d-cpu1----category-overall-results.png
 
 .PHONY:\
 benchmark-serialization-message-size-footprint
 benchmark-serialization-message-size-footprint:
 	@$(call benchmark-single-metric,e-serialization-eventual-message-size-footprint,Average Size in Bytes\\n(lower is better),bytes,1)
-	@montage   -mode concatenate    ./arena-results/e-*--result.png    ./arena-results/e-cpu1----category-overall-results.png
 
 .PHONY:\
 merge-output-images-of-plots
