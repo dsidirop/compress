@@ -1,7 +1,5 @@
 ##
-# gnuplot script to generate a performance graphic.
-#
-# it expects the following parameters:
+# gnuplot script to generate a performance graphic - it expects the following parameters:
 #
 # file_path - path to the file from which the data will be read
 # graphic_file_name - the graphic file name to be saved 
@@ -10,15 +8,13 @@
 # y_range_max - maximum range for values in y axis
 # column_1 - the first column to be used in plot command
 # column_2 - the second column to be used in plot command
-#
-# Author: Tiago Melo (tiagoharris@gmail.com)
 ##
 
 # graphic will be saved as 800x600 png image file
 set terminal png
 
 # allows grid lines to be drawn on the plot
-set grid
+set grid x,y
 
 # setting the graphic file name to be saved
 set output graphic_file_name
@@ -27,7 +23,8 @@ set output graphic_file_name
 set title "___TITLE___"
 
 # since the input file is a CSV file, we need to tell gnuplot that data fields are separated by comma
-set datafile separator ","
+# set datafile separator ","
+set datafile separator comma
 
 # disable key box
 set key off
@@ -35,8 +32,9 @@ set key off
 # label for y axis
 set ylabel y_label
 
-# range for values in y axis
-set yrange[y_range_min:y_range_max]
+# range for values in x/y axes
+set xrange[0.2:7]
+set yrange[0:]
 
 # to avoid displaying large numbers in exponential format
 set format y "%.0f"
@@ -45,8 +43,10 @@ set format y "%.0f"
 set xtics rotate
 
 # set boxplots
-set style fill solid
-set boxwidth 0.5
+set style       fill    solid       0.3
+set boxwidth    0.4     relative
 
 # plot graphic for each line of input file
-plot for [i=0:*] file_path every ::i::i using column_1:column_2:xtic(2) with boxes
+plot file_path                                                                      \
+        using column_1:column_2:($0+1):xtic(2)      with    boxes   lc      var,    \
+    ''  using column_1:column_2:column_2            with    labels  offset  0,0.5

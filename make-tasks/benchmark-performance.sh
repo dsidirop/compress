@@ -13,15 +13,15 @@ awk \
 "./${1}---benchmark-raw-output.dat" \
 > "./${1}---benchmark-output-parsed.dat"
 
-operationsMax=`                    awk -F','                        'BEGIN{a=0}{ if ($3>0+a) a=$3} END{print a}'     "./${1}---benchmark-output-parsed.dat"    `
-nanosecondsMax=`                   awk -F','                        'BEGIN{a=0}{ if ($4>0+a) a=$4} END{print a}'     "./${1}---benchmark-output-parsed.dat"    `
-ramBytesMax=`                      awk -F','                        'BEGIN{a=0}{ if ($5>0+a) a=$5} END{print a}'     "./${1}---benchmark-output-parsed.dat"    `
-allocationsMax=`                   awk -F','                        'BEGIN{a=0}{ if ($6>0+a) a=$6} END{print a}'     "./${1}---benchmark-output-parsed.dat"    `
+# operationsMax=`                    awk -F','                        'BEGIN{a=0}{ if ($3>0+a) a=$3} END{print a}'     "./${1}---benchmark-output-parsed.dat"    `
+# nanosecondsMax=`                   awk -F','                        'BEGIN{a=0}{ if ($4>0+a) a=$4} END{print a}'     "./${1}---benchmark-output-parsed.dat"    `
+# ramBytesMax=`                      awk -F','                        'BEGIN{a=0}{ if ($5>0+a) a=$5} END{print a}'     "./${1}---benchmark-output-parsed.dat"    `
+# allocationsMax=`                   awk -F','                        'BEGIN{a=0}{ if ($6>0+a) a=$6} END{print a}'     "./${1}---benchmark-output-parsed.dat"    `
 
-operationsMaxRoundedUpwards=`      awk -v n="${operationsMax}"      'BEGIN{ print int((n+100) / 100 ) * 100 }'                            `
-nanosecondsMaxRoundedUpwards=`     awk -v n="${nanosecondsMax}"     'BEGIN{ print int((n+100) / 100 ) * 100 }'                            `
-ramBytesMaxRoundedUpwards=`        awk -v n="${ramBytesMax}"        'BEGIN{ print int((n+100) / 100 ) * 100 }'                            `
-allocationsMaxRoundedUpwards=`     awk -v n="${allocationsMax}"     'BEGIN{ print int((n+100) / 100 ) * 100 }'                            `
+# operationsMaxRoundedUpwards=`      awk -v n="${operationsMax}"      'BEGIN{ print int((n+100) / 100 ) * 100 }'                            `
+# nanosecondsMaxRoundedUpwards=`     awk -v n="${nanosecondsMax}"     'BEGIN{ print int((n+100) / 100 ) * 100 }'                            `
+# ramBytesMaxRoundedUpwards=`        awk -v n="${ramBytesMax}"        'BEGIN{ print int((n+100) / 100 ) * 100 }'                            `
+# allocationsMaxRoundedUpwards=`     awk -v n="${allocationsMax}"     'BEGIN{ print int((n+100) / 100 ) * 100 }'                            `
 
 tempDir=`mktemp -d -t golang-compression-libs-arena.XXXX`
 tempPlotConfigFile="${tempDir}/plot.gp"
@@ -32,8 +32,6 @@ gnuplot \
 -e "file_path='./${1}---benchmark-output-parsed.dat'                                        "  \
 -e "graphic_file_name='../../arena-results/${1}--cpu-operations-count--result.png'          "  \
 -e "y_label='cpu-ops#'                                                                      "  \
--e "y_range_min='0000000''                                                                  "  \
--e "y_range_max='${operationsMaxRoundedUpwards}'                                            "  \
 -e "column_1=1                                                                              "  \
 -e "column_2=3                                                                              "  \
 "${tempPlotConfigFile}"
@@ -44,8 +42,6 @@ gnuplot \
 -e "file_path='./${1}---benchmark-output-parsed.dat'                                        "  \
 -e "graphic_file_name='../../arena-results/${1}--time-per-operation--result.png'            "  \
 -e "y_label='nanoseconds / operation'                                                       "  \
--e "y_range_min='00000''                                                                    "  \
--e "y_range_max='${nanosecondsMaxRoundedUpwards}'                                           "  \
 -e "column_1=1                                                                              "  \
 -e "column_2=4                                                                              "  \
 "${tempPlotConfigFile}"
@@ -56,8 +52,6 @@ gnuplot \
 -e "file_path='./${1}---benchmark-output-parsed.dat'                                        "  \
 -e "graphic_file_name='../../arena-results/${1}--ram-bytes-per-operation--result.png'       "  \
 -e "y_label='ram-bytes / operation'                                                         "  \
--e "y_range_min='0000''                                                                     "  \
--e "y_range_max='${ramBytesMaxRoundedUpwards}'                                              "  \
 -e "column_1=1                                                                              "  \
 -e "column_2=5                                                                              "  \
 "${tempPlotConfigFile}"
@@ -68,8 +62,6 @@ gnuplot \
 -e "file_path='./${1}---benchmark-output-parsed.dat'                                        "  \
 -e "graphic_file_name='../../arena-results/${1}--allocations-per-operation--result.png'     "  \
 -e "y_label='allocations / operation'                                                       "  \
--e "y_range_min='000''                                                                      "  \
--e "y_range_max='${allocationsMaxRoundedUpwards}'                                           "  \
 -e "column_1=1                                                                              "  \
 -e "column_2=6                                                                              "  \
 "${tempPlotConfigFile}"

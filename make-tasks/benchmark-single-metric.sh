@@ -13,8 +13,8 @@ awk \
 "./${1}---benchmark-raw-output.dat"                        \
 > "./${1}---benchmark-output-parsed.dat"
 
-messageSizeMax=`                    awk -F','                         'BEGIN{a=0}{ if ($3>0+a) a=$3} END{print a}'     "./${1}---benchmark-output-parsed.dat"    `
-messageSizeMaxRoundedUpwards=`      awk -v n="${messageSizeMax}"      'BEGIN{ print int((n+100) / 100 ) * 100 }'                                                 `
+# messageSizeMax=`                    awk -F','                         'BEGIN{a=0}{ if ($3>0+a) a=$3} END{print a}'     "./${1}---benchmark-output-parsed.dat"    `
+# messageSizeMaxRoundedUpwards=`      awk -v n="${messageSizeMax}"      'BEGIN{ print int((n+100) / 100 ) * 100 }'                                                 `
 
 tempDir=`mktemp -d -t golang-compression-libs-arena.XXXX`
 tempPlotConfigFile="${tempDir}/plot.gp"
@@ -25,8 +25,6 @@ gnuplot \
 -e "    file_path='./${1}---benchmark-output-parsed.dat'                                             "    \
 -e "    graphic_file_name='../../arena-results/${1}--eventual-message-size-footprint--result.png'    "    \
 -e "    y_label='${3}'                                                                               "    \
--e "    y_range_min='0000''                                                                          "    \
--e "    y_range_max='${messageSizeMaxRoundedUpwards}'                                                "    \
 -e "    column_1=1                                                                                   "    \
 -e "    column_2=3                                                                                   "    \
 "${tempPlotConfigFile}"
