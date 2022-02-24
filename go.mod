@@ -7,9 +7,10 @@ require (
 	github.com/vmihailenco/msgpack/v5 v5.3.5
 	go.mongodb.org/mongo-driver v1.8.3
 	google.golang.org/protobuf v1.27.1
+	github.com/apache/thrift v0.16.0
 )
 
-require (
+require (	
 	github.com/go-stack/stack v1.8.0 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	github.com/x448/float16 v0.8.4 // indirect

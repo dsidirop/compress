@@ -9,10 +9,11 @@ import (
 
 func Benchmark___SerializationDeserializationPerformance___Protobuf(t *testing.B) {
 	y := arena.PBFooItem{}
-	datasourceArrayLength := len(arena.Datasource)
+	datasource := arena.SpecialDatasourcesForIDLMechanisms.Protobuf
+	datasourceArrayLength := len(datasource)
 
 	for i := 0; i < t.N; i++ {
-		x := arena.DatasourceForProtobuf[i%datasourceArrayLength]
+		x := datasource[i%datasourceArrayLength]
 
 		bytes, err := proto.Marshal(x)
 		if err != nil {

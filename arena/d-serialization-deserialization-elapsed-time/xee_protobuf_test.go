@@ -15,7 +15,7 @@ func Test___SerializationDeserializationElapsedTime___Protobuf(t *testing.T) {
 
 	startTime := time.Now()
 	for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
-		x := arena.DatasourceForProtobuf[i%datasourceArrayLength]
+		x := arena.SpecialDatasourcesForIDLMechanisms.Protobuf[i%datasourceArrayLength]
 
 		bytes, err := proto.Marshal(x)
 		if err != nil {
