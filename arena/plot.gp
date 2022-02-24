@@ -33,18 +33,18 @@ set key off
 set ylabel y_label
 
 # range for values in x/y axes
-set xrange[0.2:7]
+set xrange[0.1:10]
 set yrange[0:]
 
 # to avoid displaying large numbers in exponential format
 set format y "%.0f"
 
 # vertical label for x values 
-set xtics rotate
+set xtics rotate by 65 right
 
 # set boxplots
 set style       fill    solid       0.3
-set boxwidth    0.4     relative
+set boxwidth    0.8     relative
 
 # plot graphic for each line of input file
 plot file_path                                                                      \
