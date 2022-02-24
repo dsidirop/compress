@@ -30,12 +30,12 @@ benchmark-serialization-deserialization-performance:
 # .PHONY:\
 # benchmark-serialization-deserialization-elapsed-time
 # benchmark-serialization-deserialization-elapsed-time:
-# 	@$(call benchmark-single-metric,d-serialization-deserialization-elapsed-time,Average Elapsed Time in nsecs\\n(lower is better),ns,$(cpucount))
+# 	@$(call benchmark-single-metric,d-serialization-deserialization-elapsed-time,Average Elapsed Time in nsecs - Lower is better,ns,$(cpucount))
 
 .PHONY:\
 benchmark-serialization-message-size-footprint
 benchmark-serialization-message-size-footprint:
-	@$(call benchmark-single-metric,e-serialization-eventual-message-size-footprint,Eventual Size in Bytes\\n(lower is better),bytes,$(cpucount))
+	@$(call benchmark-single-metric,e-serialization-eventual-message-size-footprint,Eventual Size in Bytes - Lower is better,bytes,$(cpucount))
 
 .PHONY:\
 merge-output-images-of-plots
