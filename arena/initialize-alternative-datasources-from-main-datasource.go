@@ -14,12 +14,13 @@ import (
 )
 
 type serializedDataSources struct {
-	Json         [][]byte
-	Cbor         [][]byte
-	MessagePack  [][]byte
-	Bson         [][]byte
-	Protobuf     [][]byte
-	ThriftBinary [][]byte
+	Json          [][]byte
+	Cbor          [][]byte
+	MessagePack   [][]byte
+	Bson          [][]byte
+	Protobuf      [][]byte
+	ThriftBinary  [][]byte
+	ThriftCompact [][]byte
 }
 
 type datasourcesForIDLMechanisms struct {
@@ -31,7 +32,8 @@ var SerializedDataSources = serializedDataSources{}
 var SpecialDatasourcesForIDLMechanisms = datasourcesForIDLMechanisms{}
 
 func InitializeAlternativeDatasourcesFromMainDatasource() {
-	thriftSerializer := thrift.NewTSerializer()
+	thriftBinarySerializer := thrift.NewTSerializer()
+	thriftCompactSerializer := NewThriftCompactSerializer()
 
 	datasourceArrayLength := len(Datasource)
 	for i := 0; i < datasourceArrayLength; i++ {
@@ -65,15 +67,23 @@ func InitializeAlternativeDatasourcesFromMainDatasource() {
 		}
 		SerializedDataSources.Bson = append(SerializedDataSources.Bson, bsonBytes)
 
-		// thrift binary
+		//thrift
 		thFooItem := ConvertFooItemToTHFooItem(x)
 		SpecialDatasourcesForIDLMechanisms.Thrift = append(SpecialDatasourcesForIDLMechanisms.Thrift, &thFooItem)
 
-		thriftBytes, err := thriftSerializer.Write(context.TODO(), &thFooItem)
+		//thrift-binary
+		thriftBinaryBytes, err := thriftBinarySerializer.Write(context.TODO(), &thFooItem)
 		if err != nil {
 			panic(err)
 		}
-		SerializedDataSources.ThriftBinary = append(SerializedDataSources.ThriftBinary, thriftBytes)
+		SerializedDataSources.ThriftBinary = append(SerializedDataSources.ThriftBinary, thriftBinaryBytes)
+
+		//thrift-compact
+		thriftCompactBytes, err := thriftCompactSerializer.Write(context.TODO(), &thFooItem)
+		if err != nil {
+			panic(err)
+		}
+		SerializedDataSources.ThriftCompact = append(SerializedDataSources.ThriftCompact, thriftCompactBytes)
 
 		//protobuf
 		pbFooItem := ConvertFooItemToPBFooItem(x)
