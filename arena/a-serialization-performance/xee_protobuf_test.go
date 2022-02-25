@@ -7,11 +7,12 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-func Benchmark___SerializationPerformance___Protobuf(t *testing.B) {
+func Benchmark___SerializationPerformance___Protobuf(b *testing.B) {
 	datasource := arena.SpecialDatasourcesForIDLMechanisms.Protobuf
 	datasourceArrayLength := len(datasource)
 
-	for i := 0; i < t.N; i++ {
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
 		x := datasource[i%datasourceArrayLength]
 
 		_, err := proto.Marshal(x)

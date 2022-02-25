@@ -10,7 +10,7 @@ import (
 	"github.com/apache/thrift/lib/go/thrift"
 )
 
-func Benchmark___SerializationDeserializationPerformance___ThriftBinary(t *testing.B) {
+func Benchmark___SerializationDeserializationPerformance___ThriftBinary(b *testing.B) {
 	y := thfooitem.NewTHFooItem()
 	ctx := context.TODO()
 	datasource := arena.SpecialDatasourcesForIDLMechanisms.Thrift
@@ -18,7 +18,8 @@ func Benchmark___SerializationDeserializationPerformance___ThriftBinary(t *testi
 	thriftBinarySerializer := thrift.NewTSerializer()     //binary serializer
 	thriftBinaryDeserializer := thrift.NewTDeserializer() //binary deserializer
 
-	for i := 0; i < t.N; i++ {
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
 		x := datasource[i%datasourceArrayLength]
 
 		thriftBytes, err := thriftBinarySerializer.Write(ctx, x)

@@ -7,11 +7,12 @@ import (
 	"github.com/klauspost/compress/arena"
 )
 
-func Benchmark___SerializationDeserializationPerformance___Cbor(t *testing.B) { // https://github.com/fxamacker/cbor
+func Benchmark___SerializationDeserializationPerformance___Cbor(b *testing.B) { // https://github.com/fxamacker/cbor
 	y := arena.FooItem{}
 	datasourceArrayLength := len(arena.Datasource)
 
-	for i := 0; i < t.N; i++ {
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
 		x := arena.Datasource[i%datasourceArrayLength]
 
 		bytes, err := cbor.Marshal(x)

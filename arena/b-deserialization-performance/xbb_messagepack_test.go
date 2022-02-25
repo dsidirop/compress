@@ -7,13 +7,14 @@ import (
 	"github.com/vmihailenco/msgpack/v5"
 )
 
-func Benchmark___Deserialization___MessagePack(t *testing.B) {
+func Benchmark___Deserialization___MessagePack(b *testing.B) {
 	item := arena.FooItem{}
 
 	datasource := arena.SerializedDataSources.MessagePack
 	datasourceArrayLength := len(datasource)
 
-	for i := 0; i < t.N; i++ {
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
 		bytes := datasource[i%datasourceArrayLength]
 
 		err := msgpack.Unmarshal(bytes, &item)

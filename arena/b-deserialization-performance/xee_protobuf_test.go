@@ -7,13 +7,13 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-func Benchmark___Deserialization___Protobuf(t *testing.B) {
+func Benchmark___Deserialization___Protobuf(b *testing.B) {
 	item := arena.PBFooItem{}
-
 	datasource := arena.SerializedDataSources.Protobuf
 	datasourceArrayLength := len(datasource)
 
-	for i := 0; i < t.N; i++ {
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
 		bytes := datasource[i%datasourceArrayLength]
 
 		err := proto.Unmarshal(bytes, &item)
