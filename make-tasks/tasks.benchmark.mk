@@ -45,13 +45,18 @@ merge-output-images-of-plots: # merge all images into one
 .PHONY:\
 compile-idl
 compile-idl:           \
+	compile-avro       \
 	compile-thrift     \
 	compile-protobuf
 
-compile-thrift: # -verbose
+compile-avro: ./arena/*.avdl
+	@cd arena  &&  java   -jar avro-tools.jar   idl     ./avfooitem.avdl         ./avfooitem.avsc
+	@touch  $@
+
+compile-thrift: ./arena/*.thrift
 	@cd arena  &&  thrift    --gen go    -recurse     -out .    thfooitem.thrift
 	@touch  $@
 
-compile-protobuf:
+compile-protobuf: ./arena/*.proto
 	@cd arena  &&  protoc    --go_out=.    pbfooitem.proto
 	@touch  $@

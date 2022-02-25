@@ -3,11 +3,11 @@ package serialization_deserialization_performance
 import (
 	"testing"
 
+	"github.com/hamba/avro"
 	"github.com/klauspost/compress/arena"
-	"go.mongodb.org/mongo-driver/bson"
 )
 
-func Benchmark___SerializationDeserializationPerformance___Bson(b *testing.B) {
+func Benchmark___SerializationDeserializationPerformance___GoAvro(b *testing.B) {
 	y := arena.FooItem{}
 	datasourceArrayLength := len(arena.Datasource)
 
@@ -15,12 +15,12 @@ func Benchmark___SerializationDeserializationPerformance___Bson(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		x := arena.Datasource[i%datasourceArrayLength]
 
-		bytes, err := bson.Marshal(x)
+		bytes, err := avro.Marshal(arena.Schemas.GoAvro, x)
 		if err != nil {
 			panic(err)
 		}
 
-		err = bson.Unmarshal(bytes, &y)
+		err = avro.Unmarshal(arena.Schemas.GoAvro, bytes, &y)
 		if err != nil {
 			panic(err)
 		}

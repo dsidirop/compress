@@ -10,7 +10,7 @@ import (
 const NUMBER_OF_ITERATIONS = 2000
 
 func TestMain(m *testing.M) {
-	arena.InitializeAlternativeDatasourcesFromMainDatasource()
+	arena.InitTestProvisions()
 
 	exitVal := m.Run()
 

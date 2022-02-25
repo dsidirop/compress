@@ -1,0 +1,34 @@
+// NOT REALLY BEING USED - JUST A SAMPLE
+//
+// even though the structure of this file is correct unfortunately the avro transpiler to json generates a "types[]"
+// json-array which cannot be digested by goavro    well too bad    we tweaked the json by hand to make it digestible by goavro
+
+@namespace("org.arena.avro.test")
+protocol AV {
+
+  record AVFooItem {
+  	string          ID;
+  	string          Email;
+  	array<string>   Roles;
+  	string          APIKey;
+  	AVFooProfile    Profile;
+  	string          Username;
+  	timestamp_ms    CreatedAt;
+  	timestamp_ms    UpdatedAt;
+  }
+
+  record AVFooProfile {
+    string          Dob;
+    string          Name;
+    string          About;
+    string          Address;
+    string          Company;
+    AVFooLocation   Location;
+  }
+  
+  record AVFooLocation {
+    double   Lat;
+    double   Long;
+  }
+  
+}

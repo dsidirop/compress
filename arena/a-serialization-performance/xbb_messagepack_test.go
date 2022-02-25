@@ -7,10 +7,11 @@ import (
 	"github.com/vmihailenco/msgpack/v5"
 )
 
-func Benchmark___SerializationPerformance___MessagePack(t *testing.B) {
+func Benchmark___SerializationPerformance___MessagePack(b *testing.B) {
 	datasourceArrayLength := len(arena.Datasource)
 
-	for i := 0; i < t.N; i++ {
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
 		x := arena.Datasource[i%datasourceArrayLength]
 
 		_, err := msgpack.Marshal(x)

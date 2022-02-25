@@ -7,10 +7,11 @@ import (
 	"github.com/klauspost/compress/arena"
 )
 
-func Benchmark___SerializationPerformance___Json(t *testing.B) {
+func Benchmark___SerializationPerformance___Json(b *testing.B) {
 	datasourceArrayLength := len(arena.Datasource)
 
-	for i := 0; i < t.N; i++ {
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
 		x := arena.Datasource[i%datasourceArrayLength]
 
 		_, err := json.Marshal(x)

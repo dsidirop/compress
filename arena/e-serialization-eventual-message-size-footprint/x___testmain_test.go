@@ -8,7 +8,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	arena.InitializeAlternativeDatasourcesFromMainDatasource()
+	arena.InitTestProvisions()
 
 	exitVal := m.Run()
 

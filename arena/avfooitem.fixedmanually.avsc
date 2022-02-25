@@ -1,0 +1,91 @@
+{
+    "protocol": "AV",
+    "namespace": "org.arena.avro.test",
+    "type": "record",
+    "name": "AVFooItem",
+    "fields": [
+        {
+            "name": "ID",
+            "type": "string"
+        },
+        {
+            "name": "Email",
+            "type": "string"
+        },
+        {
+            "name": "Roles",
+            "type": {
+                "type": "array",
+                "items": "string"
+            }
+        },
+        {
+            "name": "APIKey",
+            "type": "string"
+        },
+        {
+            "name": "Profile",
+            "type": {
+                "type": "record",
+                "name": "AVFooProfile",
+                "fields": [
+                    {
+                        "name": "Dob",
+                        "type": "string"
+                    },
+                    {
+                        "name": "Name",
+                        "type": "string"
+                    },
+                    {
+                        "name": "About",
+                        "type": "string"
+                    },
+                    {
+                        "name": "Address",
+                        "type": "string"
+                    },
+                    {
+                        "name": "Company",
+                        "type": "string"
+                    },
+                    {
+                        "name": "Location",
+                        "type": {
+                            "type": "record",
+                            "name": "AVFooLocation",
+                            "fields": [
+                                {
+                                    "name": "Lat",
+                                    "type": "double"
+                                },
+                                {
+                                    "name": "Long",
+                                    "type": "double"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "name": "Username",
+            "type": "string"
+        },
+        {
+            "name": "CreatedAt",
+            "type": {
+                "type": "long",
+                "logicalType": "timestamp-millis"
+            }
+        },
+        {
+            "name": "UpdatedAt",
+            "type": {
+                "type": "long",
+                "logicalType": "timestamp-millis"
+            }
+        }
+    ]
+}

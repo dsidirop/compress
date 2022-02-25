@@ -3,14 +3,16 @@ package arena
 import (
 	"context"
 	"encoding/json"
+	"log"
+	"os"
 
 	"github.com/apache/thrift/lib/go/thrift"
 	"github.com/fxamacker/cbor/v2"
+	"github.com/hamba/avro"
+	"github.com/klauspost/compress/arena/thfooitem"
 	"github.com/vmihailenco/msgpack/v5"
 	"go.mongodb.org/mongo-driver/bson"
 	"google.golang.org/protobuf/proto"
-
-	"github.com/klauspost/compress/arena/thfooitem"
 )
 
 type serializedDataSources struct {
@@ -21,6 +23,7 @@ type serializedDataSources struct {
 	Protobuf      [][]byte
 	ThriftBinary  [][]byte
 	ThriftCompact [][]byte
+	GoAvro        [][]byte
 }
 
 type datasourcesForIDLMechanisms struct {
@@ -28,8 +31,26 @@ type datasourcesForIDLMechanisms struct {
 	Thrift   []*thfooitem.THFooItem
 }
 
+type schemas struct {
+	GoAvro avro.Schema
+}
+
+var Schemas = schemas{}
 var SerializedDataSources = serializedDataSources{}
 var SpecialDatasourcesForIDLMechanisms = datasourcesForIDLMechanisms{}
+
+func InitTestProvisions() {
+	InitIDLSchemas()                                     //   order
+	InitializeAlternativeDatasourcesFromMainDatasource() //   order
+}
+
+func InitIDLSchemas() {
+	goAvroSchema, err := os.ReadFile("../avfooitem.fixedmanually.avsc") // intentionally avoid 'avfooitem.avsc' because
+	if err != nil {
+		log.Fatal(err)
+	}
+	Schemas.GoAvro = avro.MustParse(string(goAvroSchema))
+}
 
 func InitializeAlternativeDatasourcesFromMainDatasource() {
 	thriftBinarySerializer := thrift.NewTSerializer()
@@ -94,5 +115,12 @@ func InitializeAlternativeDatasourcesFromMainDatasource() {
 			panic(err)
 		}
 		SerializedDataSources.Protobuf = append(SerializedDataSources.Protobuf, protobufBytes)
+
+		//goavro
+		goavroBytes, err := avro.Marshal(Schemas.GoAvro, &x)
+		if err != nil {
+			panic(err)
+		}
+		SerializedDataSources.GoAvro = append(SerializedDataSources.GoAvro, goavroBytes)
 	}
 }

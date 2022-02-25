@@ -3,19 +3,19 @@ package serialization_performance
 import (
 	"testing"
 
+	"github.com/hamba/avro"
 	"github.com/klauspost/compress/arena"
-	"google.golang.org/protobuf/proto"
 )
 
-func Benchmark___SerializationPerformance___Protobuf(b *testing.B) {
-	datasource := arena.SpecialDatasourcesForIDLMechanisms.Protobuf
+func Benchmark___SerializationPerformance___GoAvro(b *testing.B) {
+	datasource := arena.Datasource
 	datasourceArrayLength := len(datasource)
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		x := datasource[i%datasourceArrayLength]
 
-		_, err := proto.Marshal(x)
+		_, err := avro.Marshal(arena.Schemas.GoAvro, &x)
 		if err != nil {
 			panic(err)
 		}

@@ -8,7 +8,7 @@ import (
 	"github.com/klauspost/compress/arena/thfooitem"
 )
 
-func Benchmark___SerializationDeserializationPerformance___ThriftCompact(t *testing.B) {
+func Benchmark___SerializationDeserializationPerformance___ThriftCompact(b *testing.B) {
 	y := thfooitem.NewTHFooItem()
 	ctx := context.TODO()
 	datasource := arena.SpecialDatasourcesForIDLMechanisms.Thrift
@@ -16,7 +16,8 @@ func Benchmark___SerializationDeserializationPerformance___ThriftCompact(t *test
 	thriftCompactSerializer := arena.NewThriftCompactSerializer()     // compact serializer
 	thriftCompactDeserializer := arena.NewThriftCompactDeserializer() // compact deserializer
 
-	for i := 0; i < t.N; i++ {
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
 		x := datasource[i%datasourceArrayLength]
 
 		thriftBytes, err := thriftCompactSerializer.Write(ctx, x)
