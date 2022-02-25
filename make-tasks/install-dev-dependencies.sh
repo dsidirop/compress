@@ -17,3 +17,8 @@ apt-get    install                                     \
               gnuplot                                  \
               montage                                  \
               graphicsmagick-imagemagick-compat
+
+wget                                                                                                 \
+           https://repo1.maven.org/maven2/org/apache/avro/avro-tools/1.11.0/avro-tools-1.11.0.jar    \
+           -O ./arena/avro-tools.jar
+
