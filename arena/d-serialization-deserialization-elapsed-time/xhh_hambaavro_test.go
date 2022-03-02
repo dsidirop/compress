@@ -9,7 +9,7 @@ import (
 	"github.com/klauspost/compress/arena"
 )
 
-func Test___SerializationDeserializationElapsedTime___GoAvro(t *testing.T) {
+func Test___SerializationDeserializationElapsedTime___HambaAvro(t *testing.T) {
 	y := &arena.FooItem{}
 	datasourceArrayLength := len(arena.Datasource)
 
@@ -17,12 +17,12 @@ func Test___SerializationDeserializationElapsedTime___GoAvro(t *testing.T) {
 	for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 		x := arena.Datasource[i%datasourceArrayLength]
 
-		goAvroBytes, err := avro.Marshal(arena.Schemas.GoAvro, &x)
+		goAvroBytes, err := avro.Marshal(arena.Schemas.GoHambaAvro, &x)
 		if err != nil {
 			panic(err)
 		}
 
-		err = avro.Unmarshal(arena.Schemas.GoAvro, goAvroBytes, y)
+		err = avro.Unmarshal(arena.Schemas.GoHambaAvro, goAvroBytes, y)
 		if err != nil {
 			panic(err)
 		}
@@ -31,5 +31,5 @@ func Test___SerializationDeserializationElapsedTime___GoAvro(t *testing.T) {
 
 	averageElapsedTime := float64(finishTime.Sub(startTime).Nanoseconds()) / NUMBER_OF_ITERATIONS
 
-	fmt.Printf("** GoAvro %d nanoseconds\n", int64(averageElapsedTime))
+	fmt.Printf("** HambaAvro %d nanoseconds\n", int64(averageElapsedTime))
 }

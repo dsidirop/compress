@@ -26,7 +26,7 @@ type serializedDataSources struct {
 	Protobuf      [][]byte
 	ThriftBinary  [][]byte
 	ThriftCompact [][]byte
-	GoAvro        [][]byte
+	GoHambaAvro   [][]byte
 }
 
 type datasourcesForIDLMechanisms struct {
@@ -35,7 +35,7 @@ type datasourcesForIDLMechanisms struct {
 }
 
 type schemas struct {
-	GoAvro avro.Schema
+	GoHambaAvro avro.Schema
 }
 
 var Schemas = schemas{}
@@ -52,7 +52,7 @@ func InitIDLSchemas() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	Schemas.GoAvro = avro.MustParse(string(goAvroSchema))
+	Schemas.GoHambaAvro = avro.MustParse(string(goAvroSchema))
 }
 
 func InitializeAlternativeDatasourcesFromMainDatasource() {
@@ -128,10 +128,10 @@ func InitializeAlternativeDatasourcesFromMainDatasource() {
 		SerializedDataSources.Protobuf = append(SerializedDataSources.Protobuf, protobufBytes)
 
 		//goavro
-		goavroBytes, err := avro.Marshal(Schemas.GoAvro, &x)
+		gohambaAvroBytes, err := avro.Marshal(Schemas.GoHambaAvro, &x)
 		if err != nil {
 			panic(err)
 		}
-		SerializedDataSources.GoAvro = append(SerializedDataSources.GoAvro, goavroBytes)
+		SerializedDataSources.GoHambaAvro = append(SerializedDataSources.GoHambaAvro, gohambaAvroBytes)
 	}
 }

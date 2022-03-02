@@ -7,16 +7,16 @@ import (
 	"github.com/klauspost/compress/arena"
 )
 
-func Benchmark___DeserializationPerformance___GoAvro(b *testing.B) {
+func Benchmark___DeserializationPerformance___HambaAvro(b *testing.B) {
 	y := &arena.FooItem{}
-	datasource := arena.SerializedDataSources.GoAvro
+	datasource := arena.SerializedDataSources.GoHambaAvro
 	datasourceArrayLength := len(datasource)
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		x := datasource[i%datasourceArrayLength]
 
-		err := avro.Unmarshal(arena.Schemas.GoAvro, x, y)
+		err := avro.Unmarshal(arena.Schemas.GoHambaAvro, x, y)
 		if err != nil {
 			panic(err)
 		}

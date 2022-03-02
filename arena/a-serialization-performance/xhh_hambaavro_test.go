@@ -7,7 +7,7 @@ import (
 	"github.com/klauspost/compress/arena"
 )
 
-func Benchmark___SerializationPerformance___GoAvro(b *testing.B) {
+func Benchmark___SerializationPerformance___HambaAvro(b *testing.B) {
 	datasource := arena.Datasource
 	datasourceArrayLength := len(datasource)
 
@@ -15,7 +15,7 @@ func Benchmark___SerializationPerformance___GoAvro(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		x := datasource[i%datasourceArrayLength]
 
-		_, err := avro.Marshal(arena.Schemas.GoAvro, &x)
+		_, err := avro.Marshal(arena.Schemas.GoHambaAvro, &x)
 		if err != nil {
 			panic(err)
 		}
