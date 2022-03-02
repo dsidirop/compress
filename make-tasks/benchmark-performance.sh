@@ -6,7 +6,8 @@ output_files_name_prefix="${benchmark_dirname}-cpu${cpu_count}"
 
 cd "./arena/${benchmark_dirname}/"
 
-go  test  -benchmem  -cpu=${cpu_count}   -bench=.   |    tee "./${output_files_name_prefix}---benchmark-raw-output.dat"
+go  clean    -testcache  # vital
+go  test     -benchmem     -cpu=${cpu_count}   -bench=.   |    tee "./${output_files_name_prefix}---benchmark-raw-output.dat"
 
 if [[ ${PIPESTATUS[0]} -gt 0 ]]; then
         exit 1

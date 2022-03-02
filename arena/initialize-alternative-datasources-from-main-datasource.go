@@ -1,6 +1,7 @@
 package arena
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"log"
@@ -10,6 +11,7 @@ import (
 	"github.com/fxamacker/cbor/v2"
 	"github.com/hamba/avro"
 	"github.com/klauspost/compress/arena/thfooitem"
+	"github.com/tinylib/msgp/msgp"
 	"github.com/vmihailenco/msgpack/v5"
 	"go.mongodb.org/mongo-driver/bson"
 	"google.golang.org/protobuf/proto"
@@ -19,6 +21,7 @@ type serializedDataSources struct {
 	Json          [][]byte
 	Cbor          [][]byte
 	MessagePack   [][]byte
+	Msgp          [][]byte
 	Bson          [][]byte
 	Protobuf      [][]byte
 	ThriftBinary  [][]byte
@@ -80,6 +83,14 @@ func InitializeAlternativeDatasourcesFromMainDatasource() {
 			panic(err)
 		}
 		SerializedDataSources.MessagePack = append(SerializedDataSources.MessagePack, messagePackBytes)
+
+		//msgp
+		buf := bytes.Buffer{}
+		err = msgp.Encode(&buf, &x)
+		if err != nil {
+			panic(err)
+		}
+		SerializedDataSources.Msgp = append(SerializedDataSources.Msgp, buf.Bytes())
 
 		//bson
 		bsonBytes, err := bson.Marshal(x)

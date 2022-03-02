@@ -40,14 +40,19 @@ benchmark-serialization-message-size-footprint:    compile-idl
 .PHONY:\
 merge-output-images-of-plots
 merge-output-images-of-plots: # merge all images into one
-	@convert -append       './arena-results/*-cpu$(cpucount)----category-overall-results.png'      './arena-results/x-cpu$(cpucount)-all-results.png'
+	@convert     -append       './arena-results/*-cpu$(cpucount)----category-overall-results.png'      './arena-results/x-cpu$(cpucount)-all-results.png'
 
 .PHONY:\
 compile-idl
 compile-idl:           \
+	compile-msgp       \
 	compile-avro       \
 	compile-thrift     \
 	compile-protobuf
+
+compile-msgp: ./arena/fooitem.go
+	@cd arena  &&  msgp  --file  fooitem.go
+	@touch  $@
 
 compile-avro: ./arena/*.avdl
 	@cd arena  &&  java   -jar avro-tools.jar   idl     ./avfooitem.avdl         ./avfooitem.avsc

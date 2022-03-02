@@ -8,7 +8,8 @@ output_files_name_prefix="${benchmark_dirname}-cpu${cpu_count}"
 
 cd  "./arena/${benchmark_dirname}/"
 
-go  test   -bench=.   -cpu=${cpu_count}  |    tee   "./${output_files_name_prefix}---benchmark-raw-output.dat"
+go  clean    -testcache # vital
+go  test     -bench=.   -cpu=${cpu_count}  |    tee   "./${output_files_name_prefix}---benchmark-raw-output.dat"
 
 if [[ ${PIPESTATUS[0]} -gt 0 ]]; then
     exit 1
@@ -27,7 +28,7 @@ awk \
 tempDir=`mktemp -d -t golang-compression-libs-arena.XXXX`
 tempPlotConfigFile="${tempDir}/plot.gp"
 
-title_lowercased_with_dashes=${title// /[-]}
+title_lowercased_with_dashes=${title// /-}
 title_lowercased_with_dashes=${title_lowercased_with_dashes,,}
 
 cp            '../plot.gp'                                                                     "${tempPlotConfigFile}"
