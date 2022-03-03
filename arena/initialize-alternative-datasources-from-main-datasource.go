@@ -2,6 +2,7 @@ package arena
 
 import (
 	"bytes"
+	"compress/zlib"
 	"context"
 	"encoding/json"
 	"log"
@@ -11,6 +12,8 @@ import (
 	"github.com/fxamacker/cbor/v2"
 	"github.com/hamba/avro"
 	"github.com/klauspost/compress/arena/thfooitem"
+	"github.com/klauspost/compress/s2"
+	"github.com/klauspost/compress/zstd"
 	"github.com/tinylib/msgp/msgp"
 	"github.com/vmihailenco/msgpack/v5"
 	"go.mongodb.org/mongo-driver/bson"
@@ -38,13 +41,64 @@ type schemas struct {
 	GoHambaAvro avro.Schema
 }
 
+type compressionTestCase struct {
+	Desc                string
+	CompressionCallback func([]byte)
+}
+
 var Schemas = schemas{}
 var SerializedDataSources = serializedDataSources{}
+var AllCompressionTestCases = []compressionTestCase{}
 var SpecialDatasourcesForIDLMechanisms = datasourcesForIDLMechanisms{}
 
 func InitTestProvisions() {
+	InitCompressionTestCases()
+
 	InitIDLSchemas()                                     //   order
 	InitializeAlternativeDatasourcesFromMainDatasource() //   order
+}
+
+func InitCompressionTestCases() {
+	AllCompressionTestCases = []compressionTestCase{
+		func() compressionTestCase {
+			return compressionTestCase{
+				Desc: "ZLib",
+				CompressionCallback: func(rawBytes []byte) {
+					byteBuffer := bytes.Buffer{}
+					w := zlib.NewWriter(&byteBuffer)
+					w.Write(rawBytes)
+					w.Close()
+				},
+			}
+		}(),
+		func() compressionTestCase {
+			var encoder, err = zstd.NewWriter(nil)
+			if err != nil {
+				panic(err)
+			}
+
+			return compressionTestCase{
+				Desc: "ZStandard",
+				CompressionCallback: func(rawBytes []byte) {
+					encoder.EncodeAll(
+						rawBytes,
+						make([]byte, 0, len(rawBytes)),
+					)
+				},
+			}
+		}(),
+		func() compressionTestCase {
+			buffer := bytes.Buffer{} // we use small blocks
+			encoder := s2.NewWriter(&buffer, s2.WriterBlockSize(100<<10))
+
+			return compressionTestCase{
+				Desc: "S2",
+				CompressionCallback: func(rawBytes []byte) {
+					encoder.Write(rawBytes)
+				},
+			}
+		}(),
+	}
 }
 
 func InitIDLSchemas() {

@@ -6,16 +6,21 @@ cpucount ?= 1
 benchmark
 benchmark:									               \
 	benchmark-serialization-performance		               \
+	benchmark-serialization-with-compression-performance   \
 	benchmark-deserialization-performance                  \
 	benchmark-serialization-deserialization-performance    \
 	benchmark-serialization-message-size-footprint         \
 	merge-output-images-of-plots  #		benchmark-serialization-deserialization-elapsed-time
 
-
 .PHONY:\
 benchmark-serialization-performance
 benchmark-serialization-performance:    compile-idl
 	@$(call benchmark-performance,a-serialization-performance,$(cpucount))
+
+.PHONY:\
+benchmark-serialization-with-compression-performance
+benchmark-serialization-with-compression-performance:    compile-idl
+	@$(call benchmark-performance,a-serialization-with-compression-performance,$(cpucount))
 
 .PHONY:\
 benchmark-deserialization-performance
