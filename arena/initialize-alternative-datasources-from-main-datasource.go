@@ -13,6 +13,7 @@ import (
 	"github.com/fxamacker/cbor/v2"
 	"github.com/hamba/avro"
 	"github.com/klauspost/compress/arena/thfooitem"
+	"github.com/klauspost/compress/flate"
 	"github.com/klauspost/compress/s2"
 	"github.com/klauspost/compress/zstd"
 	"github.com/tinylib/msgp/msgp"
@@ -78,51 +79,64 @@ func InitCompressionTestCases() {
 		func() compressionTestCase {
 			return compressionTestCase{
 				Desc: "ZLib",
-				CompressionCallback: func(rawBytes []byte) ([]byte, error) {
-					byteBuffer := bytes.Buffer{}
-					w := zlib.NewWriter(&byteBuffer)
-					_, err := w.Write(rawBytes)
-					w.Close()
+				CompressionCallback: func(uncompressedRawBytes []byte) ([]byte, error) {
+					compressedBytesBufferWriter := &bytes.Buffer{}
 
-					return byteBuffer.Bytes(), err
-				},
-				DecompressionCallback: func(compressedBytes []byte) ([]byte, error) {
-					byteBuffer := bytes.NewReader(compressedBytes)
-					zlibReader, err := zlib.NewReader(byteBuffer)
+					zlibCompressor := zlib.NewWriter(compressedBytesBufferWriter)
+					_, err := zlibCompressor.Write(uncompressedRawBytes)
 					if err != nil {
 						return nil, err
 					}
 
-					buf := bytes.Buffer{}
-					buf.ReadFrom(zlibReader)
-					zlibReader.Close()
+					zlibCompressor.Close() //dont use defer   it wont work
 
-					return buf.Bytes(), err
+					return compressedBytesBufferWriter.Bytes(), err
+				},
+				DecompressionCallback: func(compressedBytes []byte) ([]byte, error) {
+					compressedInputBuffer := bytes.NewReader(compressedBytes)
+					compressedOutputBuffer := bytes.Buffer{}
+
+					zlibCompressedInputReader, err := zlib.NewReader(compressedInputBuffer)
+					if err != nil {
+						return nil, err
+					}
+
+					_, err = compressedOutputBuffer.ReadFrom(zlibCompressedInputReader)
+					zlibCompressedInputReader.Close()
+
+					if err != nil {
+						return nil, err
+					}
+
+					return compressedOutputBuffer.Bytes(), err
 				},
 			}
 		}(),
 		func() compressionTestCase {
-			encoder, err := zstd.NewWriter(nil)
-			if err != nil {
-				panic(err)
-			}
-
-			decoder, err := zstd.NewReader(nil)
-			if err != nil {
-				panic(err)
-			}
-
 			return compressionTestCase{
 				Desc: "ZStandard",
 				CompressionCallback: func(rawBytes []byte) ([]byte, error) {
+					encoder, err := zstd.NewWriter(nil)
+					if err != nil {
+						panic(err)
+					}
+					defer encoder.Close()
+
 					compressedBytes := encoder.EncodeAll(rawBytes, nil)
-					//encoder.Close() //do we need this?
 
 					return compressedBytes, nil
 				},
-				DecompressionCallback: func(rawBytes []byte) ([]byte, error) {
-					decompressedBytes, err := decoder.DecodeAll(rawBytes, nil)
-					//decoder.Close() //do we need this?
+				DecompressionCallback: func(compressedBytes []byte) ([]byte, error) {
+					decoder, err := zstd.NewReader(nil)
+					if err != nil {
+						panic(err)
+					}
+					defer decoder.Close()
+
+					decompressedBytes, err := decoder.DecodeAll(compressedBytes, nil)
+					if err != nil {
+						panic(err)
+					}
 
 					return decompressedBytes, err
 				},
@@ -132,22 +146,67 @@ func InitCompressionTestCases() {
 			return compressionTestCase{
 				Desc: "S2",
 				CompressionCallback: func(rawBytes []byte) ([]byte, error) {
-					destination := &bytes.Buffer{}
+					compressedOutputBuffer := &bytes.Buffer{}
+					uncompressedInputBuffer := bytes.NewReader(rawBytes)
 
-					encoder := s2.NewWriter(destination)
-					_, err := io.Copy(encoder, bytes.NewReader(rawBytes))
-					encoder.Close()
+					compressor := s2.NewWriter(compressedOutputBuffer)
+					defer compressor.Close()
 
-					return destination.Bytes(), err
+					_, err := io.Copy(compressor, uncompressedInputBuffer)
+					if err != nil {
+						return nil, err
+					}
+
+					return compressedOutputBuffer.Bytes(), err
 				},
-				DecompressionCallback: func(rawBytes []byte) ([]byte, error) {
-					reader := bytes.NewReader(rawBytes)
+				DecompressionCallback: func(compressedBytes []byte) ([]byte, error) {
+					compressedBytesReader := bytes.NewReader(compressedBytes)
+					decompressedBytesBufferWriter := &bytes.Buffer{}
 
-					decoder := s2.NewReader(reader)
-					decompressedResultBuffer := &bytes.Buffer{}
-					_, err := io.Copy(decompressedResultBuffer, decoder)
+					decoder := s2.NewReader(compressedBytesReader)
 
-					return decompressedResultBuffer.Bytes(), err
+					_, err := io.Copy(decompressedBytesBufferWriter, decoder)
+					if err != nil {
+						return nil, err
+					}
+
+					return decompressedBytesBufferWriter.Bytes(), err
+				},
+			}
+		}(),
+		func() compressionTestCase {
+			return compressionTestCase{
+				Desc: "Deflate",
+				CompressionCallback: func(uncompressedRawBytes []byte) ([]byte, error) {
+					decompressedBytesBuffer := &bytes.Buffer{}
+					uncompressedRawBytesBuffer := bytes.NewReader(uncompressedRawBytes)
+
+					encoder, err := flate.NewWriter(decompressedBytesBuffer, -1)
+					if err != nil {
+						return nil, err
+					}
+					defer encoder.Close()
+
+					_, err = io.Copy(encoder, uncompressedRawBytesBuffer)
+					if err != nil {
+						return nil, err
+					}
+
+					return decompressedBytesBuffer.Bytes(), err
+				},
+				DecompressionCallback: func(compressedBytes []byte) ([]byte, error) {
+					compressedBytesBufferedReader := bytes.NewReader(compressedBytes)
+					decompressedResultBufferedWriter := &bytes.Buffer{}
+
+					decoder := flate.NewReader(compressedBytesBufferedReader)
+					defer decoder.Close()
+
+					_, err := io.Copy(decompressedResultBufferedWriter, decoder)
+					if err != nil {
+						return nil, err
+					}
+
+					return decompressedResultBufferedWriter.Bytes(), err
 				},
 			}
 		}(),

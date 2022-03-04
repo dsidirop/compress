@@ -18,12 +18,12 @@ func Benchmark___SerializationAndCompressionPerformance___MessagePack(b *testing
 			for i := 0; i < bench.N; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				jsonBytes, err := msgpack.Marshal(x)
+				msgpackBytes, err := msgpack.Marshal(x)
 				if err != nil {
 					panic(err)
 				}
 
-				test.CompressionCallback(jsonBytes)
+				test.CompressionCallback(msgpackBytes)
 			}
 		})
 	}
