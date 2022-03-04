@@ -2,6 +2,7 @@
 
 benchmark_dirname="${1}"
 cpu_count="${2}"
+configFile="${3:-../plot.gp}"
 output_files_name_prefix="${benchmark_dirname}-cpu${cpu_count}"
 
 cd "./arena/${benchmark_dirname}/"
@@ -18,7 +19,7 @@ fi
 
 awk                                                                                                                                        \
 '/Benchmark_/{count++; gsub(/Benchmark_+.*?_+/, ""); gsub(/[-][0-9]+ /, ""); printf("%d,%s,%s,%s,%s,%s\n", count, $1, $2, $3, $5, $7); }'  \
-"./${output_files_name_prefix}---benchmark-raw-output.dat"                                                                                 \
+  "./${output_files_name_prefix}---benchmark-raw-output.dat"                                                                               \
 > "./${output_files_name_prefix}---benchmark-output-parsed.dat"
 
 # operationsMax=`                    awk -F','                        'BEGIN{a=0}{ if ($3>0+a) a=$3} END{print a}'     "./${benchmark_dirname}---benchmark-output-parsed.dat"    `
@@ -35,7 +36,7 @@ tempDir=`mktemp -d -t golang-compression-libs-arena.XXXX`
 tempPlotConfigFile="${tempDir}/plot.gp"
 
 
-cp            '../plot.gp'                                                                                                           "${tempPlotConfigFile}"
+cp            "${configFile}"                                                                                                        "${tempPlotConfigFile}"
 sed    -i     "s/___TITLE___/Avg Elapsed Time (ns) per Operation - Lower is better\\\\n[${benchmark_dirname} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
 gnuplot \
 -e "file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                           "  \
@@ -46,7 +47,7 @@ gnuplot \
 "${tempPlotConfigFile}"
 
 
-cp            '../plot.gp'                                                                                       "${tempPlotConfigFile}"
+cp            "${configFile}"                                                                                    "${tempPlotConfigFile}"
 sed    -i     "s/___TITLE___/CPU Operations# - Lower is better\\\\n[${benchmark_dirname} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
 gnuplot \
 -e "file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                           "  \
@@ -56,7 +57,7 @@ gnuplot \
 -e "column_2=3                                                                                                        "  \
 "${tempPlotConfigFile}"
 
-cp            '../plot.gp'                                                                                               "${tempPlotConfigFile}"
+cp            "${configFile}"                                                                                            "${tempPlotConfigFile}"
 sed    -i     "s/___TITLE___/RAM Bytes per Operation - Lower is better\\\\n[${benchmark_dirname} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
 gnuplot \
 -e "file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                        "  \
@@ -66,7 +67,7 @@ gnuplot \
 -e "column_2=5                                                                                                     "  \
 "${tempPlotConfigFile}"
 
-cp            '../plot.gp'                                                                                                 "${tempPlotConfigFile}"
+cp            "${configFile}"                                                                                              "${tempPlotConfigFile}"
 sed    -i     "s/___TITLE___/Allocations per Operation - Lower is better\\\\n[${benchmark_dirname} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
 gnuplot \
 -e "file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                        "  \
@@ -85,7 +86,7 @@ montage                                                                        \
 
 cp                                                                           \
             "./${output_files_name_prefix}---benchmark-output-parsed.dat"    \
-            '../../arena-results'
+            "../../arena-results"
 
 
 echo "Plots successfully generated"

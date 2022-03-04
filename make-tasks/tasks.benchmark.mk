@@ -20,7 +20,7 @@ benchmark-serialization-performance:    compile-idl
 .PHONY:\
 benchmark-serialization-with-compression-performance
 benchmark-serialization-with-compression-performance:    compile-idl
-	@$(call benchmark-performance,a-serialization-with-compression-performance,$(cpucount))
+	@$(call benchmark-performance,a-serialization-with-compression-performance,$(cpucount),../plot.serialization-with-compression.gp)
 
 .PHONY:\
 benchmark-deserialization-performance
