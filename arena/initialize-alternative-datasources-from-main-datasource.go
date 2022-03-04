@@ -5,6 +5,7 @@ import (
 	"compress/zlib"
 	"context"
 	"encoding/json"
+	"io"
 	"log"
 	"os"
 
@@ -32,6 +33,18 @@ type serializedDataSources struct {
 	GoHambaAvro   [][]byte
 }
 
+type serializedAndCompressedDataSources struct {
+	Json          [][]byte
+	Cbor          [][]byte
+	MessagePack   [][]byte
+	Msgp          [][]byte
+	Bson          [][]byte
+	Protobuf      [][]byte
+	ThriftBinary  [][]byte
+	ThriftCompact [][]byte
+	GoHambaAvro   [][]byte
+}
+
 type datasourcesForIDLMechanisms struct {
 	Protobuf []*PBFooItem
 	Thrift   []*thfooitem.THFooItem
@@ -42,14 +55,16 @@ type schemas struct {
 }
 
 type compressionTestCase struct {
-	Desc                string
-	CompressionCallback func([]byte)
+	Desc                  string
+	CompressionCallback   func([]byte) ([]byte, error)
+	DecompressionCallback func([]byte) ([]byte, error)
 }
 
 var Schemas = schemas{}
 var SerializedDataSources = serializedDataSources{}
 var AllCompressionTestCases = []compressionTestCase{}
 var SpecialDatasourcesForIDLMechanisms = datasourcesForIDLMechanisms{}
+var SerializedAndCompressedDataSources = serializedAndCompressedDataSources{}
 
 func InitTestProvisions() {
 	InitCompressionTestCases()
@@ -63,38 +78,76 @@ func InitCompressionTestCases() {
 		func() compressionTestCase {
 			return compressionTestCase{
 				Desc: "ZLib",
-				CompressionCallback: func(rawBytes []byte) {
+				CompressionCallback: func(rawBytes []byte) ([]byte, error) {
 					byteBuffer := bytes.Buffer{}
 					w := zlib.NewWriter(&byteBuffer)
-					w.Write(rawBytes)
+					_, err := w.Write(rawBytes)
 					w.Close()
+
+					return byteBuffer.Bytes(), err
+				},
+				DecompressionCallback: func(compressedBytes []byte) ([]byte, error) {
+					byteBuffer := bytes.NewReader(compressedBytes)
+					zlibReader, err := zlib.NewReader(byteBuffer)
+					if err != nil {
+						return nil, err
+					}
+
+					buf := bytes.Buffer{}
+					buf.ReadFrom(zlibReader)
+					zlibReader.Close()
+
+					return buf.Bytes(), err
 				},
 			}
 		}(),
 		func() compressionTestCase {
-			var encoder, err = zstd.NewWriter(nil)
+			encoder, err := zstd.NewWriter(nil)
+			if err != nil {
+				panic(err)
+			}
+
+			decoder, err := zstd.NewReader(nil)
 			if err != nil {
 				panic(err)
 			}
 
 			return compressionTestCase{
 				Desc: "ZStandard",
-				CompressionCallback: func(rawBytes []byte) {
-					encoder.EncodeAll(
-						rawBytes,
-						make([]byte, 0, len(rawBytes)),
-					)
+				CompressionCallback: func(rawBytes []byte) ([]byte, error) {
+					compressedBytes := encoder.EncodeAll(rawBytes, nil)
+					//encoder.Close() //do we need this?
+
+					return compressedBytes, nil
+				},
+				DecompressionCallback: func(rawBytes []byte) ([]byte, error) {
+					decompressedBytes, err := decoder.DecodeAll(rawBytes, nil)
+					//decoder.Close() //do we need this?
+
+					return decompressedBytes, err
 				},
 			}
 		}(),
 		func() compressionTestCase {
-			buffer := bytes.Buffer{} // we use small blocks
-			encoder := s2.NewWriter(&buffer, s2.WriterBlockSize(100<<10))
-
 			return compressionTestCase{
 				Desc: "S2",
-				CompressionCallback: func(rawBytes []byte) {
-					encoder.Write(rawBytes)
+				CompressionCallback: func(rawBytes []byte) ([]byte, error) {
+					destination := &bytes.Buffer{}
+
+					encoder := s2.NewWriter(destination)
+					_, err := io.Copy(encoder, bytes.NewReader(rawBytes))
+					encoder.Close()
+
+					return destination.Bytes(), err
+				},
+				DecompressionCallback: func(rawBytes []byte) ([]byte, error) {
+					reader := bytes.NewReader(rawBytes)
+
+					decoder := s2.NewReader(reader)
+					decompressedResultBuffer := &bytes.Buffer{}
+					_, err := io.Copy(decompressedResultBuffer, decoder)
+
+					return decompressedResultBuffer.Bytes(), err
 				},
 			}
 		}(),
