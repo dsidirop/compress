@@ -15,22 +15,12 @@ benchmark:									               \
 .PHONY:\
 benchmark-serialization-performance
 benchmark-serialization-performance:    compile-idl
-	@$(call benchmark-performance,aa-serialization-performance,$(cpucount))
-
-.PHONY:\
-benchmark-serialization-with-compression-performance
-benchmark-serialization-with-compression-performance:    compile-idl
-	@$(call benchmark-performance,ab-serialization-with-compression-performance,$(cpucount),../plot.serialization-with-compression.gp)
-
-.PHONY:\
-benchmark-deserialization-performance
-benchmark-deserialization-performance:    compile-idl
-	@$(call benchmark-performance,ba-deserialization-performance,$(cpucount))
+	@$(call benchmark-performance,a-serialization-performance,$(cpucount))
 
 .PHONY:\
 benchmark-decompression-deserialization-performance
 benchmark-decompression-deserialization-performance:    compile-idl
-	@$(call benchmark-performance,bb-decompression-deserialization-performance,$(cpucount))
+	@$(call benchmark-performance,b-decompression-deserialization-performance,$(cpucount))
 
 .PHONY:\
 benchmark-serialization-deserialization-performance
@@ -46,6 +36,16 @@ benchmark-serialization-deserialization-performance:    compile-idl
 benchmark-serialization-message-size-footprint
 benchmark-serialization-message-size-footprint:    compile-idl
 	@$(call benchmark-single-metric,e-serialization-eventual-message-size-footprint,Eventual Size in Bytes - Lower is better,bytes,$(cpucount))
+
+.PHONY:\
+benchmark-serialization-with-compression-performance
+benchmark-serialization-with-compression-performance:    compile-idl
+	@$(call benchmark-performance,f-serialization-with-compression-performance,$(cpucount),../plot.serialization-with-compression.gp)
+
+.PHONY:\
+benchmark-deserialization-performance
+benchmark-deserialization-performance:    compile-idl
+	@$(call benchmark-performance,g-deserialization-performance,$(cpucount))
 
 .PHONY:\
 merge-output-images-of-plots
