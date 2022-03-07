@@ -7,22 +7,38 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func Benchmark___SerializationDeserializationPerformance___Bson(b *testing.B) {
-	y := arena.FooItem{}
-	datasourceArrayLength := len(arena.Datasource)
+func Benchmark___SerializationDeserializationWithCompressionPerformance___Bson(b *testing.B) {
+	datasource := arena.Datasource
+	datasourceArrayLength := len(datasource)
 
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		x := arena.Datasource[i%datasourceArrayLength]
+	for _, test := range arena.AllCompressionTestCases {
+		b.Run(test.Desc, func(bench *testing.B) {
+			bench.ResetTimer() //vital
 
-		bytes, err := bson.Marshal(x)
-		if err != nil {
-			b.Fatalf("Error: %s", err)
-		}
+			for i := 0; i < bench.N; i++ {
+				x := datasource[i%datasourceArrayLength]
 
-		err = bson.Unmarshal(bytes, &y)
-		if err != nil {
-			b.Fatalf("Error: %s", err)
-		}
+				serializedBytes, err := bson.Marshal(x)
+				if err != nil {
+					b.Fatalf("Error: %s", err)
+				}
+
+				compressedAndSerializedBytes, err := test.CompressionCallback(serializedBytes)
+				if err != nil {
+					b.Fatalf("Error: %s", err)
+				}
+
+				decompressedBytes, err := test.DecompressionCallback(compressedAndSerializedBytes)
+				if err != nil {
+					b.Fatalf("Error: %s", err)
+				}
+
+				fooitem := &arena.FooItem{}
+				err = bson.Unmarshal(decompressedBytes, fooitem)
+				if err != nil {
+					b.Fatalf("Error: %s", err)
+				}
+			}
+		})
 	}
 }
