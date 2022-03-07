@@ -19,7 +19,7 @@ func Benchmark___Deserialization___Json(b *testing.B) {
 
 		err := json.Unmarshal(bytes, &item)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 }

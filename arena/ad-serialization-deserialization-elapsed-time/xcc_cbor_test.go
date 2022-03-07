@@ -19,12 +19,12 @@ func Test___SerializationDeserializationElapsedTime___Cbor(t *testing.T) { // ht
 
 		bytes, err := cbor.Marshal(x)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 
 		err = cbor.Unmarshal(bytes, &y)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 	finishTime := time.Now()

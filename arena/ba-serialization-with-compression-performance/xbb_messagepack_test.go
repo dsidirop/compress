@@ -20,7 +20,7 @@ func Benchmark___SerializationAndCompressionPerformance___MessagePack(b *testing
 
 				msgpackBytes, err := msgpack.Marshal(x)
 				if err != nil {
-					panic(err)
+					b.Fatalf("Error: %s", err)
 				}
 
 				test.CompressionCallback(msgpackBytes)

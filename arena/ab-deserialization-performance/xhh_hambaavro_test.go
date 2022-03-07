@@ -18,7 +18,7 @@ func Benchmark___DeserializationPerformance___HambaAvro(b *testing.B) {
 
 		err := avro.Unmarshal(arena.Schemas.GoHambaAvro, x, y)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 }

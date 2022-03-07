@@ -15,7 +15,7 @@ func Test___SerializationMessageSizeFootprint___HambaAvro(t *testing.T) {
 
 	rawBytes, err := avro.Marshal(arena.Schemas.GoHambaAvro, &x)
 	if err != nil {
-		panic(err)
+		b.Fatalf("Error: %s", err)
 	}
 
 	fmt.Printf("** HambaAvro %d bytes\n", len(rawBytes))

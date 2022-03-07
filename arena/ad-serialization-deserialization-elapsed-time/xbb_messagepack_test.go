@@ -19,12 +19,12 @@ func Test___SerializationDeserializationElapsedTime___MessagePack(t *testing.T) 
 
 		bytes, err := msgpack.Marshal(x)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 
 		err = msgpack.Unmarshal(bytes, &y)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 	finishTime := time.Now()

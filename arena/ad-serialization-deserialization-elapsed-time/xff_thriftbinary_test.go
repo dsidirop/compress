@@ -25,12 +25,12 @@ func Test___SerializationDeserializationElapsedTime___ThriftBinary(t *testing.T)
 
 		thriftBytes, err := thriftBinarySerializer.Write(ctx, x)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 
 		err = thriftBinaryDeserializer.Read(ctx, y, thriftBytes)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 	finishTime := time.Now()

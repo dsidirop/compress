@@ -17,7 +17,7 @@ func Benchmark___SerializationPerformance___HambaAvro(b *testing.B) {
 
 		_, err := avro.Marshal(arena.Schemas.GoHambaAvro, &x)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 }

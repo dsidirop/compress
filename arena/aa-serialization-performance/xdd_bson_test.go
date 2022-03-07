@@ -16,7 +16,7 @@ func Benchmark___SerializationPerformance___Bson(b *testing.B) {
 
 		_, err := bson.Marshal(x)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 }

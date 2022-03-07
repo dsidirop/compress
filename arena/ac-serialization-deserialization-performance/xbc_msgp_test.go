@@ -9,8 +9,6 @@ import (
 )
 
 func Benchmark___SerializationDeserializationPerformance___Msgp(b *testing.B) {
-	buf := &bytes.Buffer{}
-	fooitem := &arena.FooItem{}
 	datasource := arena.Datasource
 	datasourceArrayLength := len(datasource)
 
@@ -18,14 +16,16 @@ func Benchmark___SerializationDeserializationPerformance___Msgp(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		x := datasource[i%datasourceArrayLength]
 
+		buf := &bytes.Buffer{}
 		err := msgp.Encode(buf, &x)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 
+		fooitem := &arena.FooItem{}
 		err = msgp.Decode(buf, fooitem)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 }

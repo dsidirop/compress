@@ -17,7 +17,7 @@ func Benchmark___SerializationPerformance___Protobuf(b *testing.B) {
 
 		_, err := proto.Marshal(x)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 }

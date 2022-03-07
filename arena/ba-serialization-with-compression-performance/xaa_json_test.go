@@ -19,7 +19,7 @@ func Benchmark___SerializationAndCompressionPerformance___Json(b *testing.B) {
 
 				jsonBytes, err := json.Marshal(x)
 				if err != nil {
-					panic(err)
+					b.Fatalf("Error: %s", err)
 				}
 
 				test.CompressionCallback(jsonBytes)

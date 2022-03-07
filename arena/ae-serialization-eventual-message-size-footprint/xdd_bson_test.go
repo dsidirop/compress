@@ -13,7 +13,7 @@ func Test___SerializationMessageSizeFootprint___Bson(t *testing.T) {
 
 	rawBytes, err := bson.Marshal(x)
 	if err != nil {
-		panic(err)
+		b.Fatalf("Error: %s", err)
 	}
 
 	fmt.Printf("** BSON %d bytes\n", len(rawBytes))

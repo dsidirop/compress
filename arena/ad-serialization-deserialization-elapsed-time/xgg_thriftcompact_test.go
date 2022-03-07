@@ -24,12 +24,12 @@ func Test___SerializationDeserializationElapsedTime___ThriftCompact(t *testing.T
 
 		thriftBytes, err := thriftCompactSerializer.Write(ctx, x)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 
 		err = thriftCompactDeserializer.Read(ctx, y, thriftBytes)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 	finishTime := time.Now()

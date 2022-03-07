@@ -19,7 +19,7 @@ func Benchmark___Deserialization___MessagePack(b *testing.B) {
 
 		err := msgpack.Unmarshal(bytes, &item)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 }

@@ -13,7 +13,7 @@ func Test___SerializationMessageSizeFootprint___Protobuf(t *testing.T) {
 
 	rawBytes, err := proto.Marshal(&x)
 	if err != nil {
-		panic(err)
+		b.Fatalf("Error: %s", err)
 	}
 
 	fmt.Printf("** ProtoBuf %d bytes\n", len(rawBytes))

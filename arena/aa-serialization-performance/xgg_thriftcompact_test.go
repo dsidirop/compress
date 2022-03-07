@@ -19,7 +19,7 @@ func Benchmark___SerializationPerformance___ThriftCompact(b *testing.B) {
 
 		_, err := thriftCompactSerializer.Write(ctx, x)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 }

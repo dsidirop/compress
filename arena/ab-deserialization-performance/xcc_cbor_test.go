@@ -18,7 +18,7 @@ func Benchmark___Deserialization___Cbor(b *testing.B) {
 		item := &arena.FooItem{}
 		err := cbor.Unmarshal(bytes, item)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 }

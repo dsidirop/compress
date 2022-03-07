@@ -20,7 +20,7 @@ func Benchmark___SerializationAndCompressionPerformance___HambaAvro(b *testing.B
 
 				serializedBytes, err := avro.Marshal(arena.Schemas.GoHambaAvro, &x)
 				if err != nil {
-					panic(err)
+					b.Fatalf("Error: %s", err)
 				}
 
 				test.CompressionCallback(serializedBytes)

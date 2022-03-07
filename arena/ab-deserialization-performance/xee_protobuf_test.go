@@ -18,7 +18,7 @@ func Benchmark___Deserialization___Protobuf(b *testing.B) {
 
 		err := proto.Unmarshal(bytes, &item)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 }

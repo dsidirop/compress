@@ -19,12 +19,12 @@ func Test___SerializationDeserializationElapsedTime___HambaAvro(t *testing.T) {
 
 		goAvroBytes, err := avro.Marshal(arena.Schemas.GoHambaAvro, &x)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 
 		err = avro.Unmarshal(arena.Schemas.GoHambaAvro, goAvroBytes, y)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 	finishTime := time.Now()

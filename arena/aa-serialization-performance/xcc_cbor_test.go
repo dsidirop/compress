@@ -16,7 +16,7 @@ func Benchmark___SerializationPerformance___Cbor(b *testing.B) { // https://gith
 
 		_, err := cbor.Marshal(x)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 }

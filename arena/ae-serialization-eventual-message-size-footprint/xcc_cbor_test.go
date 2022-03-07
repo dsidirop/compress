@@ -13,7 +13,7 @@ func Test___SerializationMessageSizeFootprint___Cbor(t *testing.T) {
 
 	rawBytes, err := cbor.Marshal(x)
 	if err != nil {
-		panic(err)
+		b.Fatalf("Error: %s", err)
 	}
 
 	fmt.Printf("** CBOR %d bytes\n", len(rawBytes))

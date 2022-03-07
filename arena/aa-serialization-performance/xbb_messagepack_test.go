@@ -16,7 +16,7 @@ func Benchmark___SerializationPerformance___MessagePack(b *testing.B) {
 
 		_, err := msgpack.Marshal(x)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 }

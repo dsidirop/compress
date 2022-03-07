@@ -19,7 +19,7 @@ func Benchmark___SerializationAndCompressionPerformance___Protobuf(b *testing.B)
 
 				rawBytes, err := proto.Marshal(x)
 				if err != nil {
-					panic(err)
+					b.Fatalf("Error: %s", err)
 				}
 
 				test.CompressionCallback(rawBytes)

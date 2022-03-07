@@ -13,7 +13,7 @@ func Test___SerializationMessageSizeFootprint___MessagePack(t *testing.T) {
 
 	rawBytes, err := msgpack.Marshal(x)
 	if err != nil {
-		panic(err)
+		b.Fatalf("Error: %s", err)
 	}
 
 	fmt.Printf("** MessagePack %d bytes\n", len(rawBytes))

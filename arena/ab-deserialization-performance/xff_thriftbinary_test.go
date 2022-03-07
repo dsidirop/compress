@@ -22,7 +22,7 @@ func Benchmark___DeserializationPerformance___ThriftBinary(b *testing.B) {
 
 		err := thriftBinaryDeserializer.Read(ctx, y, x)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 }

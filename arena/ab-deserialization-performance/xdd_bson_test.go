@@ -19,7 +19,7 @@ func Benchmark___Deserialization___Bson(b *testing.B) {
 
 		err := bson.Unmarshal(bytes, &item)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 }

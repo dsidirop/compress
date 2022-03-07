@@ -17,7 +17,7 @@ func Test___SerializationMessageSizeFootprint___ThriftCompact(t *testing.T) {
 
 	rawBytes, err := thriftCompactSerializer.Write(ctx, x)
 	if err != nil {
-		panic(err)
+		b.Fatalf("Error: %s", err)
 	}
 
 	fmt.Printf("** ThriftCompact %d bytes\n", len(rawBytes))

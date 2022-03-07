@@ -20,7 +20,7 @@ func Benchmark___SerializationPerformance___ThriftBinary(b *testing.B) {
 
 		_, err := thriftBinarySerializer.Write(ctx, x)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 }

@@ -17,12 +17,12 @@ func Benchmark___SerializationDeserializationPerformance___Json(b *testing.B) {
 
 		bytes, err := json.Marshal(x)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 
 		err = json.Unmarshal(bytes, &y)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 }

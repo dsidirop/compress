@@ -19,12 +19,12 @@ func Test___SerializationDeserializationElapsedTime___Json(t *testing.T) {
 
 		bytes, err := json.Marshal(x)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 
 		err = json.Unmarshal(bytes, &y)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 	finishTime := time.Now()

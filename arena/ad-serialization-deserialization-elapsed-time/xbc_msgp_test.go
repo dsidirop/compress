@@ -22,12 +22,12 @@ func Test___SerializationDeserializationElapsedTime___Msgp(t *testing.T) {
 
 		err := msgp.Encode(buf, &x)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 
 		err = msgp.Decode(buf, fooitem)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 	finishTime := time.Now()

@@ -21,7 +21,7 @@ func Benchmark___Deserialization___Msgp(b *testing.B) {
 
 		err := msgp.Decode(byteBuffer, fooitem)
 		if err != nil {
-			panic(err)
+			b.Fatalf("Error: %s", err)
 		}
 	}
 }

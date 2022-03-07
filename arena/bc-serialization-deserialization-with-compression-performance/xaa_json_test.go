@@ -1,4 +1,4 @@
-package decompression_with_deserialization_performance
+package serialization_deserialization_performance
 
 import (
 	"encoding/json"
@@ -7,15 +7,16 @@ import (
 	"github.com/klauspost/compress/arena"
 )
 
-func Benchmark___DecompressionAndDeserializationPerformance___Json(b *testing.B) {
+func Benchmark___SerializationDeserializationWithCompressionPerformance___Json(b *testing.B) {
 	datasource := arena.Datasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
 		b.Run(test.Desc, func(bench *testing.B) {
-			compressedAndSerializedDatasource := [][]byte{} //first serialize and compress
-			for i := 0; i < datasourceArrayLength; i++ {
-				x := datasource[i]
+			bench.ResetTimer() //vital
+
+			for i := 0; i < bench.N; i++ {
+				x := datasource[i%datasourceArrayLength]
 
 				jsonBytes, err := json.Marshal(x)
 				if err != nil {
@@ -27,14 +28,7 @@ func Benchmark___DecompressionAndDeserializationPerformance___Json(b *testing.B)
 					b.Fatalf("Error: %s", err)
 				}
 
-				compressedAndSerializedDatasource = append(compressedAndSerializedDatasource, compressedAndSerializedBytes)
-			}
-
-			bench.ResetTimer() //vital
-			for i := 0; i < bench.N; i++ {
-				x := compressedAndSerializedDatasource[i%datasourceArrayLength] //and now we deserialize and decompress
-
-				serializedBytes, err := test.DecompressionCallback(x)
+				serializedBytes, err := test.DecompressionCallback(compressedAndSerializedBytes)
 				if err != nil {
 					b.Fatalf("Error: %s", err)
 				}

@@ -24,7 +24,7 @@ func Benchmark___SerializationAndCompressionPerformance___ThriftBinary(b *testin
 
 				rawBytes, err := thriftBinarySerializer.Write(ctx, x)
 				if err != nil {
-					panic(err)
+					b.Fatalf("Error: %s", err)
 				}
 
 				// if test.Desc == "S2" {
