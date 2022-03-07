@@ -120,9 +120,9 @@ func InitCompressionTestCases() {
 					if err != nil {
 						panic(err)
 					}
-					defer encoder.Close()
 
 					compressedBytes := encoder.EncodeAll(rawBytes, nil)
+					encoder.Close()
 
 					return compressedBytes, nil
 				},
@@ -131,9 +131,10 @@ func InitCompressionTestCases() {
 					if err != nil {
 						panic(err)
 					}
-					defer decoder.Close()
 
 					decompressedBytes, err := decoder.DecodeAll(compressedBytes, nil)
+					decoder.Close()
+
 					if err != nil {
 						panic(err)
 					}
@@ -144,33 +145,19 @@ func InitCompressionTestCases() {
 		}(),
 		func() compressionTestCase {
 			return compressionTestCase{
-				Desc: "S2",
+				Desc: "S2", //snappy-like codec
 				CompressionCallback: func(rawBytes []byte) ([]byte, error) {
-					compressedOutputBuffer := &bytes.Buffer{}
-					uncompressedInputBuffer := bytes.NewReader(rawBytes)
+					compressedBytes := s2.Encode(nil, rawBytes)
 
-					compressor := s2.NewWriter(compressedOutputBuffer)
-					defer compressor.Close()
-
-					_, err := io.Copy(compressor, uncompressedInputBuffer)
-					if err != nil {
-						return nil, err
-					}
-
-					return compressedOutputBuffer.Bytes(), err
+					return compressedBytes, nil
 				},
 				DecompressionCallback: func(compressedBytes []byte) ([]byte, error) {
-					compressedBytesReader := bytes.NewReader(compressedBytes)
-					decompressedBytesBufferWriter := &bytes.Buffer{}
-
-					decoder := s2.NewReader(compressedBytesReader)
-
-					_, err := io.Copy(decompressedBytesBufferWriter, decoder)
+					decompressedBytes, err := s2.Decode(nil, compressedBytes)
 					if err != nil {
 						return nil, err
 					}
 
-					return decompressedBytesBufferWriter.Bytes(), err
+					return decompressedBytes, nil
 				},
 			}
 		}(),
@@ -185,23 +172,27 @@ func InitCompressionTestCases() {
 					if err != nil {
 						return nil, err
 					}
-					defer encoder.Close()
 
 					_, err = io.Copy(encoder, uncompressedRawBytesBuffer)
+					encoder.Close()
+
 					if err != nil {
 						return nil, err
 					}
 
-					return decompressedBytesBuffer.Bytes(), err
+					decompressedBytes := decompressedBytesBuffer.Bytes()
+
+					return decompressedBytes, err
 				},
 				DecompressionCallback: func(compressedBytes []byte) ([]byte, error) {
 					compressedBytesBufferedReader := bytes.NewReader(compressedBytes)
 					decompressedResultBufferedWriter := &bytes.Buffer{}
 
 					decoder := flate.NewReader(compressedBytesBufferedReader)
-					defer decoder.Close()
 
 					_, err := io.Copy(decompressedResultBufferedWriter, decoder)
+					decoder.Close()
+
 					if err != nil {
 						return nil, err
 					}
