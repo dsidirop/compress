@@ -11,7 +11,7 @@
 ##
 
 # graphic will be saved as 800x600 png image file
-set terminal png
+set terminal png size 3600,800
 
 # allows grid lines to be drawn on the plot
 set grid x,y
@@ -33,7 +33,7 @@ set key off
 set ylabel y_label
 
 # range for values in x/y axes
-set xrange[0.1:28]
+set xrange[0.05:37]
 set yrange[0:]
 
 # to avoid displaying large numbers in exponential format
@@ -43,8 +43,8 @@ set format y "%.0f"
 set xtics rotate by 65 right
 
 # set boxplots
-set style       fill    solid       0.3
-set boxwidth    0.1     relative
+set style       fill    solid       0.1
+set boxwidth    0.2     relative
 
 # plot graphic for each line of input file
 plot file_path                                                                      \

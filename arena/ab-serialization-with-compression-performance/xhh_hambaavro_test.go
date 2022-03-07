@@ -18,12 +18,12 @@ func Benchmark___SerializationAndCompressionPerformance___HambaAvro(b *testing.B
 			for i := 0; i < bench.N; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				rawBytes, err := avro.Marshal(arena.Schemas.GoHambaAvro, &x)
+				serializedBytes, err := avro.Marshal(arena.Schemas.GoHambaAvro, &x)
 				if err != nil {
 					panic(err)
 				}
 
-				test.CompressionCallback(rawBytes)
+				test.CompressionCallback(serializedBytes)
 			}
 		})
 	}

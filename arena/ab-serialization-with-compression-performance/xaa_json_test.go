@@ -7,7 +7,7 @@ import (
 	"github.com/klauspost/compress/arena"
 )
 
-func Benchmark___SerializationWithCompressionPerformance___Json(b *testing.B) {
+func Benchmark___SerializationAndCompressionPerformance___Json(b *testing.B) {
 	datasource := arena.Datasource
 	datasourceArrayLength := len(datasource)
 

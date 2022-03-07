@@ -25,7 +25,12 @@ benchmark-serialization-with-compression-performance:    compile-idl
 .PHONY:\
 benchmark-deserialization-performance
 benchmark-deserialization-performance:    compile-idl
-	@$(call benchmark-performance,b-deserialization-performance,$(cpucount))
+	@$(call benchmark-performance,ba-deserialization-performance,$(cpucount))
+
+.PHONY:\
+benchmark-decompression-deserialization-performance
+benchmark-decompression-deserialization-performance:    compile-idl
+	@$(call benchmark-performance,bb-decompression-deserialization-performance,$(cpucount))
 
 .PHONY:\
 benchmark-serialization-deserialization-performance
