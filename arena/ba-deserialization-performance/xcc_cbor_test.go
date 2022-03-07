@@ -8,8 +8,6 @@ import (
 )
 
 func Benchmark___Deserialization___Cbor(b *testing.B) {
-	item := arena.FooItem{}
-
 	datasource := arena.SerializedDataSources.Cbor
 	datasourceArrayLength := len(datasource)
 
@@ -17,7 +15,8 @@ func Benchmark___Deserialization___Cbor(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		bytes := datasource[i%datasourceArrayLength]
 
-		err := cbor.Unmarshal(bytes, &item)
+		item := &arena.FooItem{}
+		err := cbor.Unmarshal(bytes, item)
 		if err != nil {
 			panic(err)
 		}
