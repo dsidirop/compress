@@ -7,22 +7,37 @@ import (
 	"github.com/klauspost/compress/arena"
 )
 
-func Benchmark___SerializationDeserializationPerformance___HambaAvro(b *testing.B) {
-	y := arena.FooItem{}
+func Benchmark___SerializationDeserializationWithCompressionPerformance___HambaAvro(rootBench *testing.B) {
 	datasourceArrayLength := len(arena.Datasource)
 
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		x := arena.Datasource[i%datasourceArrayLength]
+	for _, test := range arena.AllCompressionTestCases {
+		rootBench.Run(test.Desc, func(subbench *testing.B) {
+			subbench.ResetTimer() //vital
 
-		bytes, err := avro.Marshal(arena.Schemas.GoHambaAvro, x)
-		if err != nil {
-			b.Fatalf("Error: %s", err)
-		}
+			for i := 0; i < subbench.N; i++ {
+				x := arena.Datasource[i%datasourceArrayLength]
 
-		err = avro.Unmarshal(arena.Schemas.GoHambaAvro, bytes, &y)
-		if err != nil {
-			b.Fatalf("Error: %s", err)
-		}
+				bytes, err := avro.Marshal(arena.Schemas.GoHambaAvro, x)
+				if err != nil {
+					subbench.Fatalf("Error: %s", err)
+				}
+
+				compressedAndSerializedBytes, err := test.CompressionCallback(bytes)
+				if err != nil {
+					subbench.Fatalf("Error: %s", err)
+				}
+
+				decompressedBytes, err := test.DecompressionCallback(compressedAndSerializedBytes)
+				if err != nil {
+					subbench.Fatalf("Error: %s", err)
+				}
+
+				fooitem := &arena.FooItem{}
+				err = avro.Unmarshal(arena.Schemas.GoHambaAvro, decompressedBytes, fooitem)
+				if err != nil {
+					subbench.Fatalf("Error: %s", err)
+				}
+			}
+		})
 	}
 }
