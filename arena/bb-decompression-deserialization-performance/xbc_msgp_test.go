@@ -8,7 +8,7 @@ import (
 	"github.com/tinylib/msgp/msgp"
 )
 
-func Benchmark___SerializationWithCompressionPerformance___Msgp(b *testing.B) {
+func Benchmark___DecompressionAndDeserializationPerformance___Msgp(b *testing.B) {
 	datasource := arena.Datasource
 	datasourceArrayLength := len(datasource)
 

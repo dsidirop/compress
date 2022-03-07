@@ -3,25 +3,21 @@ package decompression_with_deserialization_performance
 import (
 	"testing"
 
-	"github.com/fxamacker/cbor/v2"
 	"github.com/klauspost/compress/arena"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
-func Benchmark___DecompressionAndDeserializationPerformance___Cbor(b *testing.B) {
+func Benchmark___DecompressionAndDeserializationPerformance___Bson(b *testing.B) {
 	datasource := arena.Datasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
-		// if test.Desc != "Deflate" {
-		// 	continue
-		// }
-
 		b.Run(test.Desc, func(bench *testing.B) {
 			compressedAndSerializedDatasource := [][]byte{} //first serialize and compress
 			for i := 0; i < datasourceArrayLength; i++ {
 				x := datasource[i]
 
-				serializedBytes, err := cbor.Marshal(x)
+				serializedBytes, err := bson.Marshal(x)
 				if err != nil {
 					panic(err)
 				}
@@ -44,7 +40,7 @@ func Benchmark___DecompressionAndDeserializationPerformance___Cbor(b *testing.B)
 				}
 
 				item := &arena.FooItem{}
-				err = cbor.Unmarshal(decompressedSerializedBytes, item)
+				err = bson.Unmarshal(decompressedSerializedBytes, item)
 				if err != nil {
 					panic(err)
 				}

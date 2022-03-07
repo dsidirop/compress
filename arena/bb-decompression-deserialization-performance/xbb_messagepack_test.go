@@ -7,7 +7,7 @@ import (
 	"github.com/vmihailenco/msgpack/v5"
 )
 
-func Benchmark___SerializationWithCompressionPerformance___MessagePack(b *testing.B) {
+func Benchmark___DecompressionAndDeserializationPerformance___MessagePack(b *testing.B) {
 	datasource := arena.Datasource
 	datasourceArrayLength := len(datasource)
 
