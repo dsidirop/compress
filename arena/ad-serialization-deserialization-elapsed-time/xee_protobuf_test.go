@@ -10,7 +10,6 @@ import (
 )
 
 func Test___SerializationDeserializationElapsedTime___Protobuf(t *testing.T) {
-	y := arena.PBFooItem{}
 	datasourceArrayLength := len(arena.Datasource)
 
 	startTime := time.Now()
@@ -19,12 +18,13 @@ func Test___SerializationDeserializationElapsedTime___Protobuf(t *testing.T) {
 
 		bytes, err := proto.Marshal(x)
 		if err != nil {
-			b.Fatalf("Error: %s", err)
+			t.Fatalf("Error: %s", err)
 		}
 
-		err = proto.Unmarshal(bytes, &y)
+		y := &arena.PBFooItem{}
+		err = proto.Unmarshal(bytes, y)
 		if err != nil {
-			b.Fatalf("Error: %s", err)
+			t.Fatalf("Error: %s", err)
 		}
 	}
 	finishTime := time.Now()

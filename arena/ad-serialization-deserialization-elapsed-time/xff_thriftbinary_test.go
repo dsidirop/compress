@@ -12,7 +12,6 @@ import (
 )
 
 func Test___SerializationDeserializationElapsedTime___ThriftBinary(t *testing.T) {
-	y := thfooitem.NewTHFooItem()
 	ctx := context.TODO()
 	datasource := arena.SpecialDatasourcesForIDLMechanisms.Thrift
 	datasourceArrayLength := len(datasource)
@@ -25,12 +24,13 @@ func Test___SerializationDeserializationElapsedTime___ThriftBinary(t *testing.T)
 
 		thriftBytes, err := thriftBinarySerializer.Write(ctx, x)
 		if err != nil {
-			b.Fatalf("Error: %s", err)
+			t.Fatalf("Error: %s", err)
 		}
 
+		y := thfooitem.NewTHFooItem()
 		err = thriftBinaryDeserializer.Read(ctx, y, thriftBytes)
 		if err != nil {
-			b.Fatalf("Error: %s", err)
+			t.Fatalf("Error: %s", err)
 		}
 	}
 	finishTime := time.Now()

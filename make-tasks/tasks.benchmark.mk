@@ -48,6 +48,12 @@ benchmark-decompression-deserialization-performance:    compile-idl
 	@$(call benchmark-performance,bb-decompression-deserialization-performance,$(cpucount))
 
 .PHONY:\
+benchmark-serialization-deserialization-with-compression-performance
+benchmark-serialization-deserialization-with-compression-performance:    compile-idl
+	@$(call benchmark-performance,bc-serialization-deserialization-with-compression-performance,$(cpucount))
+
+
+.PHONY:\
 merge-output-images-of-plots
 merge-output-images-of-plots: # merge all images into one
 	@convert     -append       './arena-results/*-cpu$(cpucount)----category-overall-results.png'      './arena-results/x-cpu$(cpucount)-all-results.png'

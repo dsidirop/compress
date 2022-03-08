@@ -10,7 +10,6 @@ import (
 )
 
 func Test___SerializationDeserializationElapsedTime___Cbor(t *testing.T) { // https://github.com/fxamacker/cbor
-	y := arena.FooItem{}
 	datasourceArrayLength := len(arena.Datasource)
 
 	startTime := time.Now()
@@ -19,12 +18,13 @@ func Test___SerializationDeserializationElapsedTime___Cbor(t *testing.T) { // ht
 
 		bytes, err := cbor.Marshal(x)
 		if err != nil {
-			b.Fatalf("Error: %s", err)
+			t.Fatalf("Error: %s", err)
 		}
 
-		err = cbor.Unmarshal(bytes, &y)
+		y := &arena.FooItem{}
+		err = cbor.Unmarshal(bytes, y)
 		if err != nil {
-			b.Fatalf("Error: %s", err)
+			t.Fatalf("Error: %s", err)
 		}
 	}
 	finishTime := time.Now()
