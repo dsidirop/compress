@@ -21,8 +21,6 @@ fi
 awk                                                                         \
      '/[*][*]/{count++; printf("%d,%s,%s\n", count, $2, $3); }'             \
      "./${output_files_name_prefix}---benchmark-raw-output.dat"             \
-  |  sort   -t','    -nk3                                                   \
-  |  awk    -F','    '//{count++; printf("%d,%s,%s\n", count, $2, $3); }'   \
   >  "./${output_files_name_prefix}---benchmark-output-parsed.dat"
 
 
@@ -37,8 +35,13 @@ title_lowercased_with_dashes=${title_lowercased_with_dashes,,}
 
 cp            "${gnuplot_config_file}"                                                         "${tempPlotConfigFile}"
 sed    -i     "s/___TITLE___/${title}\\\\n[${output_files_name_prefix} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
+cat           "./${output_files_name_prefix}---benchmark-output-parsed.dat"          \
+  |           sort   -t','    -nk3                                                   \
+  |           awk    -F','    '//{count++; printf("%d,%s,%s\n", count, $2, $3); }'   \
+  >           "./${output_files_name_prefix}---benchmark-output-parsed---sorted.dat"
+
 gnuplot \
--e "    file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                                 "    \
+-e "    file_path='./${output_files_name_prefix}---benchmark-output-parsed---sorted.dat'                                        "    \
 -e "    graphic_file_name='../../arena-results/${output_files_name_prefix}--001-${title_lowercased_with_dashes}--result.png'    "    \
 -e "    y_label='${y_label}'                                                                                                    "    \
 -e "    column_1=1                                                                                                              "    \

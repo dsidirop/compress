@@ -51,7 +51,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___ThriftBinar
 
 			averageElapsedTime := float64(finishTime.Sub(startTime).Nanoseconds()) / NUMBER_OF_ITERATIONS
 
-			fmt.Printf("** ThriftBinary+%s %d nanoseconds\n", test.Desc, int64(averageElapsedTime))
+			fmt.Printf("** ThriftBinary+%s %d nanoseconds (avg)\n", test.Desc, int64(averageElapsedTime))
 		})
 	}
 }

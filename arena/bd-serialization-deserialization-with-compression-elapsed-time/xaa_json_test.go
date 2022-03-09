@@ -45,7 +45,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___Json(rootTe
 
 			averageElapsedTime := float64(finishTime.Sub(startTime).Nanoseconds()) / NUMBER_OF_ITERATIONS
 
-			fmt.Printf("** JSON+%s %d nanoseconds\n", test.Desc, int64(averageElapsedTime))
+			fmt.Printf("** JSON+%s %d nanoseconds (avg)\n", test.Desc, int64(averageElapsedTime))
 		})
 	}
 }
