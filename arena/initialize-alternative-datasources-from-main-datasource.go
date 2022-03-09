@@ -7,9 +7,11 @@ import (
 	"context"
 	"encoding/json"
 	"io"
+	"io/ioutil"
 	"log"
 	"os"
 
+	"github.com/andybalholm/brotli"
 	"github.com/apache/thrift/lib/go/thrift"
 	"github.com/fxamacker/cbor/v2"
 	"github.com/hamba/avro"
@@ -84,32 +86,32 @@ func InitCompressionTestCases() {
 					compressedBytesBufferWriter := &bytes.Buffer{}
 
 					zlibCompressor := zlib.NewWriter(compressedBytesBufferWriter)
+
 					_, err := zlibCompressor.Write(rawBytes)
+					zlibCompressor.Close() //dont use defer   it wont work
+
 					if err != nil {
 						return nil, err
 					}
-
-					zlibCompressor.Close() //dont use defer   it wont work
 
 					return compressedBytesBufferWriter.Bytes(), err
 				},
 				DecompressionCallback: func(compressedBytes []byte) ([]byte, error) {
 					compressedInputBuffer := bytes.NewReader(compressedBytes)
-					compressedOutputBuffer := bytes.Buffer{}
 
-					zlibCompressedInputReader, err := zlib.NewReader(compressedInputBuffer)
+					zlibDecompressor, err := zlib.NewReader(compressedInputBuffer)
 					if err != nil {
 						return nil, err
 					}
 
-					_, err = compressedOutputBuffer.ReadFrom(zlibCompressedInputReader)
-					zlibCompressedInputReader.Close()
+					decompressedBytes, err := ioutil.ReadAll(zlibDecompressor)
+					zlibDecompressor.Close()
 
 					if err != nil {
 						return nil, err
 					}
 
-					return compressedOutputBuffer.Bytes(), err
+					return decompressedBytes, nil
 				},
 			}
 		}(),
@@ -187,18 +189,17 @@ func InitCompressionTestCases() {
 				},
 				DecompressionCallback: func(compressedBytes []byte) ([]byte, error) {
 					compressedBytesBufferedReader := bytes.NewReader(compressedBytes)
-					decompressedResultBufferedWriter := &bytes.Buffer{}
 
-					decoder := flate.NewReader(compressedBytesBufferedReader)
+					flateDecompressor := flate.NewReader(compressedBytesBufferedReader)
 
-					_, err := io.Copy(decompressedResultBufferedWriter, decoder)
-					decoder.Close()
+					decompressedBytes, err := ioutil.ReadAll(flateDecompressor)
+					flateDecompressor.Close()
 
 					if err != nil {
 						return nil, err
 					}
 
-					return decompressedResultBufferedWriter.Bytes(), err
+					return decompressedBytes, nil
 				},
 			}
 		}(),
@@ -223,24 +224,56 @@ func InitCompressionTestCases() {
 				},
 				DecompressionCallback: func(compressedBytes []byte) ([]byte, error) {
 					compressedBytesReader := bytes.NewReader(compressedBytes)
-					decompressedBytesBuffer := &bytes.Buffer{}
 
 					gzipDecompressor, err := gzip.NewReader(compressedBytesReader)
 					if err != nil {
 						return nil, err
 					}
 
-					_, err = io.Copy(decompressedBytesBuffer, gzipDecompressor)
+					decompressedBytes, err := ioutil.ReadAll(gzipDecompressor)
+					gzipDecompressor.Close()
+
 					if err != nil {
 						return nil, err
 					}
 
-					err = gzipDecompressor.Close()
+					return decompressedBytes, nil
+				},
+			}
+		}(),
+		func() compressionTestCase {
+			return compressionTestCase{
+				Desc: "Brotli",
+				CompressionCallback: func(rawBytes []byte) ([]byte, error) {
+					compressedOutputBuffer := &bytes.Buffer{}
+
+					brotliCompressor := brotli.NewWriter(compressedOutputBuffer)
+
+					_, err := brotliCompressor.Write(rawBytes)
 					if err != nil {
 						return nil, err
 					}
 
-					return decompressedBytesBuffer.Bytes(), err
+					err = brotliCompressor.Close()
+					if err != nil {
+						return nil, err
+					}
+
+					return compressedOutputBuffer.Bytes(), nil
+				},
+				DecompressionCallback: func(compressedBytes []byte) ([]byte, error) {
+					compressedBytesBuffer := bytes.NewReader(compressedBytes)
+
+					brotliDecompressor := brotli.NewReader(compressedBytesBuffer)
+
+					decompressedBytes, err := ioutil.ReadAll(brotliDecompressor)
+					//brotliDecompressor.Close()
+
+					if err != nil {
+						return nil, err
+					}
+
+					return decompressedBytes, nil
 				},
 			}
 		}(),

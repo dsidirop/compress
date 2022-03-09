@@ -3,13 +3,14 @@ module github.com/klauspost/compress
 go 1.17
 
 require (
-	github.com/hamba/avro v1.6.6
-	github.com/tinylib/msgp v1.1.6
 	github.com/apache/thrift v0.16.0
 	github.com/fxamacker/cbor/v2 v2.4.0
+	github.com/hamba/avro v1.6.6
+	github.com/tinylib/msgp v1.1.6
 	github.com/vmihailenco/msgpack/v5 v5.3.5
 	go.mongodb.org/mongo-driver v1.8.3
 	google.golang.org/protobuf v1.27.1
+	github.com/andybalholm/brotli v1.0.4
 )
 
 require (
