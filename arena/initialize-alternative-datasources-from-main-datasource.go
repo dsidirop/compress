@@ -19,6 +19,7 @@ import (
 	"github.com/klauspost/compress/flate"
 	"github.com/klauspost/compress/s2"
 	"github.com/klauspost/compress/zstd"
+	"github.com/pierrec/lz4/v4"
 	"github.com/tinylib/msgp/msgp"
 	"github.com/vmihailenco/msgpack/v5"
 	"go.mongodb.org/mongo-driver/bson"
@@ -268,6 +269,38 @@ func InitCompressionTestCases() {
 
 					decompressedBytes, err := ioutil.ReadAll(brotliDecompressor)
 					//brotliDecompressor.Close()
+
+					if err != nil {
+						return nil, err
+					}
+
+					return decompressedBytes, nil
+				},
+			}
+		}(),
+		func() compressionTestCase {
+			return compressionTestCase{
+				Desc: "LZ4",
+				CompressionCallback: func(rawBytes []byte) ([]byte, error) {
+					compressedOutputBuffer := &bytes.Buffer{}
+					lz4Compressor := lz4.NewWriter(compressedOutputBuffer)
+
+					_, err := lz4Compressor.Write(rawBytes)
+					lz4Compressor.Close()
+
+					if err != nil {
+						return nil, err
+					}
+
+					return compressedOutputBuffer.Bytes(), nil
+				},
+				DecompressionCallback: func(compressedBytes []byte) ([]byte, error) {
+					compressedBytesBuffer := bytes.NewReader(compressedBytes)
+
+					lz4Decompressor := lz4.NewReader(compressedBytesBuffer)
+
+					decompressedBytes, err := ioutil.ReadAll(lz4Decompressor)
+					//lz4Decompressor.Close()
 
 					if err != nil {
 						return nil, err
