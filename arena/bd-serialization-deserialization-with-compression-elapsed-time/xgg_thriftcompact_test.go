@@ -10,7 +10,7 @@ import (
 	"github.com/klauspost/compress/arena/thfooitem"
 )
 
-func Test___SerializationDeserializationWithCompressionPerformance___ThriftCompact(t *testing.T) {
+func Test___SerializationDeserializationWithCompressionPerformance___ThriftCompact(rootTestbed *testing.T) {
 	ctx := context.TODO()
 	datasource := arena.SpecialDatasourcesForIDLMechanisms.Thrift
 	datasourceArrayLength := len(datasource)
@@ -18,7 +18,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___ThriftCompa
 	thriftCompactDeserializer := arena.NewThriftCompactDeserializer() //binary deserializer
 
 	for _, test := range arena.AllCompressionTestCases {
-		t.Run(test.Desc, func(testbed *testing.T) {
+		rootTestbed.Run(test.Desc, func(testbed *testing.T) {
 
 			startTime := time.Now()
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {

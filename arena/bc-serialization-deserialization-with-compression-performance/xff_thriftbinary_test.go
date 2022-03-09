@@ -18,31 +18,31 @@ func Benchmark___SerializationDeserializationWithCompressionPerformance___Thrift
 	thriftBinaryDeserializer := thrift.NewTDeserializer() //binary deserializer
 
 	for _, test := range arena.AllCompressionTestCases {
-		rootBench.Run(test.Desc, func(subbench *testing.B) {
-			subbench.ResetTimer() //vital
+		rootBench.Run(test.Desc, func(bench *testing.B) {
+			bench.ResetTimer() //vital
 
-			for i := 0; i < subbench.N; i++ {
+			for i := 0; i < bench.N; i++ {
 				x := datasource[i%datasourceArrayLength]
 
 				thriftBytes, err := thriftBinarySerializer.Write(ctx, x)
 				if err != nil {
-					subbench.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				compressedAndSerializedBytes, err := test.CompressionCallback(thriftBytes)
 				if err != nil {
-					subbench.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				decompressedBytes, err := test.DecompressionCallback(compressedAndSerializedBytes)
 				if err != nil {
-					subbench.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				y := thfooitem.NewTHFooItem()
 				err = thriftBinaryDeserializer.Read(ctx, y, decompressedBytes)
 				if err != nil {
-					subbench.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 			}
 		})

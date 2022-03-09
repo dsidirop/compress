@@ -19,12 +19,12 @@ func Benchmark___DecompressionAndDeserializationPerformance___Json(b *testing.B)
 
 				jsonBytes, err := json.Marshal(x)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				compressedAndSerializedBytes, err := test.CompressionCallback(jsonBytes)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				compressedAndSerializedDatasource = append(compressedAndSerializedDatasource, compressedAndSerializedBytes)
@@ -36,13 +36,13 @@ func Benchmark___DecompressionAndDeserializationPerformance___Json(b *testing.B)
 
 				serializedBytes, err := test.DecompressionCallback(x)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				fooitem := arena.FooItem{}
 				err = json.Unmarshal(serializedBytes, &fooitem)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 			}
 		})

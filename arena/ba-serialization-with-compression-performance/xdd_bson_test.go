@@ -19,7 +19,7 @@ func Benchmark___SerializationAndCompressionPerformance___Bson(b *testing.B) {
 
 				rawBytes, err := bson.Marshal(x)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				test.CompressionCallback(rawBytes)

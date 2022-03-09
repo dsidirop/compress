@@ -22,7 +22,7 @@ func Benchmark___SerializationAndCompressionPerformance___ThriftCompact(b *testi
 
 				rawBytes, err := thriftCompactSerializer.Write(ctx, x)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				test.CompressionCallback(rawBytes)

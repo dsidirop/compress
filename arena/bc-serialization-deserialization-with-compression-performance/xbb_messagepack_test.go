@@ -20,23 +20,23 @@ func Benchmark___SerializationDeserializationWithCompressionPerformance___Messag
 
 				bytes, err := msgpack.Marshal(x)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				compressedAndSerializedBytes, err := test.CompressionCallback(bytes)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				serializedBytes, err := test.DecompressionCallback(compressedAndSerializedBytes)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				y := &arena.FooItem{}
 				err = msgpack.Unmarshal(serializedBytes, &y)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 			}
 		})

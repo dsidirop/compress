@@ -13,7 +13,7 @@ func Test___SerializationMessageSizeFootprint___Json(t *testing.T) {
 
 	rawBytes, err := json.Marshal(x)
 	if err != nil {
-		b.Fatalf("Error: %s", err)
+		t.Fatalf("Error: %s", err)
 	}
 
 	fmt.Printf("** JSON %d bytes\n", len(rawBytes))

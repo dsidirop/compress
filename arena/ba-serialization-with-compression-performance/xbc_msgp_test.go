@@ -22,7 +22,7 @@ func Benchmark___SerializationAndCompressionPerformance___Msgp(b *testing.B) {
 				buf := bytes.Buffer{}
 				err := msgp.Encode(&buf, &x)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				test.CompressionCallback(buf.Bytes())

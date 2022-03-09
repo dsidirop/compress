@@ -18,7 +18,7 @@ func Test___SerializationMessageSizeFootprint___ThriftBinary(t *testing.T) {
 
 	rawBytes, err := thriftBinarySerializer.Write(ctx, x)
 	if err != nil {
-		b.Fatalf("Error: %s", err)
+		t.Fatalf("Error: %s", err)
 	}
 
 	fmt.Printf("** ThriftBinary %d bytes\n", len(rawBytes))

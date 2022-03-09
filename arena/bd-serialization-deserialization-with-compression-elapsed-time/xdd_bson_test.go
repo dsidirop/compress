@@ -9,14 +9,14 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func Test___SerializationDeserializationWithCompressionPerformance___Bson(t *testing.T) {
+func Test___SerializationDeserializationWithCompressionPerformance___Bson(rootTestbed *testing.T) {
 	datasource := arena.Datasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
-		t.Run(test.Desc, func(testbed *testing.T) {
-			startTime := time.Now()
+		rootTestbed.Run(test.Desc, func(testbed *testing.T) {
 
+			startTime := time.Now()
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 				x := datasource[i%datasourceArrayLength]
 

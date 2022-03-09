@@ -12,7 +12,7 @@ import (
 	"github.com/apache/thrift/lib/go/thrift"
 )
 
-func Test___SerializationDeserializationWithCompressionPerformance___ThriftBinary(t *testing.T) {
+func Test___SerializationDeserializationWithCompressionPerformance___ThriftBinary(rootTestbed *testing.T) {
 	ctx := context.TODO()
 	datasource := arena.SpecialDatasourcesForIDLMechanisms.Thrift
 	datasourceArrayLength := len(datasource)
@@ -20,7 +20,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___ThriftBinar
 	thriftBinaryDeserializer := thrift.NewTDeserializer() //binary deserializer
 
 	for _, test := range arena.AllCompressionTestCases {
-		t.Run(test.Desc, func(testbed *testing.T) {
+		rootTestbed.Run(test.Desc, func(testbed *testing.T) {
 
 			startTime := time.Now()
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {

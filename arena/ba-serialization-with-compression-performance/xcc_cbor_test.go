@@ -20,7 +20,7 @@ func Benchmark___SerializationAndCompressionPerformance___Cbor(b *testing.B) { /
 
 				rawBytes, err := cbor.Marshal(x)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				test.CompressionCallback(rawBytes)

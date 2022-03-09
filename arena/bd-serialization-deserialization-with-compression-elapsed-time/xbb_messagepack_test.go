@@ -9,12 +9,12 @@ import (
 	"github.com/vmihailenco/msgpack/v5"
 )
 
-func Test___SerializationDeserializationWithCompressionPerformance___MessagePack(t *testing.T) {
+func Test___SerializationDeserializationWithCompressionPerformance___MessagePack(rootTestbed *testing.T) {
 	datasource := arena.Datasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
-		t.Run(test.Desc, func(testbed *testing.T) {
+		rootTestbed.Run(test.Desc, func(testbed *testing.T) {
 			startTime := time.Now()
 
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {

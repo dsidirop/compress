@@ -20,23 +20,23 @@ func Benchmark___SerializationDeserializationWithCompressionPerformance___Bson(b
 
 				serializedBytes, err := bson.Marshal(x)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				compressedAndSerializedBytes, err := test.CompressionCallback(serializedBytes)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				decompressedBytes, err := test.DecompressionCallback(compressedAndSerializedBytes)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				fooitem := &arena.FooItem{}
 				err = bson.Unmarshal(decompressedBytes, fooitem)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 			}
 		})

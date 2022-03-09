@@ -1,4 +1,8 @@
-# https://github.com/glycerine/golang-thrift-minimal-example/blob/master/serialize.go
+# [snappy           ](https://github.com/klauspost/compress/tree/master/snappy             ) is a drop-in replacement for `github.com/golang/snappy` offering better compression and concurrent streams.
+# [huff0            ](https://github.com/klauspost/compress/tree/master/huff0              ) and [FSE](https://github.com/klauspost/compress/tree/master/fse) implementations for raw entropy encoding.
+# [gzhttp           ](https://github.com/klauspost/compress/tree/master/gzhttp             ) Provides client and server wrappers for handling gzipped requests efficiently.
+# [pgzip            ](https://github.com/klauspost/pgzip                                   ) is a separate package that provides a very fast parallel gzip implementation.
+# [fuzz package     ](https://github.com/klauspost/compress-fuzz                           ) for fuzz testing all compressors/decompressors here.
 
 cpucount ?= 1
 
@@ -10,6 +14,7 @@ benchmark:									               \
 	benchmark-deserialization-performance                  \
 	benchmark-serialization-deserialization-performance    \
 	benchmark-serialization-message-size-footprint         \
+	benchmark-serialization-deserialization-with-compression-elapsed-time \
 	merge-output-images-of-plots  #		benchmark-serialization-deserialization-elapsed-time
 
 .PHONY:\

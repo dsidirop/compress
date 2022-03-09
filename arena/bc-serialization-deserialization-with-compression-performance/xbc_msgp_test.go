@@ -22,24 +22,24 @@ func Benchmark___SerializationDeserializationWithCompressionPerformance___Msgp(b
 				serializedBytesBuffer := &bytes.Buffer{}
 				err := msgp.Encode(serializedBytesBuffer, &x)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				compressedAndSerializedBytes, err := test.CompressionCallback(serializedBytesBuffer.Bytes())
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				decompressedBytes, err := test.DecompressionCallback(compressedAndSerializedBytes)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				fooitem := &arena.FooItem{}
 				deserializedBytesBuffer := bytes.NewReader(decompressedBytes)
 				err = msgp.Decode(deserializedBytesBuffer, fooitem)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 			}
 		})

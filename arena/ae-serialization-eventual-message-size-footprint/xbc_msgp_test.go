@@ -15,7 +15,7 @@ func Test___SerializationMessageSizeFootprint___Msgp(t *testing.T) {
 
 	err := msgp.Encode(buf, &x)
 	if err != nil {
-		b.Fatalf("Error: %s", err)
+		t.Fatalf("Error: %s", err)
 	}
 
 	fmt.Printf("** Msgp %d bytes\n", len(buf.Bytes()))

@@ -4,7 +4,7 @@ benchmark_dirname="${1}"
 title="${2}"
 y_label="${3}"
 cpu_count="${4}"
-gnuplot_config_file="${5:-plot.gp}"
+gnuplot_config_file="${5:-../plot.gp}"
 output_files_name_prefix="${benchmark_dirname}-cpu${cpu_count}"
 
 cd  "./arena/${benchmark_dirname}/"

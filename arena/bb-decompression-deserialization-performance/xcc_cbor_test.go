@@ -23,12 +23,12 @@ func Benchmark___DecompressionAndDeserializationPerformance___Cbor(b *testing.B)
 
 				serializedBytes, err := cbor.Marshal(x)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				compressedAndSerializedBytes, err := test.CompressionCallback(serializedBytes)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				compressedAndSerializedDatasource = append(compressedAndSerializedDatasource, compressedAndSerializedBytes)
@@ -40,13 +40,13 @@ func Benchmark___DecompressionAndDeserializationPerformance___Cbor(b *testing.B)
 
 				decompressedSerializedBytes, err := test.DecompressionCallback(x)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				item := &arena.FooItem{}
 				err = cbor.Unmarshal(decompressedSerializedBytes, item)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 			}
 		})
