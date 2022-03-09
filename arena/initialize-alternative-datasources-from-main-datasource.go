@@ -2,6 +2,7 @@ package arena
 
 import (
 	"bytes"
+	"compress/gzip"
 	"compress/zlib"
 	"context"
 	"encoding/json"
@@ -79,11 +80,11 @@ func InitCompressionTestCases() {
 		func() compressionTestCase {
 			return compressionTestCase{
 				Desc: "ZLib",
-				CompressionCallback: func(uncompressedRawBytes []byte) ([]byte, error) {
+				CompressionCallback: func(rawBytes []byte) ([]byte, error) {
 					compressedBytesBufferWriter := &bytes.Buffer{}
 
 					zlibCompressor := zlib.NewWriter(compressedBytesBufferWriter)
-					_, err := zlibCompressor.Write(uncompressedRawBytes)
+					_, err := zlibCompressor.Write(rawBytes)
 					if err != nil {
 						return nil, err
 					}
@@ -164,9 +165,9 @@ func InitCompressionTestCases() {
 		func() compressionTestCase {
 			return compressionTestCase{
 				Desc: "Deflate",
-				CompressionCallback: func(uncompressedRawBytes []byte) ([]byte, error) {
+				CompressionCallback: func(rawBytes []byte) ([]byte, error) {
 					decompressedBytesBuffer := &bytes.Buffer{}
-					uncompressedRawBytesBuffer := bytes.NewReader(uncompressedRawBytes)
+					uncompressedRawBytesBuffer := bytes.NewReader(rawBytes)
 
 					encoder, err := flate.NewWriter(decompressedBytesBuffer, -1)
 					if err != nil {
@@ -198,6 +199,48 @@ func InitCompressionTestCases() {
 					}
 
 					return decompressedResultBufferedWriter.Bytes(), err
+				},
+			}
+		}(),
+		func() compressionTestCase {
+			return compressionTestCase{
+				Desc: "GZip",
+				CompressionCallback: func(rawBytes []byte) ([]byte, error) {
+					compressedBytesBuffer := &bytes.Buffer{}
+					gzipCompressor := gzip.NewWriter(compressedBytesBuffer)
+
+					_, err := gzipCompressor.Write(rawBytes)
+					if err != nil {
+						return nil, err
+					}
+
+					err = gzipCompressor.Close()
+					if err != nil {
+						return nil, err
+					}
+
+					return compressedBytesBuffer.Bytes(), nil
+				},
+				DecompressionCallback: func(compressedBytes []byte) ([]byte, error) {
+					compressedBytesReader := bytes.NewReader(compressedBytes)
+					decompressedBytesBuffer := &bytes.Buffer{}
+
+					gzipDecompressor, err := gzip.NewReader(compressedBytesReader)
+					if err != nil {
+						return nil, err
+					}
+
+					_, err = io.Copy(decompressedBytesBuffer, gzipDecompressor)
+					if err != nil {
+						return nil, err
+					}
+
+					err = gzipDecompressor.Close()
+					if err != nil {
+						return nil, err
+					}
+
+					return decompressedBytesBuffer.Bytes(), err
 				},
 			}
 		}(),
