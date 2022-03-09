@@ -13,6 +13,7 @@ import (
 
 	"github.com/andybalholm/brotli"
 	"github.com/apache/thrift/lib/go/thrift"
+	"github.com/dsnet/compress/bzip2"
 	"github.com/fxamacker/cbor/v2"
 	"github.com/hamba/avro"
 	"github.com/klauspost/compress/arena/thfooitem"
@@ -301,6 +302,45 @@ func InitCompressionTestCases() {
 
 					decompressedBytes, err := ioutil.ReadAll(lz4Decompressor)
 					//lz4Decompressor.Close()
+
+					if err != nil {
+						return nil, err
+					}
+
+					return decompressedBytes, nil
+				},
+			}
+		}(),
+		func() compressionTestCase {
+			return compressionTestCase{
+				Desc: "BZip2",
+				CompressionCallback: func(rawBytes []byte) ([]byte, error) {
+					compressedOutputBuffer := &bytes.Buffer{}
+
+					bzip2Compressor, err := bzip2.NewWriter(compressedOutputBuffer, &bzip2.WriterConfig{})
+					if err != nil {
+						return nil, err
+					}
+
+					_, err = bzip2Compressor.Write(rawBytes)
+					bzip2Compressor.Close()
+
+					if err != nil {
+						return nil, err
+					}
+
+					return compressedOutputBuffer.Bytes(), nil
+				},
+				DecompressionCallback: func(compressedBytes []byte) ([]byte, error) {
+					compressedBytesBuffer := bytes.NewReader(compressedBytes)
+
+					bzip2Decompressor, err := bzip2.NewReader(compressedBytesBuffer, &bzip2.ReaderConfig{})
+					if err != nil {
+						return nil, err
+					}
+
+					decompressedBytes, err := ioutil.ReadAll(bzip2Decompressor)
+					bzip2Decompressor.Close()
 
 					if err != nil {
 						return nil, err

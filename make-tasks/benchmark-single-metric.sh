@@ -18,10 +18,13 @@ fi
 
 
 
-awk \
-  '/[*][*]/{count++; printf("%d,%s,%s\n", count, $2, $3); }'      \
-  "./${output_files_name_prefix}---benchmark-raw-output.dat"      \
-> "./${output_files_name_prefix}---benchmark-output-parsed.dat"
+awk                                                                         \
+     '/[*][*]/{count++; printf("%d,%s,%s\n", count, $2, $3); }'             \
+     "./${output_files_name_prefix}---benchmark-raw-output.dat"             \
+  |  sort   -t','    -nk3                                                   \
+  |  awk    -F','    '//{count++; printf("%d,%s,%s\n", count, $2, $3); }'   \
+  >  "./${output_files_name_prefix}---benchmark-output-parsed.dat"
+
 
 # messageSizeMax=`                    awk -F','                         'BEGIN{a=0}{ if ($3>0+a) a=$3} END{print a}'     "./${output_files_name_prefix}---benchmark-output-parsed.dat"    `
 # messageSizeMaxRoundedUpwards=`      awk -v n="${messageSizeMax}"      'BEGIN{ print int((n+100) / 100 ) * 100 }'                                                 `

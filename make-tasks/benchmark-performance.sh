@@ -17,10 +17,10 @@ fi
 
 
 
-awk                                                                                                                                        \
-'/Benchmark_/{count++; gsub(/Benchmark_+.*?_+/, ""); gsub(/[-][0-9]+ /, ""); printf("%d,%s,%s,%s,%s,%s\n", count, $1, $2, $3, $5, $7); }'  \
-  "./${output_files_name_prefix}---benchmark-raw-output.dat"                                                                               \
-> "./${output_files_name_prefix}---benchmark-output-parsed.dat"
+awk                                                                                                                                          \
+  '/Benchmark_/{count++; gsub(/Benchmark_+.*?_+/, ""); gsub(/[-][0-9]+ /, ""); printf("%d,%s,%s,%s,%s,%s\n", count, $1, $2, $3, $5, $7); }'  \
+  "./${output_files_name_prefix}---benchmark-raw-output.dat"                                                                                 \
+  > "./${output_files_name_prefix}---benchmark-output-parsed.dat"
 
 # operationsMax=`                    awk -F','                        'BEGIN{a=0}{ if ($3>0+a) a=$3} END{print a}'     "./${benchmark_dirname}---benchmark-output-parsed.dat"    `
 # nanosecondsMax=`                   awk -F','                        'BEGIN{a=0}{ if ($4>0+a) a=$4} END{print a}'     "./${benchmark_dirname}---benchmark-output-parsed.dat"    `
