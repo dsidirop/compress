@@ -1,6 +1,7 @@
 package serialization_deserialization_performance
 
 import (
+	"fmt"
 	"testing"
 	"time"
 
@@ -44,7 +45,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___Protobuf(t 
 
 			averageElapsedTime := float64(finishTime.Sub(startTime).Nanoseconds()) / NUMBER_OF_ITERATIONS
 
-			testbed.Logf("** Protobuf %d nanoseconds\n", int64(averageElapsedTime))
+			fmt.Printf("** Protobuf+%s %d nanoseconds\n", test.Desc, int64(averageElapsedTime))
 		})
 	}
 }

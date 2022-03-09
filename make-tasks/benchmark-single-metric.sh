@@ -4,6 +4,7 @@ benchmark_dirname="${1}"
 title="${2}"
 y_label="${3}"
 cpu_count="${4}"
+gnuplot_config_file="${5:-plot.gp}"
 output_files_name_prefix="${benchmark_dirname}-cpu${cpu_count}"
 
 cd  "./arena/${benchmark_dirname}/"
@@ -18,8 +19,8 @@ fi
 
 
 awk \
-'/[*][*]/{count++; printf("%d,%s,%s\n", count, $2, $3); }'        \
-"./${output_files_name_prefix}---benchmark-raw-output.dat"        \
+  '/[*][*]/{count++; printf("%d,%s,%s\n", count, $2, $3); }'      \
+  "./${output_files_name_prefix}---benchmark-raw-output.dat"      \
 > "./${output_files_name_prefix}---benchmark-output-parsed.dat"
 
 # messageSizeMax=`                    awk -F','                         'BEGIN{a=0}{ if ($3>0+a) a=$3} END{print a}'     "./${output_files_name_prefix}---benchmark-output-parsed.dat"    `
@@ -31,7 +32,7 @@ tempPlotConfigFile="${tempDir}/plot.gp"
 title_lowercased_with_dashes=${title// /-}
 title_lowercased_with_dashes=${title_lowercased_with_dashes,,}
 
-cp            '../plot.gp'                                                                     "${tempPlotConfigFile}"
+cp            "${gnuplot_config_file}"                                                         "${tempPlotConfigFile}"
 sed    -i     "s/___TITLE___/${title}\\\\n[${output_files_name_prefix} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
 gnuplot \
 -e "    file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                                 "    \

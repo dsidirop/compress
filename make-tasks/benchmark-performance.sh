@@ -2,7 +2,7 @@
 
 benchmark_dirname="${1}"
 cpu_count="${2}"
-configFile="${3:-../plot.gp}"
+gnuplot_config_file="${3:-../plot.gp}"
 output_files_name_prefix="${benchmark_dirname}-cpu${cpu_count}"
 
 cd "./arena/${benchmark_dirname}/"
@@ -36,7 +36,7 @@ tempDir=`mktemp -d -t golang-compression-libs-arena.XXXX`
 tempPlotConfigFile="${tempDir}/plot.gp"
 
 
-cp            "${configFile}"                                                                                                        "${tempPlotConfigFile}"
+cp            "${gnuplot_config_file}"                                                                                               "${tempPlotConfigFile}"
 sed    -i     "s/___TITLE___/Avg Elapsed Time (ns) per Operation - Lower is better\\\\n[${benchmark_dirname} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
 gnuplot \
 -e "file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                           "  \
@@ -47,7 +47,7 @@ gnuplot \
 "${tempPlotConfigFile}"
 
 
-cp            "${configFile}"                                                                                    "${tempPlotConfigFile}"
+cp            "${gnuplot_config_file}"                                                                           "${tempPlotConfigFile}"
 sed    -i     "s/___TITLE___/CPU Operations# - Lower is better\\\\n[${benchmark_dirname} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
 gnuplot \
 -e "file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                           "  \
@@ -57,7 +57,7 @@ gnuplot \
 -e "column_2=3                                                                                                        "  \
 "${tempPlotConfigFile}"
 
-cp            "${configFile}"                                                                                            "${tempPlotConfigFile}"
+cp            "${gnuplot_config_file}"                                                                                   "${tempPlotConfigFile}"
 sed    -i     "s/___TITLE___/RAM Bytes per Operation - Lower is better\\\\n[${benchmark_dirname} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
 gnuplot \
 -e "file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                        "  \
@@ -67,7 +67,7 @@ gnuplot \
 -e "column_2=5                                                                                                     "  \
 "${tempPlotConfigFile}"
 
-cp            "${configFile}"                                                                                              "${tempPlotConfigFile}"
+cp            "${gnuplot_config_file}"                                                                                     "${tempPlotConfigFile}"
 sed    -i     "s/___TITLE___/Allocations per Operation - Lower is better\\\\n[${benchmark_dirname} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
 gnuplot \
 -e "file_path='./${output_files_name_prefix}---benchmark-output-parsed.dat'                                        "  \

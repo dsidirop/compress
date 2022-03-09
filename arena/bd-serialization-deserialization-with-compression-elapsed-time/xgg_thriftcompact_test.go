@@ -2,6 +2,7 @@ package serialization_deserialization_performance
 
 import (
 	"context"
+	"fmt"
 	"testing"
 	"time"
 
@@ -48,7 +49,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___ThriftCompa
 
 			averageElapsedTime := float64(finishTime.Sub(startTime).Nanoseconds()) / NUMBER_OF_ITERATIONS
 
-			testbed.Logf("** ThriftCompact %d nanoseconds\n", int64(averageElapsedTime))
+			fmt.Printf("** ThriftCompact+%s %d nanoseconds\n", test.Desc, int64(averageElapsedTime))
 		})
 	}
 }

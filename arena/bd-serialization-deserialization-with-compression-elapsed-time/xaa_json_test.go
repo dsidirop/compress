@@ -2,6 +2,7 @@ package serialization_deserialization_performance
 
 import (
 	"encoding/json"
+	"fmt"
 	"testing"
 	"time"
 
@@ -14,8 +15,8 @@ func Test___SerializationDeserializationWithCompressionPerformance___Json(t *tes
 
 	for _, test := range arena.AllCompressionTestCases {
 		t.Run(test.Desc, func(testbed *testing.T) {
-			startTime := time.Now()
 
+			startTime := time.Now()
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 				x := datasource[i%datasourceArrayLength]
 
@@ -44,7 +45,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___Json(t *tes
 
 			averageElapsedTime := float64(finishTime.Sub(startTime).Nanoseconds()) / NUMBER_OF_ITERATIONS
 
-			testbed.Logf("** JSON %d nanoseconds\n", int64(averageElapsedTime))
+			fmt.Printf("** JSON+%s %d nanoseconds\n", test.Desc, int64(averageElapsedTime))
 		})
 	}
 }

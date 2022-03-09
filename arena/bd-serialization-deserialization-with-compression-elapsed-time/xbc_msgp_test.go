@@ -2,6 +2,7 @@ package serialization_deserialization_performance
 
 import (
 	"bytes"
+	"fmt"
 	"testing"
 	"time"
 
@@ -47,7 +48,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___Msgp(t *tes
 
 			averageElapsedTime := float64(finishTime.Sub(startTime).Nanoseconds()) / NUMBER_OF_ITERATIONS
 
-			testbed.Logf("** Msgp %d nanoseconds\n", int64(averageElapsedTime))
+			fmt.Printf("** Msgp+%s %d nanoseconds\n", test.Desc, int64(averageElapsedTime))
 		})
 	}
 }

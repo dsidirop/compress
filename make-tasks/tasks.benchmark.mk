@@ -52,6 +52,12 @@ benchmark-serialization-deserialization-with-compression-performance
 benchmark-serialization-deserialization-with-compression-performance:    compile-idl
 	@$(call benchmark-performance,bc-serialization-deserialization-with-compression-performance,$(cpucount))
 
+.PHONY:\
+benchmark-serialization-deserialization-with-compression-elapsed-time
+benchmark-serialization-deserialization-with-compression-elapsed-time:    compile-idl
+	@$(call benchmark-single-metric,bd-serialization-deserialization-with-compression-elapsed-time,Average Elapsed Time in nsecs - Lower is better,ns,$(cpucount),../plot.serialization-deserialization-with-compression-elapsed-time.gp)
+
+
 
 .PHONY:\
 merge-output-images-of-plots
