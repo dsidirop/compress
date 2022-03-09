@@ -1,4 +1,3 @@
-# [snappy           ](https://github.com/klauspost/compress/tree/master/snappy             ) is a drop-in replacement for `github.com/golang/snappy` offering better compression and concurrent streams.
 # [huff0            ](https://github.com/klauspost/compress/tree/master/huff0              ) and [FSE](https://github.com/klauspost/compress/tree/master/fse) implementations for raw entropy encoding.
 # [gzhttp           ](https://github.com/klauspost/compress/tree/master/gzhttp             ) Provides client and server wrappers for handling gzipped requests efficiently.
 # [pgzip            ](https://github.com/klauspost/pgzip                                   ) is a separate package that provides a very fast parallel gzip implementation.
@@ -15,6 +14,7 @@ benchmark:									               \
 	benchmark-serialization-deserialization-performance    \
 	benchmark-serialization-message-size-footprint         \
 	benchmark-serialization-deserialization-with-compression-elapsed-time \
+	benchmark-serialization-with-compression-eventual-message-size        \
 	merge-output-images-of-plots  #		benchmark-serialization-deserialization-elapsed-time
 
 .PHONY:\
@@ -62,7 +62,10 @@ benchmark-serialization-deserialization-with-compression-elapsed-time
 benchmark-serialization-deserialization-with-compression-elapsed-time:    compile-idl
 	@$(call benchmark-single-metric,bd-serialization-deserialization-with-compression-elapsed-time,Average Elapsed Time in nsecs - Lower is better,ns,$(cpucount),../plot.serialization-deserialization-with-compression-elapsed-time.gp)
 
-
+.PHONY:\
+benchmark-serialization-with-compression-eventual-message-size
+benchmark-serialization-with-compression-eventual-message-size:    compile-idl
+	@$(call benchmark-single-metric,be-serialization-with-compression-eventual-message-size,Average Size in Bytes - Lower is better,bytes,$(cpucount),../plot.serialization-with-compression-eventual-message-size.gp)
 
 .PHONY:\
 merge-output-images-of-plots

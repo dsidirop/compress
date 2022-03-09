@@ -145,7 +145,7 @@ func InitCompressionTestCases() {
 		}(),
 		func() compressionTestCase {
 			return compressionTestCase{
-				Desc: "S2", //snappy-like codec
+				Desc: "Snappy2", //via s2 which means snappy2   its a facelift over the original snappy
 				CompressionCallback: func(rawBytes []byte) ([]byte, error) {
 					compressedBytes := s2.Encode(nil, rawBytes)
 
