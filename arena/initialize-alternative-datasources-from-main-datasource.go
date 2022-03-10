@@ -425,11 +425,11 @@ func InitCompressionTestCases() {
 			CompressionCallback:   zlibCompressorFactory(zlib.DefaultCompression),
 			DecompressionCallback: zlibDecompressorFactory(),
 		},
-		{
-			Desc:                  "Zlib-BestCompression",
-			CompressionCallback:   zlibCompressorFactory(zlib.BestCompression),
-			DecompressionCallback: zlibDecompressorFactory(),
-		},
+		// {
+		// 	Desc:                  "Zlib-BestCompression", //deadslow
+		// 	CompressionCallback:   zlibCompressorFactory(zlib.BestCompression),
+		// 	DecompressionCallback: zlibDecompressorFactory(),
+		// },
 		{
 			Desc:                  "Zlib-BestSpeed",
 			CompressionCallback:   zlibCompressorFactory(zlib.BestSpeed),
@@ -441,11 +441,11 @@ func InitCompressionTestCases() {
 			CompressionCallback:   zstandardCompressorFactory(zstd.SpeedDefault),
 			DecompressionCallback: zstandardDecompressorFactory(),
 		},
-		{
-			Desc:                  "ZStandard-BetterCompression", //best compression is ultra dead-slow
-			CompressionCallback:   zstandardCompressorFactory(zstd.SpeedBetterCompression),
-			DecompressionCallback: zstandardDecompressorFactory(),
-		},
+		// {
+		// 	Desc:                  "ZStandard-BetterCompression", //deadslow
+		// 	CompressionCallback:   zstandardCompressorFactory(zstd.SpeedBetterCompression),
+		// 	DecompressionCallback: zstandardDecompressorFactory(),
+		// },
 		{
 			Desc:                  "ZStandard-BestSpeed",
 			CompressionCallback:   zstandardCompressorFactory(zstd.SpeedFastest),
@@ -462,11 +462,11 @@ func InitCompressionTestCases() {
 			CompressionCallback:   s2CompressorFactory(1),
 			DecompressionCallback: s2DecompressorFactory(),
 		},
-		{
-			Desc:                  "S2-BestCompression",
-			CompressionCallback:   s2CompressorFactory(2),
-			DecompressionCallback: s2DecompressorFactory(),
-		},
+		// {
+		// 	Desc:                  "S2-BestCompression",
+		// 	CompressionCallback:   s2CompressorFactory(2),
+		// 	DecompressionCallback: s2DecompressorFactory(),
+		// },
 		//snappy
 		{
 			Desc:                  "Snappy-DefaultCompression",
@@ -478,11 +478,11 @@ func InitCompressionTestCases() {
 			CompressionCallback:   snappyCompressorFactory(1),
 			DecompressionCallback: snappyDecompressorFactory(),
 		},
-		{
-			Desc:                  "Snappy-BestCompression",
-			CompressionCallback:   snappyCompressorFactory(2),
-			DecompressionCallback: snappyDecompressorFactory(),
-		},
+		// {
+		// 	Desc:                  "Snappy-BestCompression", //too slow
+		// 	CompressionCallback:   snappyCompressorFactory(2),
+		// 	DecompressionCallback: snappyDecompressorFactory(),
+		// },
 		//deflate
 		{
 			Desc:                  "Deflate-DefaultCompression",
@@ -494,11 +494,11 @@ func InitCompressionTestCases() {
 			CompressionCallback:   deflateCompressorFactory(flate.BestSpeed),
 			DecompressionCallback: deflateDecompressorFactory(),
 		},
-		{
-			Desc:                  "Deflate-BestCompression",
-			CompressionCallback:   deflateCompressorFactory(flate.BestCompression),
-			DecompressionCallback: deflateDecompressorFactory(),
-		},
+		// {
+		// 	Desc:                  "Deflate-BestCompression", //too slow
+		// 	CompressionCallback:   deflateCompressorFactory(flate.BestCompression),
+		// 	DecompressionCallback: deflateDecompressorFactory(),
+		// },
 		//gzip
 		{
 			Desc:                  "Gzip-DefaultCompression",
@@ -510,11 +510,11 @@ func InitCompressionTestCases() {
 			CompressionCallback:   gzipCompressorFactory(flate.BestSpeed),
 			DecompressionCallback: gzipDecompressorFactory(),
 		},
-		{
-			Desc:                  "Gzip-BestCompression",
-			CompressionCallback:   gzipCompressorFactory(flate.BestCompression),
-			DecompressionCallback: gzipDecompressorFactory(),
-		},
+		// {
+		// 	Desc:                  "Gzip-BestCompression", //too slow
+		// 	CompressionCallback:   gzipCompressorFactory(flate.BestCompression),
+		// 	DecompressionCallback: gzipDecompressorFactory(),
+		// },
 		//brotli
 		{
 			Desc:                  "Brotli-DefaultCompression",
@@ -526,11 +526,11 @@ func InitCompressionTestCases() {
 			CompressionCallback:   brotliCompressorFactory(brotli.BestSpeed),
 			DecompressionCallback: brotliDecompressorFactory(),
 		},
-		{
-			Desc:                  "Brotli-BestCompression",
-			CompressionCallback:   brotliCompressorFactory(brotli.BestCompression),
-			DecompressionCallback: brotliDecompressorFactory(),
-		},
+		// {
+		// 	Desc:                  "Brotli-BestCompression", //too slow
+		// 	CompressionCallback:   brotliCompressorFactory(brotli.BestCompression),
+		// 	DecompressionCallback: brotliDecompressorFactory(),
+		// },
 		//lz4
 		{
 			Desc:                  "LZ4-DefaultCompression",
@@ -542,11 +542,11 @@ func InitCompressionTestCases() {
 			CompressionCallback:   lz4CompressorFactory(&[]lz4.CompressionLevel{lz4.Fast}[0]),
 			DecompressionCallback: lz4DecompressorFactory(),
 		},
-		{
-			Desc:                  "LZ4-BestCompression",
-			CompressionCallback:   lz4CompressorFactory(&[]lz4.CompressionLevel{lz4.Level9}[0]),
-			DecompressionCallback: lz4DecompressorFactory(),
-		},
+		// {
+		// 	Desc:                  "LZ4-BestCompression", //too slow
+		// 	CompressionCallback:   lz4CompressorFactory(&[]lz4.CompressionLevel{lz4.Level9}[0]),
+		// 	DecompressionCallback: lz4DecompressorFactory(),
+		// },
 		//bzip2
 		{
 			Desc:                  "Bzip2-DefaultCompression",
@@ -558,11 +558,11 @@ func InitCompressionTestCases() {
 			CompressionCallback:   bzip2CompressorFactory(bzip2.BestSpeed),
 			DecompressionCallback: bzip2DecompressorFactory(),
 		},
-		{
-			Desc:                  "Bzip2-BestCompression",
-			CompressionCallback:   bzip2CompressorFactory(bzip2.BestCompression),
-			DecompressionCallback: bzip2DecompressorFactory(),
-		},
+		// {
+		// 	Desc:                  "Bzip2-BestCompression", //too slow
+		// 	CompressionCallback:   bzip2CompressorFactory(bzip2.BestCompression),
+		// 	DecompressionCallback: bzip2DecompressorFactory(),
+		// },
 	}
 }
 
