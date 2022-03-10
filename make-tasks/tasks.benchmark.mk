@@ -48,7 +48,7 @@ benchmark-serialization-message-size-footprint:    compile-idl
 .PHONY:\
 benchmark-serialization-with-compression-performance
 benchmark-serialization-with-compression-performance:    compile-idl
-	@$(call benchmark-performance,ba-serialization-with-compression-performance,$(cpucount),../plot.serialization-with-compression.gp)
+	@$(call benchmark-performance,ba-serialization-with-compression-performance,$(cpucount),../plot.serialization-with-compression.gp,vertical)
 
 .PHONY:\
 benchmark-decompression-deserialization-performance

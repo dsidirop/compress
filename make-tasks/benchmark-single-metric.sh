@@ -49,13 +49,21 @@ gnuplot \
 "${tempPlotConfigFile}"
 
 
+overall_results_fname="${output_files_name_prefix}----category-overall-results.png"
+overall_results_filepath=`realpath  "../../arena-results/${overall_results_fname}"`
+
+
 montage                                                                        \
             -mode concatenate                                                  \
             "../../arena-results/${output_files_name_prefix}--*--result.png"   \
-            "../../arena-results/${output_files_name_prefix}----category-overall-results.png"
+            "${overall_results_filepath}"
 
-cp       "./${output_files_name_prefix}---benchmark-output-parsed.dat"   '../../arena-results'
 
-echo     'Plots successfully generated'
+cp                                                                           \
+            "./${output_files_name_prefix}---benchmark-output-parsed.dat"    \
+            "../../arena-results"
+
+
+echo        "Plot '${overall_results_fname}' successfully generated"
 
 rm -rf "${tempDir}"

@@ -3,6 +3,8 @@
 benchmark_dirname="${1}"
 cpu_count="${2}"
 gnuplot_config_file="${3:-../plot.gp}"
+resulting_image_merge_mode="${4}"
+
 output_files_name_prefix="${benchmark_dirname}-cpu${cpu_count}"
 
 cd "./arena/${benchmark_dirname}/"
@@ -93,10 +95,22 @@ gnuplot \
   "${tempPlotConfigFile}"
 
 
-montage                                                                        \
-            -mode concatenate                                                  \
+overall_results_fname="${output_files_name_prefix}----category-overall-results.png"
+overall_results_filepath=`realpath  "../../arena-results/${overall_results_fname}"`
+
+if [[ "${resulting_image_merge_mode}" == "vertical" ]]; then
+  convert                                                                      \
+            -append                                                            \
             "../../arena-results/${output_files_name_prefix}--*--result.png"   \
-            "../../arena-results/${output_files_name_prefix}----category-overall-results.png"
+            "${overall_results_filepath}"
+
+else # horizontal
+  convert                                                                      \
+            +append                                                            \
+            "../../arena-results/${output_files_name_prefix}--*--result.png"   \
+            "${overall_results_filepath}"
+
+fi
 
 
 cp                                                                           \
@@ -104,6 +118,6 @@ cp                                                                           \
             "../../arena-results"
 
 
-echo "Plots successfully generated"
+echo        "Plot '${overall_results_fname}' successfully generated"
 
 rm -rf "${tempDir}"
