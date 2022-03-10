@@ -42,12 +42,12 @@ cat           "./${output_files_name_prefix}---benchmark-output-parsed.dat"     
   |           awk    -F','    '//{count++; printf("%d,%s,%s\n", count, $2, $4); }'   \
   >           "./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-time-per-operation.dat"
 gnuplot \
--e "file_path='./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-time-per-operation.dat'            "  \
--e "graphic_file_name='../../arena-results/${output_files_name_prefix}--001-time-per-operation--result.png'           "  \
--e "y_label='nanoseconds / operation'                                                                                 "  \
--e "column_1=1                                                                                                        "  \
--e "column_2=3                                                                                                        "  \
-"${tempPlotConfigFile}"
+  -e "file_path='./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-time-per-operation.dat'            "  \
+  -e "graphic_file_name='../../arena-results/${output_files_name_prefix}--001-time-per-operation--result.png'           "  \
+  -e "y_label='nanoseconds / operation'                                                                                 "  \
+  -e "column_1=1                                                                                                        "  \
+  -e "column_2=3                                                                                                        "  \
+  "${tempPlotConfigFile}"
 
 
 cp            "${gnuplot_config_file}"                                                                           "${tempPlotConfigFile}"
@@ -57,12 +57,12 @@ cat           "./${output_files_name_prefix}---benchmark-output-parsed.dat"     
   |           awk    -F','    '//{count++; printf("%d,%s,%s\n", count, $2, $3); }'   \
   >           "./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-cpu-operations-count.dat"
 gnuplot \
--e "file_path='./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-cpu-operations-count.dat'          "  \
--e "graphic_file_name='../../arena-results/${output_files_name_prefix}--002-cpu-operations-count--result.png'         "  \
--e "y_label='cpu-ops#'                                                                                                "  \
--e "column_1=1                                                                                                        "  \
--e "column_2=3                                                                                                        "  \
-"${tempPlotConfigFile}"
+  -e "file_path='./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-cpu-operations-count.dat'          "  \
+  -e "graphic_file_name='../../arena-results/${output_files_name_prefix}--002-cpu-operations-count--result.png'         "  \
+  -e "y_label='cpu-ops#'                                                                                                "  \
+  -e "column_1=1                                                                                                        "  \
+  -e "column_2=3                                                                                                        "  \
+  "${tempPlotConfigFile}"
 
 cp            "${gnuplot_config_file}"                                                                                   "${tempPlotConfigFile}"
 sed    -i     "s/___TITLE___/RAM Bytes per Operation - Lower is better\\\\n[${benchmark_dirname} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
@@ -71,12 +71,12 @@ cat           "./${output_files_name_prefix}---benchmark-output-parsed.dat"     
   |           awk    -F','    '//{count++; printf("%d,%s,%s\n", count, $2, $5); }'   \
   >           "./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-ram-bytes-per-operation.dat"
 gnuplot \
--e "file_path='./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-ram-bytes-per-operation.dat'    "  \
--e "graphic_file_name='../../arena-results/${output_files_name_prefix}--003-ram-bytes-per-operation--result.png'   "  \
--e "y_label='ram-bytes / operation'                                                                                "  \
--e "column_1=1                                                                                                     "  \
--e "column_2=3                                                                                                     "  \
-"${tempPlotConfigFile}"
+  -e "file_path='./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-ram-bytes-per-operation.dat'    "  \
+  -e "graphic_file_name='../../arena-results/${output_files_name_prefix}--003-ram-bytes-per-operation--result.png'   "  \
+  -e "y_label='ram-bytes / operation'                                                                                "  \
+  -e "column_1=1                                                                                                     "  \
+  -e "column_2=3                                                                                                     "  \
+  "${tempPlotConfigFile}"
 
 cp            "${gnuplot_config_file}"                                                                                     "${tempPlotConfigFile}"
 sed    -i     "s/___TITLE___/Allocations per Operation - Lower is better\\\\n[${benchmark_dirname} cpu#=${cpu_count}]/g"   "${tempPlotConfigFile}"
@@ -85,12 +85,12 @@ cat           "./${output_files_name_prefix}---benchmark-output-parsed.dat"     
   |           awk    -F','    '//{count++; printf("%d,%s,%s\n", count, $2, $6); }'   \
   >           "./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-allocations-per-operation.dat"
 gnuplot \
--e "file_path='./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-allocations-per-operation.dat'  "  \
--e "graphic_file_name='../../arena-results/${output_files_name_prefix}--004-allocations-per-operation--result.png' "  \
--e "y_label='allocations / operation'                                                                              "  \
--e "column_1=1                                                                                                     "  \
--e "column_2=3                                                                                                     "  \
-"${tempPlotConfigFile}"
+  -e "file_path='./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-allocations-per-operation.dat'  "  \
+  -e "graphic_file_name='../../arena-results/${output_files_name_prefix}--004-allocations-per-operation--result.png' "  \
+  -e "y_label='allocations / operation'                                                                              "  \
+  -e "column_1=1                                                                                                     "  \
+  -e "column_2=3                                                                                                     "  \
+  "${tempPlotConfigFile}"
 
 
 montage                                                                        \

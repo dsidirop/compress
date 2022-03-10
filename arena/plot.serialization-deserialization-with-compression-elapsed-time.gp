@@ -33,7 +33,7 @@ set key off
 set ylabel y_label
 
 # range for values in x/y axes
-set xrange[0.05:73]
+set xrange[0.05:220]
 set yrange[0:]
 
 # to avoid displaying large numbers in exponential format

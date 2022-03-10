@@ -1,3 +1,11 @@
+# 0a   compression levels
+# 0b   lz4Compressor.Reset() <- experiment with this to see if it improves performance
+# 1   diversify datasources
+# 2   benchmark throughput mb/sec
+# 2   excel spreadsheet autogeneration
+# 3   pareto line
+
+
 cpucount ?= 1
 
 .PHONY:\
