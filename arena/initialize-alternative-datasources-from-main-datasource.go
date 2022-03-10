@@ -74,8 +74,8 @@ var SpecialDatasourcesForIDLMechanisms = datasourcesForIDLMechanisms{}
 var SerializedAndCompressedDataSources = serializedAndCompressedDataSources{}
 
 func InitTestProvisions() {
-	InitCompressionTestCases()
-
+	InitializeMainDatasource()                           //   order
+	InitCompressionTestCases()                           //   order
 	InitIDLSchemas()                                     //   order
 	InitializeAlternativeDatasourcesFromMainDatasource() //   order
 }
@@ -605,7 +605,7 @@ func InitializeAlternativeDatasourcesFromMainDatasource() {
 
 		//msgp
 		buf := bytes.Buffer{}
-		err = msgp.Encode(&buf, &x)
+		err = msgp.Encode(&buf, x)
 		if err != nil {
 			panic(err)
 		}
