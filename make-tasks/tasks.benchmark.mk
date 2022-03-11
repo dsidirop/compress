@@ -1,4 +1,5 @@
-# 1   diversify datasources
+# 1a   diversify datasources
+# 1b   avro tags on structs (for the sake of realism)
 # 2   benchmark throughput mb/sec
 # 2   excel spreadsheet autogeneration
 # 3   pareto line
@@ -81,8 +82,8 @@ compile-idl:           \
 	compile-thrift     \
 	compile-protobuf
 
-compile-msgp: ./arena/fooitem.go
-	@cd arena  &&  msgp  --file  fooitem.go
+compile-msgp: ./arena/fooitem.go   ./arena/curvegenreplyv1.go
+	@cd arena    &&    for file in $^ ; do    msgp  --file   $$(basename "$${file}");  done
 	@touch  $@
 
 compile-avro: ./arena/*.avdl

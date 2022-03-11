@@ -17,7 +17,7 @@ func Benchmark___SerializationPerformance___Msgp(b *testing.B) {
 		x := datasource[i%datasourceArrayLength]
 
 		buf := bytes.Buffer{} //keep here
-		err := msgp.Encode(&buf, &x)
+		err := msgp.Encode(&buf, x)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}
