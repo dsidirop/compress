@@ -10,19 +10,20 @@ import (
 )
 
 func Test___SerializationDeserializationElapsedTime___MessagePack(t *testing.T) {
-	datasourceArrayLength := len(arena.Datasource)
+	datasource := arena.MainDatasource
+	datasourceArrayLength := len(datasource)
 
 	startTime := time.Now()
 	for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
-		x := arena.Datasource[i%datasourceArrayLength]
+		x := datasource[i%datasourceArrayLength]
 
-		bytes, err := msgpack.Marshal(x)
+		bytes, err := msgpack.Marshal(x.Item)
 		if err != nil {
 			t.Fatalf("Error: %s", err)
 		}
 
-		y := &arena.FooItem{}
-		err = msgpack.Unmarshal(bytes, y)
+		newitem := x.NewEmptyItem()
+		err = msgpack.Unmarshal(bytes, newitem)
 		if err != nil {
 			t.Fatalf("Error: %s", err)
 		}

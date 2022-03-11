@@ -9,7 +9,7 @@ import (
 )
 
 func Benchmark___SerializationAndCompressionPerformance___Msgp(b *testing.B) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
@@ -20,7 +20,7 @@ func Benchmark___SerializationAndCompressionPerformance___Msgp(b *testing.B) {
 				x := datasource[i%datasourceArrayLength]
 
 				buf := bytes.Buffer{}
-				err := msgp.Encode(&buf, &x)
+				err := msgp.Encode(&buf, x.Item)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}

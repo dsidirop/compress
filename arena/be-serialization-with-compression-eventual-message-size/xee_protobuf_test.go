@@ -19,7 +19,7 @@ func Test___SerializationWithCompressionMessageSizeFootprint___Protobuf(rootTest
 			for i := 0; i < datasourceArrayLength; i++ {
 				x := datasource[i]
 
-				rawBytes, err := proto.Marshal(x)
+				rawBytes, err := proto.Marshal(x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}

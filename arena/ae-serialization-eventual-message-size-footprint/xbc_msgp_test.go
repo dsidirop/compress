@@ -10,10 +10,10 @@ import (
 )
 
 func Test___SerializationMessageSizeFootprint___Msgp(t *testing.T) {
-	x := arena.Datasource[0]
+	x := arena.MainDatasource[0]
 	buf := &bytes.Buffer{}
 
-	err := msgp.Encode(buf, &x)
+	err := msgp.Encode(buf, x.Item)
 	if err != nil {
 		t.Fatalf("Error: %s", err)
 	}

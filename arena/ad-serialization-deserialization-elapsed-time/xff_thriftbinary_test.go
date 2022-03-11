@@ -8,7 +8,6 @@ import (
 
 	"github.com/apache/thrift/lib/go/thrift"
 	"github.com/klauspost/compress/arena"
-	"github.com/klauspost/compress/arena/thfooitem"
 )
 
 func Test___SerializationDeserializationElapsedTime___ThriftBinary(t *testing.T) {
@@ -22,13 +21,13 @@ func Test___SerializationDeserializationElapsedTime___ThriftBinary(t *testing.T)
 	for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 		x := datasource[i%datasourceArrayLength]
 
-		thriftBytes, err := thriftBinarySerializer.Write(ctx, x)
+		thriftBytes, err := thriftBinarySerializer.Write(ctx, x.Item)
 		if err != nil {
 			t.Fatalf("Error: %s", err)
 		}
 
-		y := thfooitem.NewTHFooItem()
-		err = thriftBinaryDeserializer.Read(ctx, y, thriftBytes)
+		newitem := x.NewEmptyThriftItem()
+		err = thriftBinaryDeserializer.Read(ctx, newitem, thriftBytes)
 		if err != nil {
 			t.Fatalf("Error: %s", err)
 		}

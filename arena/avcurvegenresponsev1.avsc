@@ -1,0 +1,156 @@
+{
+  "protocol" : "AV",
+  "namespace" : "org.arena.avro.curvegenreplyv1",
+  "types" : [ {
+    "type" : "record",
+    "name" : "AVCurveGenReplyV1",
+    "fields" : [ {
+      "name" : "ClientId",
+      "type" : "string"
+    }, {
+      "name" : "Spec",
+      "type" : {
+        "type" : "record",
+        "name" : "AVCurveSpecificationV1",
+        "fields" : [ {
+          "name" : "SimulatorName",
+          "type" : "string"
+        }, {
+          "name" : "Tenant",
+          "type" : "string"
+        }, {
+          "name" : "StartTime",
+          "type" : "long"
+        }, {
+          "name" : "EndTime",
+          "type" : "long"
+        }, {
+          "name" : "SampleInterval",
+          "type" : "int"
+        }, {
+          "name" : "CurveTypes",
+          "type" : "int"
+        } ]
+      }
+    }, {
+      "name" : "Lead1",
+      "type" : {
+        "type" : "array",
+        "items" : "int"
+      }
+    }, {
+      "name" : "Lead2",
+      "type" : {
+        "type" : "array",
+        "items" : "int"
+      }
+    }, {
+      "name" : "Lead3",
+      "type" : {
+        "type" : "array",
+        "items" : "int"
+      }
+    }, {
+      "name" : "Lead4",
+      "type" : {
+        "type" : "array",
+        "items" : "int"
+      }
+    }, {
+      "name" : "Lead5",
+      "type" : {
+        "type" : "array",
+        "items" : "int"
+      }
+    }, {
+      "name" : "Lead6",
+      "type" : {
+        "type" : "array",
+        "items" : "int"
+      }
+    }, {
+      "name" : "Lead7",
+      "type" : {
+        "type" : "array",
+        "items" : "int"
+      }
+    }, {
+      "name" : "Lead8",
+      "type" : {
+        "type" : "array",
+        "items" : "int"
+      }
+    }, {
+      "name" : "Lead9",
+      "type" : {
+        "type" : "array",
+        "items" : "int"
+      }
+    }, {
+      "name" : "Lead10",
+      "type" : {
+        "type" : "array",
+        "items" : "int"
+      }
+    }, {
+      "name" : "Lead11",
+      "type" : {
+        "type" : "array",
+        "items" : "int"
+      }
+    }, {
+      "name" : "Lead12",
+      "type" : {
+        "type" : "array",
+        "items" : "int"
+      }
+    }, {
+      "name" : "Abp",
+      "type" : {
+        "type" : "array",
+        "items" : "int"
+      }
+    }, {
+      "name" : "Cvp",
+      "type" : {
+        "type" : "array",
+        "items" : "int"
+      }
+    }, {
+      "name" : "Pap",
+      "type" : {
+        "type" : "array",
+        "items" : "int"
+      }
+    }, {
+      "name" : "Spo2",
+      "type" : {
+        "type" : "array",
+        "items" : "int"
+      }
+    }, {
+      "name" : "Wp",
+      "type" : {
+        "type" : "array",
+        "items" : "int"
+      }
+    }, {
+      "name" : "Tags",
+      "type" : {
+        "type" : "array",
+        "items" : {
+          "type" : "record",
+          "name" : "AVTag",
+          "fields" : [ {
+            "name" : "TagTime",
+            "type" : "long"
+          }, {
+            "name" : "TagType",
+            "type" : "int"
+          } ]
+        }
+      }
+    } ]
+  } ],
+  "messages" : { }
+}

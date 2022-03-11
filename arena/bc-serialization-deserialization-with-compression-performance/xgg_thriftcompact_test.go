@@ -5,7 +5,6 @@ import (
 	"testing"
 
 	"github.com/klauspost/compress/arena"
-	"github.com/klauspost/compress/arena/thfooitem"
 )
 
 func Benchmark___SerializationDeserializationWithCompressionPerformance___ThriftCompact(rootBench *testing.B) {
@@ -22,7 +21,7 @@ func Benchmark___SerializationDeserializationWithCompressionPerformance___Thrift
 			for i := 0; i < bench.N; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				thriftBytes, err := thriftCompactSerializer.Write(ctx, x)
+				thriftBytes, err := thriftCompactSerializer.Write(ctx, x.Item)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}
@@ -37,8 +36,8 @@ func Benchmark___SerializationDeserializationWithCompressionPerformance___Thrift
 					bench.Fatalf("Error: %s", err)
 				}
 
-				y := thfooitem.NewTHFooItem()
-				err = thriftCompactDeserializer.Read(ctx, y, decompressedBytes)
+				newitem := x.NewEmptyThriftItem()
+				err = thriftCompactDeserializer.Read(ctx, newitem, decompressedBytes)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}

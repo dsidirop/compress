@@ -8,13 +8,13 @@ import (
 )
 
 func Benchmark___SerializationPerformance___Cbor(b *testing.B) { // https://github.com/fxamacker/cbor
-	datasourceArrayLength := len(arena.Datasource)
+	datasourceArrayLength := len(arena.MainDatasource)
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		x := arena.Datasource[i%datasourceArrayLength]
+		x := arena.MainDatasource[i%datasourceArrayLength]
 
-		_, err := cbor.Marshal(x)
+		_, err := cbor.Marshal(x.Item)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}

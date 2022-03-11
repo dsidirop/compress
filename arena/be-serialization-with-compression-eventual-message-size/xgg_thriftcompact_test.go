@@ -21,7 +21,7 @@ func Test___SerializationWithCompressionMessageSizeFootprint___ThriftCompact(roo
 			for i := 0; i < datasourceArrayLength; i++ {
 				x := datasource[i]
 
-				rawBytes, err := thriftCompactSerializer.Write(ctx, x)
+				rawBytes, err := thriftCompactSerializer.Write(ctx, x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}

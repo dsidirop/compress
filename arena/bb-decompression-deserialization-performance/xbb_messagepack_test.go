@@ -8,7 +8,7 @@ import (
 )
 
 func Benchmark___DecompressionAndDeserializationPerformance___MessagePack(b *testing.B) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
@@ -17,7 +17,7 @@ func Benchmark___DecompressionAndDeserializationPerformance___MessagePack(b *tes
 			for i := 0; i < datasourceArrayLength; i++ {
 				x := datasource[i]
 
-				msgpackBytes, err := msgpack.Marshal(x)
+				msgpackBytes, err := msgpack.Marshal(x.Item)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}

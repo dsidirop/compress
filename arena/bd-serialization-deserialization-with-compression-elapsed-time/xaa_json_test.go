@@ -10,7 +10,7 @@ import (
 )
 
 func Test___SerializationDeserializationWithCompressionPerformance___Json(rootTestbed *testing.T) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
@@ -20,7 +20,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___Json(rootTe
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				jsonBytes, err := json.Marshal(x)
+				jsonBytes, err := json.Marshal(x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -35,8 +35,8 @@ func Test___SerializationDeserializationWithCompressionPerformance___Json(rootTe
 					testbed.Fatalf("Error: %s", err)
 				}
 
-				fooitem := arena.FooItem{}
-				err = json.Unmarshal(serializedBytes, &fooitem)
+				newitem := x.NewEmptyItem()
+				err = json.Unmarshal(serializedBytes, newitem)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}

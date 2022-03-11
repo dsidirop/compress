@@ -8,16 +8,16 @@ import (
 )
 
 func Benchmark___SerializationDeserializationWithCompressionPerformance___HambaAvro(rootBench *testing.B) {
-	datasourceArrayLength := len(arena.Datasource)
+	datasourceArrayLength := len(arena.MainDatasource)
 
 	for _, test := range arena.AllCompressionTestCases {
 		rootBench.Run(test.Desc, func(bench *testing.B) {
 			bench.ResetTimer() //vital
 
 			for i := 0; i < bench.N; i++ {
-				x := arena.Datasource[i%datasourceArrayLength]
+				x := arena.MainDatasource[i%datasourceArrayLength]
 
-				bytes, err := avro.Marshal(arena.Schemas.GoHambaAvro, x)
+				bytes, err := avro.Marshal(x.HambaAvroSchema, x.Item)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}
@@ -32,8 +32,8 @@ func Benchmark___SerializationDeserializationWithCompressionPerformance___HambaA
 					bench.Fatalf("Error: %s", err)
 				}
 
-				fooitem := &arena.FooItem{}
-				err = avro.Unmarshal(arena.Schemas.GoHambaAvro, decompressedBytes, fooitem)
+				newitem := x.NewEmptyItem()
+				err = avro.Unmarshal(x.HambaAvroSchema, decompressedBytes, newitem)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}

@@ -22,7 +22,7 @@ func Test___SerializationWithCompressionMessageSizeFootprint___ThriftBinary(root
 			for i := 0; i < datasourceArrayLength; i++ {
 				x := datasource[i]
 
-				rawBytes, err := thriftBinarySerializer.Write(ctx, x)
+				rawBytes, err := thriftBinarySerializer.Write(ctx, x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}

@@ -9,7 +9,7 @@ import (
 )
 
 func Test___SerializationWithCompressionMessageSizeFootprint___Cbor(rootTestbed *testing.T) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
@@ -19,7 +19,7 @@ func Test___SerializationWithCompressionMessageSizeFootprint___Cbor(rootTestbed 
 			for i := 0; i < datasourceArrayLength; i++ {
 				x := datasource[i]
 
-				rawBytes, err := cbor.Marshal(x)
+				rawBytes, err := cbor.Marshal(x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}

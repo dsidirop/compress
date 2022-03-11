@@ -9,9 +9,9 @@ import (
 )
 
 func Test___SerializationMessageSizeFootprint___Protobuf(t *testing.T) {
-	x := arena.ConvertFooItemToPBFooItem(arena.Datasource[0])
+	x := arena.SpecialDatasourcesForIDLMechanisms.Protobuf[0]
 
-	rawBytes, err := proto.Marshal(&x)
+	rawBytes, err := proto.Marshal(x.Item)
 	if err != nil {
 		t.Fatalf("Error: %s", err)
 	}

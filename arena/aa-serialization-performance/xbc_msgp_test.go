@@ -9,7 +9,7 @@ import (
 )
 
 func Benchmark___SerializationPerformance___Msgp(b *testing.B) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	b.ResetTimer() //something goes wrong when doing this in this particular test    weird
@@ -17,7 +17,7 @@ func Benchmark___SerializationPerformance___Msgp(b *testing.B) {
 		x := datasource[i%datasourceArrayLength]
 
 		buf := bytes.Buffer{} //keep here
-		err := msgp.Encode(&buf, x)
+		err := msgp.Encode(&buf, x.Item)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}

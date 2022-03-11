@@ -8,19 +8,19 @@ import (
 )
 
 func Benchmark___SerializationDeserializationPerformance___Json(b *testing.B) {
-	y := arena.FooItem{}
-	datasourceArrayLength := len(arena.Datasource)
+	datasourceArrayLength := len(arena.MainDatasource)
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		x := arena.Datasource[i%datasourceArrayLength]
+		x := arena.MainDatasource[i%datasourceArrayLength]
 
-		bytes, err := json.Marshal(x)
+		bytes, err := json.Marshal(x.Item)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}
 
-		err = json.Unmarshal(bytes, &y)
+		newitem := x.NewEmptyItem()
+		err = json.Unmarshal(bytes, newitem)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}

@@ -10,12 +10,10 @@ import (
 
 func Test___SerializationMessageSizeFootprint___ThriftCompact(t *testing.T) {
 	ctx := context.TODO()
-	datasource := arena.SpecialDatasourcesForIDLMechanisms.Thrift
+	item := arena.SpecialDatasourcesForIDLMechanisms.Thrift[0]
 	thriftCompactSerializer := arena.NewThriftCompactSerializer()
 
-	x := datasource[0]
-
-	rawBytes, err := thriftCompactSerializer.Write(ctx, x)
+	rawBytes, err := thriftCompactSerializer.Write(ctx, item.Item)
 	if err != nil {
 		t.Fatalf("Error: %s", err)
 	}

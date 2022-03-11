@@ -8,7 +8,7 @@ import (
 )
 
 func Benchmark___SerializationAndCompressionPerformance___HambaAvro(b *testing.B) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
@@ -18,7 +18,7 @@ func Benchmark___SerializationAndCompressionPerformance___HambaAvro(b *testing.B
 			for i := 0; i < bench.N; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				serializedBytes, err := avro.Marshal(arena.Schemas.GoHambaAvro, &x)
+				serializedBytes, err := avro.Marshal(x.HambaAvroSchema, x.Item)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}

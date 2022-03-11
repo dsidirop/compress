@@ -9,9 +9,9 @@ import (
 )
 
 func Test___SerializationMessageSizeFootprint___MessagePack(t *testing.T) {
-	x := arena.Datasource[0]
+	x := arena.MainDatasource[0]
 
-	rawBytes, err := msgpack.Marshal(x)
+	rawBytes, err := msgpack.Marshal(x.Item)
 	if err != nil {
 		t.Fatalf("Error: %s", err)
 	}

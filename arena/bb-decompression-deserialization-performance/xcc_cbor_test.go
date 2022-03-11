@@ -8,20 +8,16 @@ import (
 )
 
 func Benchmark___DecompressionAndDeserializationPerformance___Cbor(b *testing.B) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
-		// if test.Desc != "Deflate" {
-		// 	continue
-		// }
-
 		b.Run(test.Desc, func(bench *testing.B) {
 			compressedAndSerializedDatasource := [][]byte{} //first serialize and compress
 			for i := 0; i < datasourceArrayLength; i++ {
 				x := datasource[i]
 
-				serializedBytes, err := cbor.Marshal(x)
+				serializedBytes, err := cbor.Marshal(x.Item)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}

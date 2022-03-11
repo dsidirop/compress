@@ -22,14 +22,10 @@ func Benchmark___SerializationAndCompressionPerformance___ThriftBinary(b *testin
 
 				thriftBinarySerializer := thrift.NewTSerializer() //binary serializer
 
-				rawBytes, err := thriftBinarySerializer.Write(ctx, x)
+				rawBytes, err := thriftBinarySerializer.Write(ctx, x.Item)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}
-
-				// if test.Desc == "S2" {
-				// 	continue
-				// }
 
 				test.CompressionCallback(rawBytes)
 			}

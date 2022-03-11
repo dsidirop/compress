@@ -13,11 +13,10 @@ func Benchmark___DecompressionAndDeserializationPerformance___Protobuf(b *testin
 
 	for _, test := range arena.AllCompressionTestCases {
 		b.Run(test.Desc, func(bench *testing.B) {
-			compressedAndSerializedDatasource := [][]byte{} //first serialize and compress
 			for i := 0; i < datasourceArrayLength; i++ {
 				x := datasource[i]
 
-				serializedBytes, err := proto.Marshal(x)
+				serializedBytes, err := proto.Marshal(x.Item)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}
@@ -27,19 +26,19 @@ func Benchmark___DecompressionAndDeserializationPerformance___Protobuf(b *testin
 					bench.Fatalf("Error: %s", err)
 				}
 
-				compressedAndSerializedDatasource = append(compressedAndSerializedDatasource, compressedAndSerializedBytes)
+				x.Bytes = compressedAndSerializedBytes
 			}
 
 			bench.ResetTimer() //vital
 			for i := 0; i < bench.N; i++ {
-				x := compressedAndSerializedDatasource[i%datasourceArrayLength] //and now we deserialize and decompress
+				x := datasource[i%datasourceArrayLength] //and now we deserialize and decompress
 
-				decompressedSerializedBytes, err := test.DecompressionCallback(x)
+				decompressedSerializedBytes, err := test.DecompressionCallback(x.Bytes)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}
 
-				item := &arena.PBFooItem{}
+				item := x.NewEmptyProtobufItem()
 				err = proto.Unmarshal(decompressedSerializedBytes, item)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)

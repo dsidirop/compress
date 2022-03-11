@@ -8,14 +8,14 @@ import (
 )
 
 func Benchmark___SerializationPerformance___HambaAvro(b *testing.B) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		x := datasource[i%datasourceArrayLength]
 
-		_, err := avro.Marshal(arena.Schemas.GoHambaAvro, &x)
+		_, err := avro.Marshal(x.HambaAvroSchema, x.Item)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}

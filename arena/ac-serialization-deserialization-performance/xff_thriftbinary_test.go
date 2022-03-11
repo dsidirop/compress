@@ -5,13 +5,11 @@ import (
 	"testing"
 
 	"github.com/klauspost/compress/arena"
-	"github.com/klauspost/compress/arena/thfooitem"
 
 	"github.com/apache/thrift/lib/go/thrift"
 )
 
 func Benchmark___SerializationDeserializationPerformance___ThriftBinary(b *testing.B) {
-	y := thfooitem.NewTHFooItem()
 	ctx := context.TODO()
 	datasource := arena.SpecialDatasourcesForIDLMechanisms.Thrift
 	datasourceArrayLength := len(datasource)
@@ -22,12 +20,13 @@ func Benchmark___SerializationDeserializationPerformance___ThriftBinary(b *testi
 	for i := 0; i < b.N; i++ {
 		x := datasource[i%datasourceArrayLength]
 
-		thriftBytes, err := thriftBinarySerializer.Write(ctx, x)
+		thriftBytes, err := thriftBinarySerializer.Write(ctx, x.Item)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}
 
-		err = thriftBinaryDeserializer.Read(ctx, y, thriftBytes)
+		newitem := x.NewEmptyThriftItem()
+		err = thriftBinaryDeserializer.Read(ctx, newitem, thriftBytes)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}

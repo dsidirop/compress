@@ -10,7 +10,7 @@ import (
 )
 
 func Test___SerializationDeserializationWithCompressionPerformance___Bson(rootTestbed *testing.T) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
@@ -20,7 +20,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___Bson(rootTe
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				serializedBytes, err := bson.Marshal(x)
+				serializedBytes, err := bson.Marshal(x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -35,8 +35,8 @@ func Test___SerializationDeserializationWithCompressionPerformance___Bson(rootTe
 					testbed.Fatalf("Error: %s", err)
 				}
 
-				fooitem := &arena.FooItem{}
-				err = bson.Unmarshal(decompressedSerializedBytes, fooitem)
+				newitem := x.NewEmptyItem()
+				err = bson.Unmarshal(decompressedSerializedBytes, newitem)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}

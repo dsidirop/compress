@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/klauspost/compress/arena"
-	"github.com/klauspost/compress/arena/thfooitem"
 )
 
 func Test___SerializationDeserializationWithCompressionPerformance___ThriftCompact(rootTestbed *testing.T) {
@@ -24,7 +23,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___ThriftCompa
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				thriftBytes, err := thriftCompactSerializer.Write(ctx, x)
+				thriftBytes, err := thriftCompactSerializer.Write(ctx, x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -39,8 +38,8 @@ func Test___SerializationDeserializationWithCompressionPerformance___ThriftCompa
 					testbed.Fatalf("Error: %s", err)
 				}
 
-				fooitem := thfooitem.NewTHFooItem()
-				err = thriftCompactDeserializer.Read(ctx, fooitem, decompressedSerializedBytes)
+				newitem := x.NewEmptyThriftItem()
+				err = thriftCompactDeserializer.Read(ctx, newitem, decompressedSerializedBytes)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}

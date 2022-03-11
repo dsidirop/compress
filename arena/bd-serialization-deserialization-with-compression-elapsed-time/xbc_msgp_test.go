@@ -11,7 +11,7 @@ import (
 )
 
 func Test___SerializationDeserializationWithCompressionPerformance___Msgp(rootTestbed *testing.T) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
@@ -22,7 +22,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___Msgp(rootTe
 				x := datasource[i%datasourceArrayLength]
 
 				serializedBytesBuffer := &bytes.Buffer{}
-				err := msgp.Encode(serializedBytesBuffer, &x)
+				err := msgp.Encode(serializedBytesBuffer, x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -37,9 +37,8 @@ func Test___SerializationDeserializationWithCompressionPerformance___Msgp(rootTe
 					testbed.Fatalf("Error: %s", err)
 				}
 
-				fooitem := &arena.FooItem{}
-				deserializedBytesBuffer := bytes.NewReader(serializedBytes)
-				err = msgp.Decode(deserializedBytesBuffer, fooitem)
+				newitem := x.NewEmptyItem()
+				err = msgp.Decode(bytes.NewReader(serializedBytes), newitem)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}

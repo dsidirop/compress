@@ -1,0 +1,46 @@
+// NOT REALLY BEING USED - JUST A SAMPLE
+//
+// even though the structure of this file is correct unfortunately the avro transpiler to json generates a "types[]"
+// json-array which cannot be digested by goavro    well too bad    we tweaked the json by hand to make it digestible by goavro
+
+@namespace("org.arena.avro.curvegenreplyv1")
+protocol AV {
+
+  record AVCurveGenReplyV1 {
+  		string                     ClientId       ;
+	    AVCurveSpecificationV1     Spec           ;
+	    array<int>                 Lead1          ;
+	    array<int>                 Lead2          ;
+	    array<int>                 Lead3          ;
+	    array<int>                 Lead4          ;
+	    array<int>                 Lead5          ;
+	    array<int>                 Lead6          ;
+	    array<int>                 Lead7          ;
+	    array<int>                 Lead8          ;
+	    array<int>                 Lead9          ;
+	    array<int>                 Lead10         ;
+	    array<int>                 Lead11         ;
+	    array<int>                 Lead12         ;
+	    array<int>                 Abp            ;
+	    array<int>                 Cvp            ;
+	    array<int>                 Pap            ;
+	    array<int>                 Spo2           ;
+	    array<int>                 Wp             ;
+	    array<AVTag>               Tags           ;
+  }
+
+  record AVCurveSpecificationV1 {
+      string                     SimulatorName  ;
+      string                     Tenant         ;
+      long                       StartTime      ;
+      long                       EndTime        ;
+      int                        SampleInterval ;
+      int                        CurveTypes     ;
+  }
+  
+  record AVTag {
+      long                       TagTime        ;
+	    int                        TagType        ;
+  }
+  
+}

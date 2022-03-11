@@ -9,9 +9,9 @@ import (
 )
 
 func Test___SerializationMessageSizeFootprint___Bson(t *testing.T) {
-	x := arena.Datasource[0]
+	x := arena.MainDatasource[0]
 
-	rawBytes, err := bson.Marshal(x)
+	rawBytes, err := bson.Marshal(x.Item)
 	if err != nil {
 		t.Fatalf("Error: %s", err)
 	}

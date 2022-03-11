@@ -9,8 +9,8 @@ import (
 )
 
 func Benchmark___SerializationDeserializationPerformance___ThriftCompact(b *testing.B) {
-	y := thfooitem.NewTHFooItem()
 	ctx := context.TODO()
+	fooitem := thfooitem.NewTHFooItem()
 	datasource := arena.SpecialDatasourcesForIDLMechanisms.Thrift
 	datasourceArrayLength := len(datasource)
 	thriftCompactSerializer := arena.NewThriftCompactSerializer()     // compact serializer
@@ -20,12 +20,12 @@ func Benchmark___SerializationDeserializationPerformance___ThriftCompact(b *test
 	for i := 0; i < b.N; i++ {
 		x := datasource[i%datasourceArrayLength]
 
-		thriftBytes, err := thriftCompactSerializer.Write(ctx, x)
+		thriftBytes, err := thriftCompactSerializer.Write(ctx, x.Item)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}
 
-		err = thriftCompactDeserializer.Read(ctx, y, thriftBytes)
+		err = thriftCompactDeserializer.Read(ctx, fooitem, thriftBytes)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}

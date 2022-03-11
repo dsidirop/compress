@@ -11,21 +11,21 @@ import (
 )
 
 func Test___SerializationDeserializationElapsedTime___Msgp(t *testing.T) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	startTime := time.Now()
 	for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 		x := datasource[i%datasourceArrayLength]
 
-		buf := &bytes.Buffer{}
-		err := msgp.Encode(buf, &x)
+		encodedBytesBuffer := &bytes.Buffer{}
+		err := msgp.Encode(encodedBytesBuffer, x.Item)
 		if err != nil {
 			t.Fatalf("Error: %s", err)
 		}
 
-		fooitem := &arena.FooItem{}
-		err = msgp.Decode(buf, fooitem)
+		newitem := x.NewEmptyItem()
+		err = msgp.Decode(encodedBytesBuffer, newitem)
 		if err != nil {
 			t.Fatalf("Error: %s", err)
 		}

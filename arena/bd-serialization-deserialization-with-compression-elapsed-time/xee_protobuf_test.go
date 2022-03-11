@@ -20,7 +20,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___Protobuf(ro
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				serializedBytes, err := proto.Marshal(x)
+				serializedBytes, err := proto.Marshal(x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -35,8 +35,8 @@ func Test___SerializationDeserializationWithCompressionPerformance___Protobuf(ro
 					testbed.Fatalf("Error: %s", err)
 				}
 
-				fooitem := arena.PBFooItem{}
-				err = proto.Unmarshal(decompressedSerializedBytes, &fooitem)
+				newitem := x.NewEmptyProtobufItem()
+				err = proto.Unmarshal(decompressedSerializedBytes, newitem)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}

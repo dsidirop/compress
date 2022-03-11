@@ -10,7 +10,7 @@ import (
 )
 
 func Test___SerializationDeserializationWithCompressionPerformance___HambaAvro(rootTestbed *testing.T) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
@@ -20,7 +20,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___HambaAvro(r
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				thriftBytes, err := avro.Marshal(arena.Schemas.GoHambaAvro, x)
+				thriftBytes, err := avro.Marshal(x.HambaAvroSchema, x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -35,8 +35,8 @@ func Test___SerializationDeserializationWithCompressionPerformance___HambaAvro(r
 					testbed.Fatalf("Error: %s", err)
 				}
 
-				fooitem := &arena.FooItem{}
-				err = avro.Unmarshal(arena.Schemas.GoHambaAvro, decompressedSerializedBytes, fooitem)
+				newitem := x.NewEmptyItem()
+				err = avro.Unmarshal(x.HambaAvroSchema, decompressedSerializedBytes, newitem)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}

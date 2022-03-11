@@ -14,10 +14,11 @@ func Benchmark___SerializationAndCompressionPerformance___Protobuf(b *testing.B)
 	for _, test := range arena.AllCompressionTestCases {
 		b.Run(test.Desc, func(bench *testing.B) {
 			bench.ResetTimer()
+
 			for i := 0; i < bench.N; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				rawBytes, err := proto.Marshal(x)
+				rawBytes, err := proto.Marshal(x.Item)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}

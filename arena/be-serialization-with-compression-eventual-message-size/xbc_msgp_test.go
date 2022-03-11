@@ -10,7 +10,7 @@ import (
 )
 
 func Test___SerializationWithCompressionMessageSizeFootprint___Msgp(rootTestbed *testing.T) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
@@ -21,7 +21,7 @@ func Test___SerializationWithCompressionMessageSizeFootprint___Msgp(rootTestbed 
 				x := datasource[i]
 
 				serializedBytesBuffer := &bytes.Buffer{}
-				err := msgp.Encode(serializedBytesBuffer, &x)
+				err := msgp.Encode(serializedBytesBuffer, x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}

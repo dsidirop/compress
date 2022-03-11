@@ -15,12 +15,13 @@ func Benchmark___SerializationAndCompressionPerformance___ThriftCompact(b *testi
 	for _, test := range arena.AllCompressionTestCases {
 		b.Run(test.Desc, func(bench *testing.B) {
 			bench.ResetTimer()
+
 			for i := 0; i < bench.N; i++ {
 				x := datasource[i%datasourceArrayLength]
 
 				thriftCompactSerializer := arena.NewThriftCompactSerializer() //compact serializer
 
-				rawBytes, err := thriftCompactSerializer.Write(ctx, x)
+				rawBytes, err := thriftCompactSerializer.Write(ctx, x.Item)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}

@@ -15,7 +15,7 @@ func Benchmark___SerializationPerformance___Protobuf(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		x := datasource[i%datasourceArrayLength]
 
-		_, err := proto.Marshal(x)
+		_, err := proto.Marshal(x.Item)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}

@@ -1,8 +1,9 @@
 # 1a   diversify datasources
 # 1b   avro tags on structs (for the sake of realism)
-# 2   benchmark throughput mb/sec
-# 2   excel spreadsheet autogeneration
-# 3   pareto line
+# 1c   refine the message-size benchmarks by summing up all the bytes
+# 2    benchmark throughput mb/sec
+# 2    excel spreadsheet autogeneration
+# 3    pareto line
 
 
 cpucount ?= 1
@@ -87,13 +88,13 @@ compile-msgp: ./arena/fooitem.go   ./arena/curvegenreplyv1.go
 	@touch  $@
 
 compile-avro: ./arena/*.avdl
-	@cd arena  &&  java   -jar avro-tools.jar   idl     ./avfooitem.avdl         ./avfooitem.avsc
+	@cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  java   -jar avro-tools.jar   idl  "./$${x}"   "./$${x%.*}.avsc"  ;  done
 	@touch  $@
 
 compile-thrift: ./arena/*.thrift
-	@cd arena  &&  thrift    --gen go    -recurse     -out .    thfooitem.thrift
+	@cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  thrift    --gen go    -recurse     -out .    "./$${x}"  ;  done
 	@touch  $@
 
 compile-protobuf: ./arena/*.proto
-	@cd arena  &&  protoc    --go_out=.    pbfooitem.proto
+	@cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  protoc    --go_out=.    "./$${x}"  ;  done
 	@touch  $@

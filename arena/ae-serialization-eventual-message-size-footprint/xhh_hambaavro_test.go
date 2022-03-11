@@ -9,11 +9,9 @@ import (
 )
 
 func Test___SerializationMessageSizeFootprint___HambaAvro(t *testing.T) {
-	datasource := arena.Datasource
+	x := arena.MainDatasource[0]
 
-	x := datasource[0]
-
-	rawBytes, err := avro.Marshal(arena.Schemas.GoHambaAvro, &x)
+	rawBytes, err := avro.Marshal(x.HambaAvroSchema, x.Item)
 	if err != nil {
 		t.Fatalf("Error: %s", err)
 	}

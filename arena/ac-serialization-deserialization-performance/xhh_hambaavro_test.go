@@ -8,19 +8,19 @@ import (
 )
 
 func Benchmark___SerializationDeserializationPerformance___HambaAvro(b *testing.B) {
-	y := arena.FooItem{}
-	datasourceArrayLength := len(arena.Datasource)
+	fooitem := arena.FooItem{}
+	datasourceArrayLength := len(arena.MainDatasource)
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		x := arena.Datasource[i%datasourceArrayLength]
+		x := arena.MainDatasource[i%datasourceArrayLength]
 
-		bytes, err := avro.Marshal(arena.Schemas.GoHambaAvro, x)
+		bytes, err := avro.Marshal(x.HambaAvroSchema, x.Item)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}
 
-		err = avro.Unmarshal(arena.Schemas.GoHambaAvro, bytes, &y)
+		err = avro.Unmarshal(x.HambaAvroSchema, bytes, &fooitem)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}

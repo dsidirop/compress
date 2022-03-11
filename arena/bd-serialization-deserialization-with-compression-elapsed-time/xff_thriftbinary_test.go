@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/klauspost/compress/arena"
-	"github.com/klauspost/compress/arena/thfooitem"
 
 	"github.com/apache/thrift/lib/go/thrift"
 )
@@ -26,7 +25,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___ThriftBinar
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				thriftBytes, err := thriftBinarySerializer.Write(ctx, x)
+				thriftBytes, err := thriftBinarySerializer.Write(ctx, x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -41,8 +40,8 @@ func Test___SerializationDeserializationWithCompressionPerformance___ThriftBinar
 					testbed.Fatalf("Error: %s", err)
 				}
 
-				fooitem := thfooitem.NewTHFooItem()
-				err = thriftBinaryDeserializer.Read(ctx, fooitem, decompressedSerializedBytes)
+				newitem := x.NewEmptyThriftItem()
+				err = thriftBinaryDeserializer.Read(ctx, newitem, decompressedSerializedBytes)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}

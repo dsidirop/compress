@@ -9,7 +9,7 @@ import (
 )
 
 func Benchmark___SerializationDeserializationWithCompressionPerformance___Msgp(b *testing.B) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
@@ -20,7 +20,7 @@ func Benchmark___SerializationDeserializationWithCompressionPerformance___Msgp(b
 				x := datasource[i%datasourceArrayLength]
 
 				serializedBytesBuffer := &bytes.Buffer{}
-				err := msgp.Encode(serializedBytesBuffer, &x)
+				err := msgp.Encode(serializedBytesBuffer, x.Item)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}
@@ -35,9 +35,8 @@ func Benchmark___SerializationDeserializationWithCompressionPerformance___Msgp(b
 					bench.Fatalf("Error: %s", err)
 				}
 
-				fooitem := &arena.FooItem{}
-				deserializedBytesBuffer := bytes.NewReader(decompressedBytes)
-				err = msgp.Decode(deserializedBytesBuffer, fooitem)
+				newitem := x.NewEmptyItem()
+				err = msgp.Decode(bytes.NewReader(decompressedBytes), newitem)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}

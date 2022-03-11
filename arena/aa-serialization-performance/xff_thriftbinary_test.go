@@ -18,7 +18,7 @@ func Benchmark___SerializationPerformance___ThriftBinary(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		x := datasource[i%datasourceArrayLength]
 
-		_, err := thriftBinarySerializer.Write(ctx, x)
+		_, err := thriftBinarySerializer.Write(ctx, x.Item)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}

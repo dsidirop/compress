@@ -10,19 +10,20 @@ import (
 )
 
 func Test___SerializationDeserializationElapsedTime___Bson(t *testing.T) {
-	datasourceArrayLength := len(arena.Datasource)
+	datasource := arena.MainDatasource
+	datasourceArrayLength := len(datasource)
 
 	startTime := time.Now()
 	for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
-		x := arena.Datasource[i%datasourceArrayLength]
+		x := datasource[i%datasourceArrayLength]
 
-		bytes, err := bson.Marshal(x)
+		bytes, err := bson.Marshal(x.Item)
 		if err != nil {
 			t.Fatalf("Error: %s", err)
 		}
 
-		y := &arena.FooItem{}
-		err = bson.Unmarshal(bytes, y)
+		newitem := x.NewEmptyItem()
+		err = bson.Unmarshal(bytes, newitem)
 		if err != nil {
 			t.Fatalf("Error: %s", err)
 		}
