@@ -8,7 +8,6 @@ import (
 )
 
 func Benchmark___SerializationDeserializationPerformance___HambaAvro(b *testing.B) {
-	fooitem := arena.FooItem{}
 	datasourceArrayLength := len(arena.MainDatasource)
 
 	b.ResetTimer()
@@ -20,7 +19,8 @@ func Benchmark___SerializationDeserializationPerformance___HambaAvro(b *testing.
 			b.Fatalf("Error: %s", err)
 		}
 
-		err = avro.Unmarshal(x.HambaAvroSchema, bytes, &fooitem)
+		newitem := x.NewEmptyItem()
+		err = avro.Unmarshal(x.HambaAvroSchema, bytes, newitem)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}

@@ -85,15 +85,15 @@ compile-idl:           \
 	compile-protobuf
 
 compile-msgp: ./arena/fooitem.go   ./arena/curvegenreplyv1.go
-	@cd arena    &&    for file in $^ ; do    msgp  --file   $$(basename "$${file}");  done
+	@cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  msgp      --file                           "./$${x}"                      ;  done
 	@touch  $@
 
 compile-avro: ./arena/*.avdl
-	@cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  java   -jar avro-tools.jar   idl  "./$${x}"   "./$${x%.*}.avsc"  ;  done
+	@cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  java      -jar       avro-tools.jar   idl  "./$${x}"   "./$${x%.*}.avsc"  ;  done
 	@touch  $@
 
 compile-thrift: ./arena/*.thrift
-	@cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  thrift    --gen go    -recurse     -out .    "./$${x}"  ;  done
+	@cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  thrift    --gen      go    -recurse     -out .    "./$${x}"  ;  done
 	@touch  $@
 
 compile-protobuf: ./arena/*.proto

@@ -31,16 +31,18 @@ func Benchmark___DecompressionAndDeserializationPerformance___Bson(b *testing.B)
 			}
 
 			bench.ResetTimer() //vital
-			for i := 0; i < bench.N; i++ {
-				x := compressedAndSerializedDatasource[i%datasourceArrayLength] //and now we deserialize and decompress
+			for iterator := 0; iterator < bench.N; iterator++ {
+				i := iterator % datasourceArrayLength
+				x := compressedAndSerializedDatasource[i] //and now we deserialize and decompress
+				mainItemSpec := arena.MainDatasource[i]
 
 				decompressedSerializedBytes, err := test.DecompressionCallback(x)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}
 
-				item := &arena.FooItem{}
-				err = bson.Unmarshal(decompressedSerializedBytes, item)
+				newitem := mainItemSpec.NewEmptyItem()
+				err = bson.Unmarshal(decompressedSerializedBytes, newitem)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}
