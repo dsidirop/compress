@@ -32,7 +32,7 @@ func Test___SerializationWithCompressionMessageSizeFootprint___MessagePack(rootT
 				sumOfEventualBytes += len(compressedAndSerializedBytes)
 			}
 
-			fmt.Printf("** MessagePack+%s %d bytes (avg)\n", test.Desc, sumOfEventualBytes/datasourceArrayLength)
+			fmt.Printf("** MessagePack+%s %d bytes (avg)\n", test.Desc, sumOfEventualBytes)
 		})
 	}
 }

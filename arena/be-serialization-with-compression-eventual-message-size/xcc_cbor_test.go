@@ -32,7 +32,7 @@ func Test___SerializationWithCompressionMessageSizeFootprint___Cbor(rootTestbed 
 				sumOfEventualBytes += len(compressedAndSerializedBytes)
 			}
 
-			fmt.Printf("** Cbor+%s %d bytes (avg)\n", test.Desc, sumOfEventualBytes/datasourceArrayLength)
+			fmt.Printf("** Cbor+%s %d bytes (avg)\n", test.Desc, sumOfEventualBytes)
 		})
 	}
 }

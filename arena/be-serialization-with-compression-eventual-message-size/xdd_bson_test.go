@@ -32,7 +32,7 @@ func Test___SerializationWithCompressionMessageSizeFootprint___Bson(rootTestbed 
 				sumOfEventualBytes += len(compressedAndSerializedBytes)
 			}
 
-			fmt.Printf("** Bson+%s %d bytes (avg)\n", test.Desc, sumOfEventualBytes/datasourceArrayLength)
+			fmt.Printf("** Bson+%s %d bytes (avg)\n", test.Desc, sumOfEventualBytes)
 		})
 	}
 }

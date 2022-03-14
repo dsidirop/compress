@@ -10,13 +10,21 @@ import (
 
 func Test___SerializationMessageSizeFootprint___ThriftCompact(t *testing.T) {
 	ctx := context.TODO()
-	item := arena.SpecialDatasourcesForIDLMechanisms.Thrift[0]
+	datasource := arena.SpecialDatasourcesForIDLMechanisms.Thrift
+	datasourceArrayLength := len(datasource)
 	thriftCompactSerializer := arena.NewThriftCompactSerializer()
 
-	rawBytes, err := thriftCompactSerializer.Write(ctx, item.Item)
-	if err != nil {
-		t.Fatalf("Error: %s", err)
+	totalBytesCount := 0
+	for i := 0; i < datasourceArrayLength; i++ {
+		x := datasource[i]
+
+		rawBytes, err := thriftCompactSerializer.Write(ctx, x.Item)
+		if err != nil {
+			t.Fatalf("Error: %s", err)
+		}
+
+		totalBytesCount += len(rawBytes)
 	}
 
-	fmt.Printf("** ThriftCompact %d bytes\n", len(rawBytes))
+	fmt.Printf("** ThriftCompact %d bytes\n", totalBytesCount)
 }

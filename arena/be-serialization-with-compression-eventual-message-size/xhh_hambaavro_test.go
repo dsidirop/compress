@@ -32,7 +32,7 @@ func Test___SerializationWithCompressionMessageSizeFootprint___HambaAvro(rootTes
 				sumOfEventualBytes += len(compressedAndSerializedBytes)
 			}
 
-			fmt.Printf("** HambaAvro+%s %d bytes (avg)\n", test.Desc, sumOfEventualBytes/datasourceArrayLength)
+			fmt.Printf("** HambaAvro+%s %d bytes (avg)\n", test.Desc, sumOfEventualBytes)
 		})
 	}
 }

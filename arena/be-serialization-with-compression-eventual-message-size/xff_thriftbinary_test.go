@@ -35,7 +35,7 @@ func Test___SerializationWithCompressionMessageSizeFootprint___ThriftBinary(root
 				sumOfEventualBytes += len(compressedAndSerializedBytes)
 			}
 
-			fmt.Printf("** ThriftBinary+%s %d bytes (avg)\n", test.Desc, sumOfEventualBytes/datasourceArrayLength)
+			fmt.Printf("** ThriftBinary+%s %d bytes (avg)\n", test.Desc, sumOfEventualBytes)
 		})
 	}
 }

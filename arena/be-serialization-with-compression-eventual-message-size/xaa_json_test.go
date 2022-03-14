@@ -32,7 +32,7 @@ func Test___SerializationWithCompressionMessageSizeFootprint___Json(rootTestbed 
 				sumOfEventualBytes += len(compressedAndSerializedBytes)
 			}
 
-			fmt.Printf("** JSON+%s %d bytes (avg)\n", test.Desc, sumOfEventualBytes/datasourceArrayLength)
+			fmt.Printf("** JSON+%s %d bytes (avg)\n", test.Desc, sumOfEventualBytes)
 		})
 	}
 }

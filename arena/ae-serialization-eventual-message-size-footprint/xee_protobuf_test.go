@@ -9,12 +9,20 @@ import (
 )
 
 func Test___SerializationMessageSizeFootprint___Protobuf(t *testing.T) {
-	x := arena.SpecialDatasourcesForIDLMechanisms.Protobuf[0]
+	datasource := arena.SpecialDatasourcesForIDLMechanisms.Protobuf
+	datasourceArrayLength := len(datasource)
 
-	rawBytes, err := proto.Marshal(x.Item)
-	if err != nil {
-		t.Fatalf("Error: %s", err)
+	totalBytesCount := 0
+	for i := 0; i < datasourceArrayLength; i++ {
+		x := datasource[i]
+
+		rawBytes, err := proto.Marshal(x.Item)
+		if err != nil {
+			t.Fatalf("Error: %s", err)
+		}
+
+		totalBytesCount += len(rawBytes)
 	}
 
-	fmt.Printf("** ProtoBuf %d bytes\n", len(rawBytes))
+	fmt.Printf("** ProtoBuf %d bytes\n", totalBytesCount)
 }
