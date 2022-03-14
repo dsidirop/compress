@@ -1,6 +1,7 @@
 # 1a   diversify datasources
-# 1b   avro tags on structs (for the sake of realism)
-# 1c   refine the message-size benchmarks by summing up all the bytes
+# 1b   move the repo to private
+# 1c   avro tags on structs (for the sake of realism)
+# 1d   refine the message-size benchmarks by summing up all the bytes
 # 2    benchmark throughput mb/sec
 # 2    excel spreadsheet autogeneration
 # 3    pareto line

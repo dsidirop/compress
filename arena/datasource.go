@@ -29,12 +29,12 @@ type DatasourceEntry struct {
 var MainDatasource = []DatasourceEntry{}
 
 func InitializeMainDatasource() {
-	sampleCurveGenReplyV1_fromCurveGenSrv_toManikin := CurveGenReplyV1{}
-	sampleCurveGenReplyV1_fromCurveGenSrv_toPatientMonitor := CurveGenReplyV1{}
+	sampleCurveGenReplyV1_fromCurveGenSrv_toManikin := &CurveGenReplyV1{}
+	sampleCurveGenReplyV1_fromCurveGenSrv_toPatientMonitor := &CurveGenReplyV1{}
 
 	err := json.Unmarshal(
 		[]byte(Curvegenreplyv1___from_curvegensrv_for_manikin___json_string),
-		&sampleCurveGenReplyV1_fromCurveGenSrv_toManikin,
+		sampleCurveGenReplyV1_fromCurveGenSrv_toManikin,
 	)
 	if err != nil {
 		panic(err)
@@ -42,7 +42,7 @@ func InitializeMainDatasource() {
 
 	err = json.Unmarshal(
 		[]byte(Curvegenreplyv1___from_curvegensrv_for_patientmonitor___json_string),
-		&sampleCurveGenReplyV1_fromCurveGenSrv_toPatientMonitor,
+		sampleCurveGenReplyV1_fromCurveGenSrv_toPatientMonitor,
 	)
 	if err != nil {
 		panic(err)
@@ -61,8 +61,9 @@ func InitializeMainDatasource() {
 	MainDatasource = append(
 		MainDatasource,
 		DatasourceEntry{
-			Item:       &sampleCurveGenReplyV1_fromCurveGenSrv_toManikin,
-			ThriftItem: ConvertCurvegenResponseV1ToThrift(&sampleCurveGenReplyV1_fromCurveGenSrv_toPatientMonitor),
+			Item:         sampleCurveGenReplyV1_fromCurveGenSrv_toManikin,
+			ThriftItem:   ConvertCurvegenResponseV1ToThrift(sampleCurveGenReplyV1_fromCurveGenSrv_toPatientMonitor),
+			ProtobufItem: ConvertCurvegenResponseV1ToProtobuf(sampleCurveGenReplyV1_fromCurveGenSrv_toPatientMonitor),
 
 			NewEmptyItem:         func() msgp.Decodable { return &CurveGenReplyV1{} },
 			NewEmptyThriftItem:   func() thrift.TStruct { return thcurvegenresponsev1.NewTHCurveGenReplyV1() },
@@ -75,8 +76,9 @@ func InitializeMainDatasource() {
 	MainDatasource = append(
 		MainDatasource,
 		DatasourceEntry{
-			Item:       &sampleCurveGenReplyV1_fromCurveGenSrv_toPatientMonitor,
-			ThriftItem: ConvertCurvegenResponseV1ToThrift(&sampleCurveGenReplyV1_fromCurveGenSrv_toPatientMonitor),
+			Item:         sampleCurveGenReplyV1_fromCurveGenSrv_toPatientMonitor,
+			ThriftItem:   ConvertCurvegenResponseV1ToThrift(sampleCurveGenReplyV1_fromCurveGenSrv_toPatientMonitor),
+			ProtobufItem: ConvertCurvegenResponseV1ToProtobuf(sampleCurveGenReplyV1_fromCurveGenSrv_toPatientMonitor),
 
 			NewEmptyItem:         func() msgp.Decodable { return &CurveGenReplyV1{} },
 			NewEmptyThriftItem:   func() thrift.TStruct { return thcurvegenresponsev1.NewTHCurveGenReplyV1() },
@@ -113,8 +115,9 @@ func InitializeMainDatasource() {
 	MainDatasource = append(
 		MainDatasource,
 		DatasourceEntry{
-			Item:       fooitem,
-			ThriftItem: ConvertFooItemToThrift(fooitem),
+			Item:         fooitem,
+			ThriftItem:   ConvertFooItemToThrift(fooitem),
+			ProtobufItem: ConvertFooItemToProtobuf(fooitem),
 
 			NewEmptyItem:         func() msgp.Decodable { return &FooItem{} },
 			NewEmptyThriftItem:   func() thrift.TStruct { return thfooitem.NewTHFooItem() },

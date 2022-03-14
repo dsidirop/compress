@@ -9,33 +9,33 @@ func ConvertCurvegenResponseV1ToThrift(x *CurveGenReplyV1) *thcurvegenresponsev1
 
 	y.ClientId = x.ClientId
 
-	y.Spec = convertCurveSpecificationV1(x.Spec)
+	y.Spec = thriftConvertCurveSpecificationV1(x.Spec)
 
-	y.Lead1 = convertIntArrayToInt64Array(x.Lead1)
-	y.Lead2 = convertIntArrayToInt64Array(x.Lead2)
-	y.Lead3 = convertIntArrayToInt64Array(x.Lead3)
-	y.Lead4 = convertIntArrayToInt64Array(x.Lead4)
-	y.Lead5 = convertIntArrayToInt64Array(x.Lead5)
-	y.Lead6 = convertIntArrayToInt64Array(x.Lead6)
-	y.Lead7 = convertIntArrayToInt64Array(x.Lead7)
-	y.Lead8 = convertIntArrayToInt64Array(x.Lead8)
-	y.Lead9 = convertIntArrayToInt64Array(x.Lead9)
-	y.Lead10 = convertIntArrayToInt64Array(x.Lead10)
-	y.Lead11 = convertIntArrayToInt64Array(x.Lead11)
-	y.Lead12 = convertIntArrayToInt64Array(x.Lead12)
+	y.Lead1 = thriftConvertIntArrayToInt64Array(x.Lead1)
+	y.Lead2 = thriftConvertIntArrayToInt64Array(x.Lead2)
+	y.Lead3 = thriftConvertIntArrayToInt64Array(x.Lead3)
+	y.Lead4 = thriftConvertIntArrayToInt64Array(x.Lead4)
+	y.Lead5 = thriftConvertIntArrayToInt64Array(x.Lead5)
+	y.Lead6 = thriftConvertIntArrayToInt64Array(x.Lead6)
+	y.Lead7 = thriftConvertIntArrayToInt64Array(x.Lead7)
+	y.Lead8 = thriftConvertIntArrayToInt64Array(x.Lead8)
+	y.Lead9 = thriftConvertIntArrayToInt64Array(x.Lead9)
+	y.Lead10 = thriftConvertIntArrayToInt64Array(x.Lead10)
+	y.Lead11 = thriftConvertIntArrayToInt64Array(x.Lead11)
+	y.Lead12 = thriftConvertIntArrayToInt64Array(x.Lead12)
 
-	y.Wp = convertIntArrayToInt64Array(x.Wp)
-	y.Abp = convertIntArrayToInt64Array(x.Abp)
-	y.Cvp = convertIntArrayToInt64Array(x.Cvp)
-	y.Pap = convertIntArrayToInt64Array(x.Pap)
-	y.Spo2 = convertIntArrayToInt64Array(x.Spo2)
+	y.Wp = thriftConvertIntArrayToInt64Array(x.Wp)
+	y.Abp = thriftConvertIntArrayToInt64Array(x.Abp)
+	y.Cvp = thriftConvertIntArrayToInt64Array(x.Cvp)
+	y.Pap = thriftConvertIntArrayToInt64Array(x.Pap)
+	y.Spo2 = thriftConvertIntArrayToInt64Array(x.Spo2)
 
-	y.Tags = convertTags(x.Tags)
+	y.Tags = thriftConvertTags(x.Tags)
 
 	return y
 }
 
-func convertIntArrayToInt64Array(array []int) []int64 {
+func thriftConvertIntArrayToInt64Array(array []int) []int64 {
 	if array == nil {
 		return nil
 	}
@@ -48,7 +48,7 @@ func convertIntArrayToInt64Array(array []int) []int64 {
 	return results
 }
 
-func convertTags(array []Tag) []*thcurvegenresponsev1.THTag {
+func thriftConvertTags(array []Tag) []*thcurvegenresponsev1.THTag {
 	if array == nil {
 		return nil
 	}
@@ -66,7 +66,7 @@ func convertTags(array []Tag) []*thcurvegenresponsev1.THTag {
 	return results
 }
 
-func convertCurveSpecificationV1(spec CurveSpecificationV1) *thcurvegenresponsev1.THCurveSpecificationV1 {
+func thriftConvertCurveSpecificationV1(spec CurveSpecificationV1) *thcurvegenresponsev1.THCurveSpecificationV1 {
 
 	results := &thcurvegenresponsev1.THCurveSpecificationV1{}
 	results.Tenant = spec.Tenant
