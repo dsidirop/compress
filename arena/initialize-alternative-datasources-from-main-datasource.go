@@ -288,43 +288,43 @@ func InitCompressionTestCases() {
 		}
 	}
 	//snappy
-	snappyCompressorFactory := func(compressionLevel int) func(rawBytes []byte) ([]byte, error) {
-		if compressionLevel == 0 {
-			return func(rawBytes []byte) ([]byte, error) {
-				compressedBytes := s2.EncodeSnappy(nil, rawBytes) //default
-
-				return compressedBytes, nil
-			}
-		}
-
-		if compressionLevel == 1 {
-			return func(rawBytes []byte) ([]byte, error) {
-				compressedBytes := s2.EncodeSnappyBetter(nil, rawBytes)
-
-				return compressedBytes, nil
-			}
-		}
-
-		if compressionLevel == 2 {
-			return func(rawBytes []byte) ([]byte, error) {
-				compressedBytes := s2.EncodeSnappyBest(nil, rawBytes)
-
-				return compressedBytes, nil
-			}
-		}
-
-		panic(fmt.Sprintf("snappycompressorfactory: unsupported compression level %d", compressionLevel))
-	}
-	snappyDecompressorFactory := func() func(compressedBytes []byte) ([]byte, error) {
-		return func(compressedBytes []byte) ([]byte, error) {
-			decompressedBytes, err := s2.Decode(nil, compressedBytes)
-			if err != nil {
-				return nil, err
-			}
-
-			return decompressedBytes, nil
-		}
-	}
+	// snappyCompressorFactory := func(compressionLevel int) func(rawBytes []byte) ([]byte, error) {
+	// 	if compressionLevel == 0 {
+	// 		return func(rawBytes []byte) ([]byte, error) {
+	// 			compressedBytes := s2.EncodeSnappy(nil, rawBytes) //default
+	//
+	// 			return compressedBytes, nil
+	// 		}
+	// 	}
+	//
+	// 	if compressionLevel == 1 {
+	// 		return func(rawBytes []byte) ([]byte, error) {
+	// 			compressedBytes := s2.EncodeSnappyBetter(nil, rawBytes)
+	//
+	// 			return compressedBytes, nil
+	// 		}
+	// 	}
+	//
+	// 	if compressionLevel == 2 {
+	// 		return func(rawBytes []byte) ([]byte, error) {
+	// 			compressedBytes := s2.EncodeSnappyBest(nil, rawBytes)
+	//
+	// 			return compressedBytes, nil
+	// 		}
+	// 	}
+	//
+	// 	panic(fmt.Sprintf("snappycompressorfactory: unsupported compression level %d", compressionLevel))
+	// }
+	// snappyDecompressorFactory := func() func(compressedBytes []byte) ([]byte, error) {
+	// 	return func(compressedBytes []byte) ([]byte, error) {
+	// 		decompressedBytes, err := s2.Decode(nil, compressedBytes)
+	// 		if err != nil {
+	// 			return nil, err
+	// 		}
+	//
+	// 		return decompressedBytes, nil
+	// 	}
+	// }
 	//deflate
 	deflateCompressorFactory := func(compressionLevel int) func(compressedBytes []byte) ([]byte, error) {
 		return func(rawBytes []byte) ([]byte, error) {
@@ -566,16 +566,16 @@ func InitCompressionTestCases() {
 		// 	DecompressionCallback: s2DecompressorFactory(),
 		// },
 		//snappy
-		{
-			Desc:                  "Snappy-DefaultCompression",
-			CompressionCallback:   snappyCompressorFactory(0),
-			DecompressionCallback: snappyDecompressorFactory(),
-		},
-		{
-			Desc:                  "Snappy-BetterCompression",
-			CompressionCallback:   snappyCompressorFactory(1),
-			DecompressionCallback: snappyDecompressorFactory(),
-		},
+		// {
+		// 	Desc:                  "Snappy-DefaultCompression",
+		// 	CompressionCallback:   snappyCompressorFactory(0),
+		// 	DecompressionCallback: snappyDecompressorFactory(),
+		// },
+		// {
+		// 	Desc:                  "Snappy-BetterCompression",
+		// 	CompressionCallback:   snappyCompressorFactory(1),
+		// 	DecompressionCallback: snappyDecompressorFactory(),
+		// },
 		// {
 		// 	Desc:                  "Snappy-BestCompression", //too slow
 		// 	CompressionCallback:   snappyCompressorFactory(2),

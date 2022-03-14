@@ -32,3 +32,6 @@ _testmain.go
 compile-*
 *.avpr
 *.jar
+
+*.csv
+*.csv#

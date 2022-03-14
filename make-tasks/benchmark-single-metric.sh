@@ -38,7 +38,7 @@ sed    -i     "s/___TITLE___/${title}\\\\n[${output_files_name_prefix} cpu#=${cp
 cat           "./${output_files_name_prefix}---benchmark-output-parsed.dat"          \
   |           sort   -t','    -nk3                                                   \
   |           awk    -F','    '//{count++; printf("%d,%s,%s\n", count, $2, $3); }'   \
-  |           awk    -F','    'BEGIN { minvalue=0 } { if (minvalue==0) { minvalue=$3 }; printf("%s,%s,%s,%.2f%%\n", $1, $2, $3, (100*$3/minvalue)); }'   \
+  |           awk    -F','    'BEGIN { minvalue=0 } { if (minvalue==0) { minvalue=$3 }; printf("%s,%s,%s,%.0f%%\n", $1, $2, $3, (100*$3/minvalue)); }'   \
   >           "./${output_files_name_prefix}---benchmark-output-parsed---sorted.dat"
 
 gnuplot \

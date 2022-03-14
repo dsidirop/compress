@@ -74,6 +74,11 @@ merge-output-images-of-plots: # merge all images into one
 	@convert     -append       './arena-results/*-cpu$(cpucount)----category-overall-results.png'      './arena-results/x-cpu$(cpucount)-all-results.png'
 
 .PHONY:\
+generate-scatter-plot-for-size-vs-time
+generate-scatter-plot-for-size-vs-time: benchmark-serialization-deserialization-with-compression-elapsed-time    benchmark-serialization-with-compression-eventual-message-size
+	@$(call generate-scatter-plot-for-size-vs-time)
+
+.PHONY:\
 compile-idl
 compile-idl:           \
 	compile-msgp       \
