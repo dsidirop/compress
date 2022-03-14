@@ -32,7 +32,10 @@ sed    -i     "s/___TITLE___/Avg Elapsed Time (ns) per Operation - Lower is bett
 cat           "./${output_files_name_prefix}---benchmark-output-parsed.dat"          \
   |           sort   -t','    -nk4                                                   \
   |           awk    -F','    '//{count++; printf("%d,%s,%s\n", count, $2, $4); }'   \
+  |           awk    -F','    'BEGIN { minvalue=0 } { if (minvalue==0) { minvalue=$3 }; printf("%s,%s,%s,%.2f%%\n", $1, $2, $3, (100*$3/minvalue)); }'   \
   >           "./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-time-per-operation.dat"
+
+
 gnuplot \
   -e "file_path='./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-time-per-operation.dat'            "  \
   -e "graphic_file_name='../../arena-results/${output_files_name_prefix}--001-time-per-operation--result.png'           "  \
@@ -47,6 +50,7 @@ sed    -i     "s/___TITLE___/CPU Operations# - Lower is better\\\\n[${benchmark_
 cat           "./${output_files_name_prefix}---benchmark-output-parsed.dat"          \
   |           sort   -t','    -nk3                                                   \
   |           awk    -F','    '//{count++; printf("%d,%s,%s\n", count, $2, $3); }'   \
+  |           awk    -F','    'BEGIN { minvalue=0 } { if (minvalue==0) { minvalue=$3 }; printf("%s,%s,%s,%.2f%%\n", $1, $2, $3, (100*$3/minvalue)); }'   \
   >           "./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-cpu-operations-count.dat"
 gnuplot \
   -e "file_path='./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-cpu-operations-count.dat'          "  \
@@ -61,6 +65,7 @@ sed    -i     "s/___TITLE___/RAM Bytes per Operation - Lower is better\\\\n[${be
 cat           "./${output_files_name_prefix}---benchmark-output-parsed.dat"          \
   |           sort   -t','    -nk5                                                   \
   |           awk    -F','    '//{count++; printf("%d,%s,%s\n", count, $2, $5); }'   \
+  |           awk    -F','    'BEGIN { minvalue=0 } { if (minvalue==0) { minvalue=$3 }; printf("%s,%s,%s,%.2f%%\n", $1, $2, $3, (100*$3/minvalue)); }'   \
   >           "./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-ram-bytes-per-operation.dat"
 gnuplot \
   -e "file_path='./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-ram-bytes-per-operation.dat'    "  \
@@ -75,6 +80,7 @@ sed    -i     "s/___TITLE___/Allocations per Operation - Lower is better\\\\n[${
 cat           "./${output_files_name_prefix}---benchmark-output-parsed.dat"          \
   |           sort   -t','    -nk6                                                   \
   |           awk    -F','    '//{count++; printf("%d,%s,%s\n", count, $2, $6); }'   \
+  |           awk    -F','    'BEGIN { minvalue=0 } { if (minvalue==0) { minvalue=$3 }; printf("%s,%s,%s,%.2f%%\n", $1, $2, $3, (100*$3/minvalue)); }'   \
   >           "./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-allocations-per-operation.dat"
 gnuplot \
   -e "file_path='./${output_files_name_prefix}---benchmark-output-parsed---sorted-by-allocations-per-operation.dat'  "  \
@@ -103,8 +109,8 @@ else # horizontal
 fi
 
 
-cp                                                                           \
-            "./${output_files_name_prefix}---benchmark-output-parsed.dat"    \
+cp                                                                                    \
+            ./${output_files_name_prefix}---benchmark-output-parsed---sorted-*.dat    \
             "../../arena-results"
 
 
