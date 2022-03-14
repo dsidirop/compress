@@ -41,7 +41,7 @@ benchmark-serialization-deserialization-performance:    compile-idl
 .PHONY:\
 benchmark-serialization-message-size-footprint
 benchmark-serialization-message-size-footprint:    compile-idl
-	@$(call benchmark-single-metric,ae-serialization-eventual-message-size-footprint,Eventual Size in Bytes - Lower is better,bytes,$(cpucount))
+	@$(call benchmark-single-metric,ae-serialization-eventual-message-size-footprint,Total  Bytes - Lower is better,bytes,$(cpucount))
 
 .PHONY:\
 benchmark-serialization-with-compression-performance
@@ -66,7 +66,7 @@ benchmark-serialization-deserialization-with-compression-elapsed-time:    compil
 .PHONY:\
 benchmark-serialization-with-compression-eventual-message-size
 benchmark-serialization-with-compression-eventual-message-size:    compile-idl
-	@$(call benchmark-single-metric,be-serialization-with-compression-eventual-message-size,Average Size in Bytes - Lower is better,bytes,$(cpucount),../plot.serialization-with-compression-eventual-message-size.gp)
+	@$(call benchmark-single-metric,be-serialization-with-compression-eventual-message-size,Total Bytes - Lower is better,bytes,$(cpucount),../plot.serialization-with-compression-eventual-message-size.gp)
 
 .PHONY:\
 merge-output-images-of-plots

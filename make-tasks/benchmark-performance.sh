@@ -24,16 +24,6 @@ awk                                                                             
     "./${output_files_name_prefix}---benchmark-raw-output.dat"                                                                                 \
   > "./${output_files_name_prefix}---benchmark-output-parsed.dat"
 
-# operationsMax=`                    awk -F','                        'BEGIN{a=0}{ if ($3>0+a) a=$3} END{print a}'     "./${benchmark_dirname}---benchmark-output-parsed.dat"    `
-# nanosecondsMax=`                   awk -F','                        'BEGIN{a=0}{ if ($4>0+a) a=$4} END{print a}'     "./${benchmark_dirname}---benchmark-output-parsed.dat"    `
-# ramBytesMax=`                      awk -F','                        'BEGIN{a=0}{ if ($5>0+a) a=$5} END{print a}'     "./${benchmark_dirname}---benchmark-output-parsed.dat"    `
-# allocationsMax=`                   awk -F','                        'BEGIN{a=0}{ if ($6>0+a) a=$6} END{print a}'     "./${benchmark_dirname}---benchmark-output-parsed.dat"    `
-
-# operationsMaxRoundedUpwards=`      awk -v n="${operationsMax}"      'BEGIN{ print int((n+100) / 100 ) * 100 }'                            `
-# nanosecondsMaxRoundedUpwards=`     awk -v n="${nanosecondsMax}"     'BEGIN{ print int((n+100) / 100 ) * 100 }'                            `
-# ramBytesMaxRoundedUpwards=`        awk -v n="${ramBytesMax}"        'BEGIN{ print int((n+100) / 100 ) * 100 }'                            `
-# allocationsMaxRoundedUpwards=`     awk -v n="${allocationsMax}"     'BEGIN{ print int((n+100) / 100 ) * 100 }'                            `
-
 tempDir=`mktemp -d -t golang-compression-libs-arena.XXXX`
 tempPlotConfigFile="${tempDir}/plot.gp"
 

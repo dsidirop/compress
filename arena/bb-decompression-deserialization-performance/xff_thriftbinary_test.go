@@ -15,7 +15,8 @@ func Benchmark___DecompressionAndDeserializationPerformance___ThriftBinary(b *te
 
 	for _, test := range arena.AllCompressionTestCases {
 		b.Run(test.Desc, func(bench *testing.B) {
-			thriftBinarySerializer := thrift.NewTSerializer() //binary serializer
+			thriftBinarySerializer := thrift.NewTSerializer()     //binary serializer
+			thriftBinaryDeserializer := thrift.NewTDeserializer() //binary deserializer
 
 			for i := 0; i < datasourceArrayLength; i++ {
 				x := datasource[i]
@@ -33,8 +34,7 @@ func Benchmark___DecompressionAndDeserializationPerformance___ThriftBinary(b *te
 				x.Bytes = compressedAndSerializedBytes
 			}
 
-			bench.ResetTimer()                                    //vital
-			thriftBinaryDeserializer := thrift.NewTDeserializer() //binary deserializer
+			bench.ResetTimer() //vital
 			for i := 0; i < bench.N; i++ {
 				x := datasource[i%datasourceArrayLength] //and now we deserialize and decompress
 

@@ -11,6 +11,7 @@ func Benchmark___SerializationAndCompressionPerformance___ThriftCompact(b *testi
 	ctx := context.TODO()
 	datasource := arena.SpecialDatasourcesForIDLMechanisms.Thrift
 	datasourceArrayLength := len(datasource)
+	thriftCompactSerializer := arena.NewThriftCompactSerializer() //compact serializer
 
 	for _, test := range arena.AllCompressionTestCases {
 		b.Run(test.Desc, func(bench *testing.B) {
@@ -18,8 +19,6 @@ func Benchmark___SerializationAndCompressionPerformance___ThriftCompact(b *testi
 
 			for i := 0; i < bench.N; i++ {
 				x := datasource[i%datasourceArrayLength]
-
-				thriftCompactSerializer := arena.NewThriftCompactSerializer() //compact serializer
 
 				rawBytes, err := thriftCompactSerializer.Write(ctx, x.Item)
 				if err != nil {

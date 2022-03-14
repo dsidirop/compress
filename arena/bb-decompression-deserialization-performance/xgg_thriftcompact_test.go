@@ -14,7 +14,8 @@ func Benchmark___DecompressionAndDeserializationPerformance___ThriftCompact(b *t
 
 	for _, test := range arena.AllCompressionTestCases {
 		b.Run(test.Desc, func(bench *testing.B) {
-			thriftCompactSerializer := arena.NewThriftCompactSerializer() //compact serializer
+			thriftCompactSerializer := arena.NewThriftCompactSerializer()     //compact serializer
+			thriftCompactDeserializer := arena.NewThriftCompactDeserializer() //compact deserializer
 
 			for i := 0; i < datasourceArrayLength; i++ {
 				x := datasource[i]
@@ -32,8 +33,7 @@ func Benchmark___DecompressionAndDeserializationPerformance___ThriftCompact(b *t
 				x.Bytes = compressedAndSerializedBytes
 			}
 
-			bench.ResetTimer()                                                //vital
-			thriftCompactDeserializer := arena.NewThriftCompactDeserializer() //compact deserializer
+			bench.ResetTimer() //vital
 			for i := 0; i < bench.N; i++ {
 				x := datasource[i%datasourceArrayLength] //and now we deserialize and decompress
 

@@ -12,15 +12,13 @@ func Benchmark___SerializationAndCompressionPerformance___ThriftBinary(b *testin
 	ctx := context.TODO()
 	datasource := arena.SpecialDatasourcesForIDLMechanisms.Thrift
 	datasourceArrayLength := len(datasource)
+	thriftBinarySerializer := thrift.NewTSerializer() //binary serializer
 
 	for _, test := range arena.AllCompressionTestCases {
 		b.Run(test.Desc, func(bench *testing.B) {
 			bench.ResetTimer()
-
 			for i := 0; i < bench.N; i++ {
 				x := datasource[i%datasourceArrayLength]
-
-				thriftBinarySerializer := thrift.NewTSerializer() //binary serializer
 
 				rawBytes, err := thriftBinarySerializer.Write(ctx, x.Item)
 				if err != nil {

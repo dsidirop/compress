@@ -11,7 +11,7 @@
 ##
 
 # graphic will be saved as 800x600 png image file
-set terminal png size 3600,800
+set terminal png size 12000,800
 
 # allows grid lines to be drawn on the plot
 set grid x,y
