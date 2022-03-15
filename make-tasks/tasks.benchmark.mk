@@ -74,7 +74,7 @@ merge-output-images-of-plots: # merge all images into one
 
 .PHONY:\
 generate-scatter-plot-for-size-vs-time
-generate-scatter-plot-for-size-vs-time: # benchmark-serialization-deserialization-with-compression-elapsed-time    benchmark-serialization-with-compression-eventual-message-size
+generate-scatter-plot-for-size-vs-time: benchmark-serialization-deserialization-with-compression-elapsed-time    benchmark-serialization-with-compression-eventual-message-size
 	@$(call generate-scatter-plot-for-size-vs-time)
 
 .PHONY:\
