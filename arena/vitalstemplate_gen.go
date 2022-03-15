@@ -5473,6 +5473,24 @@ func (z *VitalsTemplate) DecodeMsg(dc *msgp.Reader) (err error) {
 				err = msgp.WrapError(err, "Spec")
 				return
 			}
+		case "foo":
+			if dc.IsNil() {
+				err = dc.ReadNil()
+				if err != nil {
+					err = msgp.WrapError(err, "Foo")
+					return
+				}
+				z.Foo = nil
+			} else {
+				if z.Foo == nil {
+					z.Foo = new(int)
+				}
+				*z.Foo, err = dc.ReadInt()
+				if err != nil {
+					err = msgp.WrapError(err, "Foo")
+					return
+				}
+			}
 		default:
 			err = dc.Skip()
 			if err != nil {
@@ -5487,8 +5505,12 @@ func (z *VitalsTemplate) DecodeMsg(dc *msgp.Reader) (err error) {
 // EncodeMsg implements msgp.Encodable
 func (z *VitalsTemplate) EncodeMsg(en *msgp.Writer) (err error) {
 	// omitempty: check for empty values
-	zb0001Len := uint32(1)
-	// var zb0001Mask uint8 /* 1 bits */
+	zb0001Len := uint32(2)
+	var zb0001Mask uint8 /* 2 bits */
+	if z.Foo == nil {
+		zb0001Len--
+		zb0001Mask |= 0x2
+	}
 	// variable map header, size zb0001Len
 	err = en.Append(0x80 | uint8(zb0001Len))
 	if err != nil {
@@ -5507,6 +5529,25 @@ func (z *VitalsTemplate) EncodeMsg(en *msgp.Writer) (err error) {
 		err = msgp.WrapError(err, "Spec")
 		return
 	}
+	if (zb0001Mask & 0x2) == 0 { // if not empty
+		// write "foo"
+		err = en.Append(0xa3, 0x66, 0x6f, 0x6f)
+		if err != nil {
+			return
+		}
+		if z.Foo == nil {
+			err = en.WriteNil()
+			if err != nil {
+				return
+			}
+		} else {
+			err = en.WriteInt(*z.Foo)
+			if err != nil {
+				err = msgp.WrapError(err, "Foo")
+				return
+			}
+		}
+	}
 	return
 }
 
@@ -5514,8 +5555,12 @@ func (z *VitalsTemplate) EncodeMsg(en *msgp.Writer) (err error) {
 func (z *VitalsTemplate) MarshalMsg(b []byte) (o []byte, err error) {
 	o = msgp.Require(b, z.Msgsize())
 	// omitempty: check for empty values
-	zb0001Len := uint32(1)
-	// var zb0001Mask uint8 /* 1 bits */
+	zb0001Len := uint32(2)
+	var zb0001Mask uint8 /* 2 bits */
+	if z.Foo == nil {
+		zb0001Len--
+		zb0001Mask |= 0x2
+	}
 	// variable map header, size zb0001Len
 	o = append(o, 0x80|uint8(zb0001Len))
 	if zb0001Len == 0 {
@@ -5527,6 +5572,15 @@ func (z *VitalsTemplate) MarshalMsg(b []byte) (o []byte, err error) {
 	if err != nil {
 		err = msgp.WrapError(err, "Spec")
 		return
+	}
+	if (zb0001Mask & 0x2) == 0 { // if not empty
+		// string "foo"
+		o = append(o, 0xa3, 0x66, 0x6f, 0x6f)
+		if z.Foo == nil {
+			o = msgp.AppendNil(o)
+		} else {
+			o = msgp.AppendInt(o, *z.Foo)
+		}
 	}
 	return
 }
@@ -5555,6 +5609,23 @@ func (z *VitalsTemplate) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				err = msgp.WrapError(err, "Spec")
 				return
 			}
+		case "foo":
+			if msgp.IsNil(bts) {
+				bts, err = msgp.ReadNilBytes(bts)
+				if err != nil {
+					return
+				}
+				z.Foo = nil
+			} else {
+				if z.Foo == nil {
+					z.Foo = new(int)
+				}
+				*z.Foo, bts, err = msgp.ReadIntBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "Foo")
+					return
+				}
+			}
 		default:
 			bts, err = msgp.Skip(bts)
 			if err != nil {
@@ -5569,7 +5640,12 @@ func (z *VitalsTemplate) UnmarshalMsg(bts []byte) (o []byte, err error) {
 
 // Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
 func (z *VitalsTemplate) Msgsize() (s int) {
-	s = 1 + 5 + z.Spec.Msgsize()
+	s = 1 + 5 + z.Spec.Msgsize() + 4
+	if z.Foo == nil {
+		s += msgp.NilSize
+	} else {
+		s += msgp.IntSize
+	}
 	return
 }
 

@@ -2,6 +2,7 @@ package arena
 
 type VitalsTemplate struct {
 	Spec VitalsTemplateSpec `                        json:"spec,omitempty"                       msg:"spec,omitempty"                     bson:"spec,omitempty"                      `
+	Foo  *int               `                        json:"foo,omitempty"                        msg:"foo,omitempty"                      bson:"foo,omitempty"                       ` //stupid hack to dodge stupid msgp error
 }
 
 type VitalsTemplateSpec struct {
