@@ -69,7 +69,7 @@ func InitializeMainDatasource() {
 		panic(err)
 	}
 
-	goHambaAvroVitalSetPatchedSchema, err := os.ReadFile("../avvitalsetpatched.fixedmanually.avsc") // intentionally avoided 'avvitalsetpatched.avsc' because its problematic
+	goHambaAvroVitalSetPatchedSchema, err := os.ReadFile("../avvitalstemplate.fixedmanually.avsc") // intentionally avoided 'avvitalsetpatched.avsc' because its problematic
 	if err != nil {
 		panic(err)
 	}

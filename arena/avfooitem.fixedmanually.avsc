@@ -87,6 +87,5 @@
                 "logicalType": "timestamp-millis"
             }
         }
-    ],
-    "messages": {}
+    ]
 }

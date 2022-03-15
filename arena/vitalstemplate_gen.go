@@ -34,16 +34,12 @@ func (z *AirwayObstruction) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.TongueEdema = nil
 			} else {
 				if z.TongueEdema == nil {
-					z.TongueEdema = new(TongueEdema)
+					z.TongueEdema = new(string)
 				}
-				{
-					var zb0002 string
-					zb0002, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "TongueEdema")
-						return
-					}
-					*z.TongueEdema = TongueEdema(zb0002)
+				*z.TongueEdema, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "TongueEdema")
+					return
 				}
 			}
 		default:
@@ -86,7 +82,7 @@ func (z *AirwayObstruction) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.TongueEdema))
+			err = en.WriteString(*z.TongueEdema)
 			if err != nil {
 				err = msgp.WrapError(err, "TongueEdema")
 				return
@@ -117,7 +113,7 @@ func (z *AirwayObstruction) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.TongueEdema == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.TongueEdema))
+			o = msgp.AppendString(o, *z.TongueEdema)
 		}
 	}
 	return
@@ -150,16 +146,12 @@ func (z *AirwayObstruction) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.TongueEdema = nil
 			} else {
 				if z.TongueEdema == nil {
-					z.TongueEdema = new(TongueEdema)
+					z.TongueEdema = new(string)
 				}
-				{
-					var zb0002 string
-					zb0002, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "TongueEdema")
-						return
-					}
-					*z.TongueEdema = TongueEdema(zb0002)
+				*z.TongueEdema, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "TongueEdema")
+					return
 				}
 			}
 		default:
@@ -180,60 +172,8 @@ func (z *AirwayObstruction) Msgsize() (s int) {
 	if z.TongueEdema == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.TongueEdema))
+		s += msgp.StringPrefixSize + len(*z.TongueEdema)
 	}
-	return
-}
-
-// DecodeMsg implements msgp.Decodable
-func (z *BlinkRate) DecodeMsg(dc *msgp.Reader) (err error) {
-	{
-		var zb0001 string
-		zb0001, err = dc.ReadString()
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = BlinkRate(zb0001)
-	}
-	return
-}
-
-// EncodeMsg implements msgp.Encodable
-func (z BlinkRate) EncodeMsg(en *msgp.Writer) (err error) {
-	err = en.WriteString(string(z))
-	if err != nil {
-		err = msgp.WrapError(err)
-		return
-	}
-	return
-}
-
-// MarshalMsg implements msgp.Marshaler
-func (z BlinkRate) MarshalMsg(b []byte) (o []byte, err error) {
-	o = msgp.Require(b, z.Msgsize())
-	o = msgp.AppendString(o, string(z))
-	return
-}
-
-// UnmarshalMsg implements msgp.Unmarshaler
-func (z *BlinkRate) UnmarshalMsg(bts []byte) (o []byte, err error) {
-	{
-		var zb0001 string
-		zb0001, bts, err = msgp.ReadStringBytes(bts)
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = BlinkRate(zb0001)
-	}
-	o = bts
-	return
-}
-
-// Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
-func (z BlinkRate) Msgsize() (s int) {
-	s = msgp.StringPrefixSize + len(string(z))
 	return
 }
 
@@ -265,9 +205,9 @@ func (z *BloodPressure) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.Systolic = nil
 			} else {
 				if z.Systolic == nil {
-					z.Systolic = new(int)
+					z.Systolic = new(int64)
 				}
-				*z.Systolic, err = dc.ReadInt()
+				*z.Systolic, err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Systolic")
 					return
@@ -283,9 +223,9 @@ func (z *BloodPressure) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.Diastolic = nil
 			} else {
 				if z.Diastolic == nil {
-					z.Diastolic = new(int)
+					z.Diastolic = new(int64)
 				}
-				*z.Diastolic, err = dc.ReadInt()
+				*z.Diastolic, err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Diastolic")
 					return
@@ -335,7 +275,7 @@ func (z *BloodPressure) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(*z.Systolic)
+			err = en.WriteInt64(*z.Systolic)
 			if err != nil {
 				err = msgp.WrapError(err, "Systolic")
 				return
@@ -354,7 +294,7 @@ func (z *BloodPressure) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(*z.Diastolic)
+			err = en.WriteInt64(*z.Diastolic)
 			if err != nil {
 				err = msgp.WrapError(err, "Diastolic")
 				return
@@ -389,7 +329,7 @@ func (z *BloodPressure) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.Systolic == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, *z.Systolic)
+			o = msgp.AppendInt64(o, *z.Systolic)
 		}
 	}
 	if (zb0001Mask & 0x2) == 0 { // if not empty
@@ -398,7 +338,7 @@ func (z *BloodPressure) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.Diastolic == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, *z.Diastolic)
+			o = msgp.AppendInt64(o, *z.Diastolic)
 		}
 	}
 	return
@@ -431,9 +371,9 @@ func (z *BloodPressure) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.Systolic = nil
 			} else {
 				if z.Systolic == nil {
-					z.Systolic = new(int)
+					z.Systolic = new(int64)
 				}
-				*z.Systolic, bts, err = msgp.ReadIntBytes(bts)
+				*z.Systolic, bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Systolic")
 					return
@@ -448,9 +388,9 @@ func (z *BloodPressure) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.Diastolic = nil
 			} else {
 				if z.Diastolic == nil {
-					z.Diastolic = new(int)
+					z.Diastolic = new(int64)
 				}
-				*z.Diastolic, bts, err = msgp.ReadIntBytes(bts)
+				*z.Diastolic, bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Diastolic")
 					return
@@ -474,66 +414,14 @@ func (z *BloodPressure) Msgsize() (s int) {
 	if z.Systolic == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
 	s += 10
 	if z.Diastolic == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
-	return
-}
-
-// DecodeMsg implements msgp.Decodable
-func (z *BowelSound) DecodeMsg(dc *msgp.Reader) (err error) {
-	{
-		var zb0001 string
-		zb0001, err = dc.ReadString()
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = BowelSound(zb0001)
-	}
-	return
-}
-
-// EncodeMsg implements msgp.Encodable
-func (z BowelSound) EncodeMsg(en *msgp.Writer) (err error) {
-	err = en.WriteString(string(z))
-	if err != nil {
-		err = msgp.WrapError(err)
-		return
-	}
-	return
-}
-
-// MarshalMsg implements msgp.Marshaler
-func (z BowelSound) MarshalMsg(b []byte) (o []byte, err error) {
-	o = msgp.Require(b, z.Msgsize())
-	o = msgp.AppendString(o, string(z))
-	return
-}
-
-// UnmarshalMsg implements msgp.Unmarshaler
-func (z *BowelSound) UnmarshalMsg(bts []byte) (o []byte, err error) {
-	{
-		var zb0001 string
-		zb0001, bts, err = msgp.ReadStringBytes(bts)
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = BowelSound(zb0001)
-	}
-	o = bts
-	return
-}
-
-// Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
-func (z BowelSound) Msgsize() (s int) {
-	s = msgp.StringPrefixSize + len(string(z))
 	return
 }
 
@@ -565,16 +453,12 @@ func (z *BowelSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.Bowel = nil
 			} else {
 				if z.Bowel == nil {
-					z.Bowel = new(BowelSound)
+					z.Bowel = new(string)
 				}
-				{
-					var zb0002 string
-					zb0002, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "Bowel")
-						return
-					}
-					*z.Bowel = BowelSound(zb0002)
+				*z.Bowel, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "Bowel")
+					return
 				}
 			}
 		case "bowel_volume":
@@ -587,9 +471,9 @@ func (z *BowelSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.BowelVolume = nil
 			} else {
 				if z.BowelVolume == nil {
-					z.BowelVolume = new(int)
+					z.BowelVolume = new(int64)
 				}
-				*z.BowelVolume, err = dc.ReadInt()
+				*z.BowelVolume, err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "BowelVolume")
 					return
@@ -639,7 +523,7 @@ func (z *BowelSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.Bowel))
+			err = en.WriteString(*z.Bowel)
 			if err != nil {
 				err = msgp.WrapError(err, "Bowel")
 				return
@@ -658,7 +542,7 @@ func (z *BowelSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(*z.BowelVolume)
+			err = en.WriteInt64(*z.BowelVolume)
 			if err != nil {
 				err = msgp.WrapError(err, "BowelVolume")
 				return
@@ -693,7 +577,7 @@ func (z *BowelSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.Bowel == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.Bowel))
+			o = msgp.AppendString(o, *z.Bowel)
 		}
 	}
 	if (zb0001Mask & 0x2) == 0 { // if not empty
@@ -702,7 +586,7 @@ func (z *BowelSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.BowelVolume == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, *z.BowelVolume)
+			o = msgp.AppendInt64(o, *z.BowelVolume)
 		}
 	}
 	return
@@ -735,16 +619,12 @@ func (z *BowelSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.Bowel = nil
 			} else {
 				if z.Bowel == nil {
-					z.Bowel = new(BowelSound)
+					z.Bowel = new(string)
 				}
-				{
-					var zb0002 string
-					zb0002, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "Bowel")
-						return
-					}
-					*z.Bowel = BowelSound(zb0002)
+				*z.Bowel, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "Bowel")
+					return
 				}
 			}
 		case "bowel_volume":
@@ -756,9 +636,9 @@ func (z *BowelSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.BowelVolume = nil
 			} else {
 				if z.BowelVolume == nil {
-					z.BowelVolume = new(int)
+					z.BowelVolume = new(int64)
 				}
-				*z.BowelVolume, bts, err = msgp.ReadIntBytes(bts)
+				*z.BowelVolume, bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "BowelVolume")
 					return
@@ -782,13 +662,13 @@ func (z *BowelSounds) Msgsize() (s int) {
 	if z.Bowel == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.Bowel))
+		s += msgp.StringPrefixSize + len(*z.Bowel)
 	}
 	s += 13
 	if z.BowelVolume == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
 	return
 }
@@ -821,9 +701,9 @@ func (z *Ecg) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.HeartRate = nil
 			} else {
 				if z.HeartRate == nil {
-					z.HeartRate = new(int)
+					z.HeartRate = new(int64)
 				}
-				*z.HeartRate, err = dc.ReadInt()
+				*z.HeartRate, err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "HeartRate")
 					return
@@ -839,16 +719,12 @@ func (z *Ecg) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.BasicRhythm = nil
 			} else {
 				if z.BasicRhythm == nil {
-					z.BasicRhythm = new(HeartRhythm)
+					z.BasicRhythm = new(string)
 				}
-				{
-					var zb0002 string
-					zb0002, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "BasicRhythm")
-						return
-					}
-					*z.BasicRhythm = HeartRhythm(zb0002)
+				*z.BasicRhythm, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "BasicRhythm")
+					return
 				}
 			}
 		case "extrasystole":
@@ -879,9 +755,9 @@ func (z *Ecg) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.Severity = nil
 			} else {
 				if z.Severity == nil {
-					z.Severity = new(int)
+					z.Severity = new(int64)
 				}
-				*z.Severity, err = dc.ReadInt()
+				*z.Severity, err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Severity")
 					return
@@ -983,7 +859,7 @@ func (z *Ecg) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(*z.HeartRate)
+			err = en.WriteInt64(*z.HeartRate)
 			if err != nil {
 				err = msgp.WrapError(err, "HeartRate")
 				return
@@ -1002,7 +878,7 @@ func (z *Ecg) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.BasicRhythm))
+			err = en.WriteString(*z.BasicRhythm)
 			if err != nil {
 				err = msgp.WrapError(err, "BasicRhythm")
 				return
@@ -1040,7 +916,7 @@ func (z *Ecg) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(*z.Severity)
+			err = en.WriteInt64(*z.Severity)
 			if err != nil {
 				err = msgp.WrapError(err, "Severity")
 				return
@@ -1129,7 +1005,7 @@ func (z *Ecg) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.HeartRate == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, *z.HeartRate)
+			o = msgp.AppendInt64(o, *z.HeartRate)
 		}
 	}
 	if (zb0001Mask & 0x2) == 0 { // if not empty
@@ -1138,7 +1014,7 @@ func (z *Ecg) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.BasicRhythm == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.BasicRhythm))
+			o = msgp.AppendString(o, *z.BasicRhythm)
 		}
 	}
 	if (zb0001Mask & 0x4) == 0 { // if not empty
@@ -1160,7 +1036,7 @@ func (z *Ecg) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.Severity == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, *z.Severity)
+			o = msgp.AppendInt64(o, *z.Severity)
 		}
 	}
 	if (zb0001Mask & 0x10) == 0 { // if not empty
@@ -1211,9 +1087,9 @@ func (z *Ecg) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.HeartRate = nil
 			} else {
 				if z.HeartRate == nil {
-					z.HeartRate = new(int)
+					z.HeartRate = new(int64)
 				}
-				*z.HeartRate, bts, err = msgp.ReadIntBytes(bts)
+				*z.HeartRate, bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "HeartRate")
 					return
@@ -1228,16 +1104,12 @@ func (z *Ecg) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.BasicRhythm = nil
 			} else {
 				if z.BasicRhythm == nil {
-					z.BasicRhythm = new(HeartRhythm)
+					z.BasicRhythm = new(string)
 				}
-				{
-					var zb0002 string
-					zb0002, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "BasicRhythm")
-						return
-					}
-					*z.BasicRhythm = HeartRhythm(zb0002)
+				*z.BasicRhythm, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "BasicRhythm")
+					return
 				}
 			}
 		case "extrasystole":
@@ -1266,9 +1138,9 @@ func (z *Ecg) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.Severity = nil
 			} else {
 				if z.Severity == nil {
-					z.Severity = new(int)
+					z.Severity = new(int64)
 				}
-				*z.Severity, bts, err = msgp.ReadIntBytes(bts)
+				*z.Severity, bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Severity")
 					return
@@ -1326,13 +1198,13 @@ func (z *Ecg) Msgsize() (s int) {
 	if z.HeartRate == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
 	s += 13
 	if z.BasicRhythm == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.BasicRhythm))
+		s += msgp.StringPrefixSize + len(*z.BasicRhythm)
 	}
 	s += 13
 	if z.Extrasystole == nil {
@@ -1344,7 +1216,7 @@ func (z *Ecg) Msgsize() (s int) {
 	if z.Severity == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
 	s += 13
 	if z.AllowPacing == nil {
@@ -1389,16 +1261,12 @@ func (z *Extrasystole) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.Type = nil
 			} else {
 				if z.Type == nil {
-					z.Type = new(Systole)
+					z.Type = new(string)
 				}
-				{
-					var zb0002 string
-					zb0002, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "Type")
-						return
-					}
-					*z.Type = Systole(zb0002)
+				*z.Type, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "Type")
+					return
 				}
 			}
 		case "probability":
@@ -1411,9 +1279,9 @@ func (z *Extrasystole) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.Probability = nil
 			} else {
 				if z.Probability == nil {
-					z.Probability = new(int)
+					z.Probability = new(int64)
 				}
-				*z.Probability, err = dc.ReadInt()
+				*z.Probability, err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Probability")
 					return
@@ -1463,7 +1331,7 @@ func (z *Extrasystole) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.Type))
+			err = en.WriteString(*z.Type)
 			if err != nil {
 				err = msgp.WrapError(err, "Type")
 				return
@@ -1482,7 +1350,7 @@ func (z *Extrasystole) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(*z.Probability)
+			err = en.WriteInt64(*z.Probability)
 			if err != nil {
 				err = msgp.WrapError(err, "Probability")
 				return
@@ -1517,7 +1385,7 @@ func (z *Extrasystole) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.Type == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.Type))
+			o = msgp.AppendString(o, *z.Type)
 		}
 	}
 	if (zb0001Mask & 0x2) == 0 { // if not empty
@@ -1526,7 +1394,7 @@ func (z *Extrasystole) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.Probability == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, *z.Probability)
+			o = msgp.AppendInt64(o, *z.Probability)
 		}
 	}
 	return
@@ -1559,16 +1427,12 @@ func (z *Extrasystole) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.Type = nil
 			} else {
 				if z.Type == nil {
-					z.Type = new(Systole)
+					z.Type = new(string)
 				}
-				{
-					var zb0002 string
-					zb0002, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "Type")
-						return
-					}
-					*z.Type = Systole(zb0002)
+				*z.Type, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "Type")
+					return
 				}
 			}
 		case "probability":
@@ -1580,9 +1444,9 @@ func (z *Extrasystole) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.Probability = nil
 			} else {
 				if z.Probability == nil {
-					z.Probability = new(int)
+					z.Probability = new(int64)
 				}
-				*z.Probability, bts, err = msgp.ReadIntBytes(bts)
+				*z.Probability, bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Probability")
 					return
@@ -1606,13 +1470,13 @@ func (z *Extrasystole) Msgsize() (s int) {
 	if z.Type == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.Type))
+		s += msgp.StringPrefixSize + len(*z.Type)
 	}
 	s += 12
 	if z.Probability == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
 	return
 }
@@ -1645,16 +1509,12 @@ func (z *Eye) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.EyelidPosition = nil
 			} else {
 				if z.EyelidPosition == nil {
-					z.EyelidPosition = new(EyelidPosition)
+					z.EyelidPosition = new(string)
 				}
-				{
-					var zb0002 string
-					zb0002, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "EyelidPosition")
-						return
-					}
-					*z.EyelidPosition = EyelidPosition(zb0002)
+				*z.EyelidPosition, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "EyelidPosition")
+					return
 				}
 			}
 		case "pupil_size":
@@ -1667,16 +1527,12 @@ func (z *Eye) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.PupilSize = nil
 			} else {
 				if z.PupilSize == nil {
-					z.PupilSize = new(PupilSize)
+					z.PupilSize = new(int64)
 				}
-				{
-					var zb0003 int
-					zb0003, err = dc.ReadInt()
-					if err != nil {
-						err = msgp.WrapError(err, "PupilSize")
-						return
-					}
-					*z.PupilSize = PupilSize(zb0003)
+				*z.PupilSize, err = dc.ReadInt64()
+				if err != nil {
+					err = msgp.WrapError(err, "PupilSize")
+					return
 				}
 			}
 		case "pupil_responsiveness":
@@ -1689,16 +1545,12 @@ func (z *Eye) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.PupilResponsiveness = nil
 			} else {
 				if z.PupilResponsiveness == nil {
-					z.PupilResponsiveness = new(PupilResponsiveness)
+					z.PupilResponsiveness = new(string)
 				}
-				{
-					var zb0004 string
-					zb0004, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "PupilResponsiveness")
-						return
-					}
-					*z.PupilResponsiveness = PupilResponsiveness(zb0004)
+				*z.PupilResponsiveness, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "PupilResponsiveness")
+					return
 				}
 			}
 		default:
@@ -1749,7 +1601,7 @@ func (z *Eye) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.EyelidPosition))
+			err = en.WriteString(*z.EyelidPosition)
 			if err != nil {
 				err = msgp.WrapError(err, "EyelidPosition")
 				return
@@ -1768,7 +1620,7 @@ func (z *Eye) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(int(*z.PupilSize))
+			err = en.WriteInt64(*z.PupilSize)
 			if err != nil {
 				err = msgp.WrapError(err, "PupilSize")
 				return
@@ -1787,7 +1639,7 @@ func (z *Eye) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.PupilResponsiveness))
+			err = en.WriteString(*z.PupilResponsiveness)
 			if err != nil {
 				err = msgp.WrapError(err, "PupilResponsiveness")
 				return
@@ -1826,7 +1678,7 @@ func (z *Eye) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.EyelidPosition == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.EyelidPosition))
+			o = msgp.AppendString(o, *z.EyelidPosition)
 		}
 	}
 	if (zb0001Mask & 0x2) == 0 { // if not empty
@@ -1835,7 +1687,7 @@ func (z *Eye) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.PupilSize == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, int(*z.PupilSize))
+			o = msgp.AppendInt64(o, *z.PupilSize)
 		}
 	}
 	if (zb0001Mask & 0x4) == 0 { // if not empty
@@ -1844,7 +1696,7 @@ func (z *Eye) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.PupilResponsiveness == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.PupilResponsiveness))
+			o = msgp.AppendString(o, *z.PupilResponsiveness)
 		}
 	}
 	return
@@ -1877,16 +1729,12 @@ func (z *Eye) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.EyelidPosition = nil
 			} else {
 				if z.EyelidPosition == nil {
-					z.EyelidPosition = new(EyelidPosition)
+					z.EyelidPosition = new(string)
 				}
-				{
-					var zb0002 string
-					zb0002, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "EyelidPosition")
-						return
-					}
-					*z.EyelidPosition = EyelidPosition(zb0002)
+				*z.EyelidPosition, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "EyelidPosition")
+					return
 				}
 			}
 		case "pupil_size":
@@ -1898,16 +1746,12 @@ func (z *Eye) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.PupilSize = nil
 			} else {
 				if z.PupilSize == nil {
-					z.PupilSize = new(PupilSize)
+					z.PupilSize = new(int64)
 				}
-				{
-					var zb0003 int
-					zb0003, bts, err = msgp.ReadIntBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "PupilSize")
-						return
-					}
-					*z.PupilSize = PupilSize(zb0003)
+				*z.PupilSize, bts, err = msgp.ReadInt64Bytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "PupilSize")
+					return
 				}
 			}
 		case "pupil_responsiveness":
@@ -1919,16 +1763,12 @@ func (z *Eye) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.PupilResponsiveness = nil
 			} else {
 				if z.PupilResponsiveness == nil {
-					z.PupilResponsiveness = new(PupilResponsiveness)
+					z.PupilResponsiveness = new(string)
 				}
-				{
-					var zb0004 string
-					zb0004, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "PupilResponsiveness")
-						return
-					}
-					*z.PupilResponsiveness = PupilResponsiveness(zb0004)
+				*z.PupilResponsiveness, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "PupilResponsiveness")
+					return
 				}
 			}
 		default:
@@ -1949,72 +1789,20 @@ func (z *Eye) Msgsize() (s int) {
 	if z.EyelidPosition == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.EyelidPosition))
+		s += msgp.StringPrefixSize + len(*z.EyelidPosition)
 	}
 	s += 11
 	if z.PupilSize == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
 	s += 21
 	if z.PupilResponsiveness == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.PupilResponsiveness))
+		s += msgp.StringPrefixSize + len(*z.PupilResponsiveness)
 	}
-	return
-}
-
-// DecodeMsg implements msgp.Decodable
-func (z *EyelidPosition) DecodeMsg(dc *msgp.Reader) (err error) {
-	{
-		var zb0001 string
-		zb0001, err = dc.ReadString()
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = EyelidPosition(zb0001)
-	}
-	return
-}
-
-// EncodeMsg implements msgp.Encodable
-func (z EyelidPosition) EncodeMsg(en *msgp.Writer) (err error) {
-	err = en.WriteString(string(z))
-	if err != nil {
-		err = msgp.WrapError(err)
-		return
-	}
-	return
-}
-
-// MarshalMsg implements msgp.Marshaler
-func (z EyelidPosition) MarshalMsg(b []byte) (o []byte, err error) {
-	o = msgp.Require(b, z.Msgsize())
-	o = msgp.AppendString(o, string(z))
-	return
-}
-
-// UnmarshalMsg implements msgp.Unmarshaler
-func (z *EyelidPosition) UnmarshalMsg(bts []byte) (o []byte, err error) {
-	{
-		var zb0001 string
-		zb0001, bts, err = msgp.ReadStringBytes(bts)
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = EyelidPosition(zb0001)
-	}
-	o = bts
-	return
-}
-
-// Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
-func (z EyelidPosition) Msgsize() (s int) {
-	s = msgp.StringPrefixSize + len(string(z))
 	return
 }
 
@@ -2082,16 +1870,12 @@ func (z *Eyes) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.BlinkRate = nil
 			} else {
 				if z.BlinkRate == nil {
-					z.BlinkRate = new(BlinkRate)
+					z.BlinkRate = new(string)
 				}
-				{
-					var zb0002 string
-					zb0002, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "BlinkRate")
-						return
-					}
-					*z.BlinkRate = BlinkRate(zb0002)
+				*z.BlinkRate, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "BlinkRate")
+					return
 				}
 			}
 		default:
@@ -2180,7 +1964,7 @@ func (z *Eyes) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.BlinkRate))
+			err = en.WriteString(*z.BlinkRate)
 			if err != nil {
 				err = msgp.WrapError(err, "BlinkRate")
 				return
@@ -2245,7 +2029,7 @@ func (z *Eyes) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.BlinkRate == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.BlinkRate))
+			o = msgp.AppendString(o, *z.BlinkRate)
 		}
 	}
 	return
@@ -2312,16 +2096,12 @@ func (z *Eyes) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.BlinkRate = nil
 			} else {
 				if z.BlinkRate == nil {
-					z.BlinkRate = new(BlinkRate)
+					z.BlinkRate = new(string)
 				}
-				{
-					var zb0002 string
-					zb0002, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "BlinkRate")
-						return
-					}
-					*z.BlinkRate = BlinkRate(zb0002)
+				*z.BlinkRate, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "BlinkRate")
+					return
 				}
 			}
 		default:
@@ -2354,112 +2134,8 @@ func (z *Eyes) Msgsize() (s int) {
 	if z.BlinkRate == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.BlinkRate))
+		s += msgp.StringPrefixSize + len(*z.BlinkRate)
 	}
-	return
-}
-
-// DecodeMsg implements msgp.Decodable
-func (z *HeartRhythm) DecodeMsg(dc *msgp.Reader) (err error) {
-	{
-		var zb0001 string
-		zb0001, err = dc.ReadString()
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = HeartRhythm(zb0001)
-	}
-	return
-}
-
-// EncodeMsg implements msgp.Encodable
-func (z HeartRhythm) EncodeMsg(en *msgp.Writer) (err error) {
-	err = en.WriteString(string(z))
-	if err != nil {
-		err = msgp.WrapError(err)
-		return
-	}
-	return
-}
-
-// MarshalMsg implements msgp.Marshaler
-func (z HeartRhythm) MarshalMsg(b []byte) (o []byte, err error) {
-	o = msgp.Require(b, z.Msgsize())
-	o = msgp.AppendString(o, string(z))
-	return
-}
-
-// UnmarshalMsg implements msgp.Unmarshaler
-func (z *HeartRhythm) UnmarshalMsg(bts []byte) (o []byte, err error) {
-	{
-		var zb0001 string
-		zb0001, bts, err = msgp.ReadStringBytes(bts)
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = HeartRhythm(zb0001)
-	}
-	o = bts
-	return
-}
-
-// Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
-func (z HeartRhythm) Msgsize() (s int) {
-	s = msgp.StringPrefixSize + len(string(z))
-	return
-}
-
-// DecodeMsg implements msgp.Decodable
-func (z *HeartSound) DecodeMsg(dc *msgp.Reader) (err error) {
-	{
-		var zb0001 string
-		zb0001, err = dc.ReadString()
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = HeartSound(zb0001)
-	}
-	return
-}
-
-// EncodeMsg implements msgp.Encodable
-func (z HeartSound) EncodeMsg(en *msgp.Writer) (err error) {
-	err = en.WriteString(string(z))
-	if err != nil {
-		err = msgp.WrapError(err)
-		return
-	}
-	return
-}
-
-// MarshalMsg implements msgp.Marshaler
-func (z HeartSound) MarshalMsg(b []byte) (o []byte, err error) {
-	o = msgp.Require(b, z.Msgsize())
-	o = msgp.AppendString(o, string(z))
-	return
-}
-
-// UnmarshalMsg implements msgp.Unmarshaler
-func (z *HeartSound) UnmarshalMsg(bts []byte) (o []byte, err error) {
-	{
-		var zb0001 string
-		zb0001, bts, err = msgp.ReadStringBytes(bts)
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = HeartSound(zb0001)
-	}
-	o = bts
-	return
-}
-
-// Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
-func (z HeartSound) Msgsize() (s int) {
-	s = msgp.StringPrefixSize + len(string(z))
 	return
 }
 
@@ -2491,16 +2167,12 @@ func (z *HeartSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.Aortic = nil
 			} else {
 				if z.Aortic == nil {
-					z.Aortic = new(HeartSound)
+					z.Aortic = new(string)
 				}
-				{
-					var zb0002 string
-					zb0002, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "Aortic")
-						return
-					}
-					*z.Aortic = HeartSound(zb0002)
+				*z.Aortic, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "Aortic")
+					return
 				}
 			}
 		case "aortic_volume":
@@ -2513,9 +2185,9 @@ func (z *HeartSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.AorticVolume = nil
 			} else {
 				if z.AorticVolume == nil {
-					z.AorticVolume = new(int)
+					z.AorticVolume = new(int64)
 				}
-				*z.AorticVolume, err = dc.ReadInt()
+				*z.AorticVolume, err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "AorticVolume")
 					return
@@ -2531,16 +2203,12 @@ func (z *HeartSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.Pulmonary = nil
 			} else {
 				if z.Pulmonary == nil {
-					z.Pulmonary = new(HeartSound)
+					z.Pulmonary = new(string)
 				}
-				{
-					var zb0003 string
-					zb0003, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "Pulmonary")
-						return
-					}
-					*z.Pulmonary = HeartSound(zb0003)
+				*z.Pulmonary, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "Pulmonary")
+					return
 				}
 			}
 		case "pulmonary_volume":
@@ -2553,9 +2221,9 @@ func (z *HeartSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.PulmonaryVolume = nil
 			} else {
 				if z.PulmonaryVolume == nil {
-					z.PulmonaryVolume = new(int)
+					z.PulmonaryVolume = new(int64)
 				}
-				*z.PulmonaryVolume, err = dc.ReadInt()
+				*z.PulmonaryVolume, err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "PulmonaryVolume")
 					return
@@ -2571,16 +2239,12 @@ func (z *HeartSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.Tricuspid = nil
 			} else {
 				if z.Tricuspid == nil {
-					z.Tricuspid = new(HeartSound)
+					z.Tricuspid = new(string)
 				}
-				{
-					var zb0004 string
-					zb0004, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "Tricuspid")
-						return
-					}
-					*z.Tricuspid = HeartSound(zb0004)
+				*z.Tricuspid, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "Tricuspid")
+					return
 				}
 			}
 		case "tricuspid_volume":
@@ -2593,9 +2257,9 @@ func (z *HeartSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.TricuspidVolume = nil
 			} else {
 				if z.TricuspidVolume == nil {
-					z.TricuspidVolume = new(int)
+					z.TricuspidVolume = new(int64)
 				}
-				*z.TricuspidVolume, err = dc.ReadInt()
+				*z.TricuspidVolume, err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "TricuspidVolume")
 					return
@@ -2611,16 +2275,12 @@ func (z *HeartSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.Mitral = nil
 			} else {
 				if z.Mitral == nil {
-					z.Mitral = new(HeartSound)
+					z.Mitral = new(string)
 				}
-				{
-					var zb0005 string
-					zb0005, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "Mitral")
-						return
-					}
-					*z.Mitral = HeartSound(zb0005)
+				*z.Mitral, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "Mitral")
+					return
 				}
 			}
 		case "mitral_volume":
@@ -2633,9 +2293,9 @@ func (z *HeartSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.MitralVolume = nil
 			} else {
 				if z.MitralVolume == nil {
-					z.MitralVolume = new(int)
+					z.MitralVolume = new(int64)
 				}
-				*z.MitralVolume, err = dc.ReadInt()
+				*z.MitralVolume, err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "MitralVolume")
 					return
@@ -2709,7 +2369,7 @@ func (z *HeartSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.Aortic))
+			err = en.WriteString(*z.Aortic)
 			if err != nil {
 				err = msgp.WrapError(err, "Aortic")
 				return
@@ -2728,7 +2388,7 @@ func (z *HeartSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(*z.AorticVolume)
+			err = en.WriteInt64(*z.AorticVolume)
 			if err != nil {
 				err = msgp.WrapError(err, "AorticVolume")
 				return
@@ -2747,7 +2407,7 @@ func (z *HeartSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.Pulmonary))
+			err = en.WriteString(*z.Pulmonary)
 			if err != nil {
 				err = msgp.WrapError(err, "Pulmonary")
 				return
@@ -2766,7 +2426,7 @@ func (z *HeartSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(*z.PulmonaryVolume)
+			err = en.WriteInt64(*z.PulmonaryVolume)
 			if err != nil {
 				err = msgp.WrapError(err, "PulmonaryVolume")
 				return
@@ -2785,7 +2445,7 @@ func (z *HeartSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.Tricuspid))
+			err = en.WriteString(*z.Tricuspid)
 			if err != nil {
 				err = msgp.WrapError(err, "Tricuspid")
 				return
@@ -2804,7 +2464,7 @@ func (z *HeartSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(*z.TricuspidVolume)
+			err = en.WriteInt64(*z.TricuspidVolume)
 			if err != nil {
 				err = msgp.WrapError(err, "TricuspidVolume")
 				return
@@ -2823,7 +2483,7 @@ func (z *HeartSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.Mitral))
+			err = en.WriteString(*z.Mitral)
 			if err != nil {
 				err = msgp.WrapError(err, "Mitral")
 				return
@@ -2842,7 +2502,7 @@ func (z *HeartSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(*z.MitralVolume)
+			err = en.WriteInt64(*z.MitralVolume)
 			if err != nil {
 				err = msgp.WrapError(err, "MitralVolume")
 				return
@@ -2901,7 +2561,7 @@ func (z *HeartSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.Aortic == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.Aortic))
+			o = msgp.AppendString(o, *z.Aortic)
 		}
 	}
 	if (zb0001Mask & 0x2) == 0 { // if not empty
@@ -2910,7 +2570,7 @@ func (z *HeartSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.AorticVolume == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, *z.AorticVolume)
+			o = msgp.AppendInt64(o, *z.AorticVolume)
 		}
 	}
 	if (zb0001Mask & 0x4) == 0 { // if not empty
@@ -2919,7 +2579,7 @@ func (z *HeartSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.Pulmonary == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.Pulmonary))
+			o = msgp.AppendString(o, *z.Pulmonary)
 		}
 	}
 	if (zb0001Mask & 0x8) == 0 { // if not empty
@@ -2928,7 +2588,7 @@ func (z *HeartSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.PulmonaryVolume == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, *z.PulmonaryVolume)
+			o = msgp.AppendInt64(o, *z.PulmonaryVolume)
 		}
 	}
 	if (zb0001Mask & 0x10) == 0 { // if not empty
@@ -2937,7 +2597,7 @@ func (z *HeartSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.Tricuspid == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.Tricuspid))
+			o = msgp.AppendString(o, *z.Tricuspid)
 		}
 	}
 	if (zb0001Mask & 0x20) == 0 { // if not empty
@@ -2946,7 +2606,7 @@ func (z *HeartSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.TricuspidVolume == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, *z.TricuspidVolume)
+			o = msgp.AppendInt64(o, *z.TricuspidVolume)
 		}
 	}
 	if (zb0001Mask & 0x40) == 0 { // if not empty
@@ -2955,7 +2615,7 @@ func (z *HeartSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.Mitral == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.Mitral))
+			o = msgp.AppendString(o, *z.Mitral)
 		}
 	}
 	if (zb0001Mask & 0x80) == 0 { // if not empty
@@ -2964,7 +2624,7 @@ func (z *HeartSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.MitralVolume == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, *z.MitralVolume)
+			o = msgp.AppendInt64(o, *z.MitralVolume)
 		}
 	}
 	return
@@ -2997,16 +2657,12 @@ func (z *HeartSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.Aortic = nil
 			} else {
 				if z.Aortic == nil {
-					z.Aortic = new(HeartSound)
+					z.Aortic = new(string)
 				}
-				{
-					var zb0002 string
-					zb0002, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "Aortic")
-						return
-					}
-					*z.Aortic = HeartSound(zb0002)
+				*z.Aortic, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "Aortic")
+					return
 				}
 			}
 		case "aortic_volume":
@@ -3018,9 +2674,9 @@ func (z *HeartSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.AorticVolume = nil
 			} else {
 				if z.AorticVolume == nil {
-					z.AorticVolume = new(int)
+					z.AorticVolume = new(int64)
 				}
-				*z.AorticVolume, bts, err = msgp.ReadIntBytes(bts)
+				*z.AorticVolume, bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "AorticVolume")
 					return
@@ -3035,16 +2691,12 @@ func (z *HeartSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.Pulmonary = nil
 			} else {
 				if z.Pulmonary == nil {
-					z.Pulmonary = new(HeartSound)
+					z.Pulmonary = new(string)
 				}
-				{
-					var zb0003 string
-					zb0003, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "Pulmonary")
-						return
-					}
-					*z.Pulmonary = HeartSound(zb0003)
+				*z.Pulmonary, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "Pulmonary")
+					return
 				}
 			}
 		case "pulmonary_volume":
@@ -3056,9 +2708,9 @@ func (z *HeartSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.PulmonaryVolume = nil
 			} else {
 				if z.PulmonaryVolume == nil {
-					z.PulmonaryVolume = new(int)
+					z.PulmonaryVolume = new(int64)
 				}
-				*z.PulmonaryVolume, bts, err = msgp.ReadIntBytes(bts)
+				*z.PulmonaryVolume, bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "PulmonaryVolume")
 					return
@@ -3073,16 +2725,12 @@ func (z *HeartSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.Tricuspid = nil
 			} else {
 				if z.Tricuspid == nil {
-					z.Tricuspid = new(HeartSound)
+					z.Tricuspid = new(string)
 				}
-				{
-					var zb0004 string
-					zb0004, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "Tricuspid")
-						return
-					}
-					*z.Tricuspid = HeartSound(zb0004)
+				*z.Tricuspid, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "Tricuspid")
+					return
 				}
 			}
 		case "tricuspid_volume":
@@ -3094,9 +2742,9 @@ func (z *HeartSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.TricuspidVolume = nil
 			} else {
 				if z.TricuspidVolume == nil {
-					z.TricuspidVolume = new(int)
+					z.TricuspidVolume = new(int64)
 				}
-				*z.TricuspidVolume, bts, err = msgp.ReadIntBytes(bts)
+				*z.TricuspidVolume, bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "TricuspidVolume")
 					return
@@ -3111,16 +2759,12 @@ func (z *HeartSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.Mitral = nil
 			} else {
 				if z.Mitral == nil {
-					z.Mitral = new(HeartSound)
+					z.Mitral = new(string)
 				}
-				{
-					var zb0005 string
-					zb0005, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "Mitral")
-						return
-					}
-					*z.Mitral = HeartSound(zb0005)
+				*z.Mitral, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "Mitral")
+					return
 				}
 			}
 		case "mitral_volume":
@@ -3132,9 +2776,9 @@ func (z *HeartSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.MitralVolume = nil
 			} else {
 				if z.MitralVolume == nil {
-					z.MitralVolume = new(int)
+					z.MitralVolume = new(int64)
 				}
-				*z.MitralVolume, bts, err = msgp.ReadIntBytes(bts)
+				*z.MitralVolume, bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "MitralVolume")
 					return
@@ -3158,102 +2802,50 @@ func (z *HeartSounds) Msgsize() (s int) {
 	if z.Aortic == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.Aortic))
+		s += msgp.StringPrefixSize + len(*z.Aortic)
 	}
 	s += 14
 	if z.AorticVolume == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
 	s += 10
 	if z.Pulmonary == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.Pulmonary))
+		s += msgp.StringPrefixSize + len(*z.Pulmonary)
 	}
 	s += 17
 	if z.PulmonaryVolume == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
 	s += 10
 	if z.Tricuspid == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.Tricuspid))
+		s += msgp.StringPrefixSize + len(*z.Tricuspid)
 	}
 	s += 17
 	if z.TricuspidVolume == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
 	s += 7
 	if z.Mitral == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.Mitral))
+		s += msgp.StringPrefixSize + len(*z.Mitral)
 	}
 	s += 14
 	if z.MitralVolume == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
-	return
-}
-
-// DecodeMsg implements msgp.Decodable
-func (z *LungSound) DecodeMsg(dc *msgp.Reader) (err error) {
-	{
-		var zb0001 string
-		zb0001, err = dc.ReadString()
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = LungSound(zb0001)
-	}
-	return
-}
-
-// EncodeMsg implements msgp.Encodable
-func (z LungSound) EncodeMsg(en *msgp.Writer) (err error) {
-	err = en.WriteString(string(z))
-	if err != nil {
-		err = msgp.WrapError(err)
-		return
-	}
-	return
-}
-
-// MarshalMsg implements msgp.Marshaler
-func (z LungSound) MarshalMsg(b []byte) (o []byte, err error) {
-	o = msgp.Require(b, z.Msgsize())
-	o = msgp.AppendString(o, string(z))
-	return
-}
-
-// UnmarshalMsg implements msgp.Unmarshaler
-func (z *LungSound) UnmarshalMsg(bts []byte) (o []byte, err error) {
-	{
-		var zb0001 string
-		zb0001, bts, err = msgp.ReadStringBytes(bts)
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = LungSound(zb0001)
-	}
-	o = bts
-	return
-}
-
-// Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
-func (z LungSound) Msgsize() (s int) {
-	s = msgp.StringPrefixSize + len(string(z))
 	return
 }
 
@@ -3514,58 +3106,6 @@ func (z *LungSounds) Msgsize() (s int) {
 }
 
 // DecodeMsg implements msgp.Decodable
-func (z *PulseStrength) DecodeMsg(dc *msgp.Reader) (err error) {
-	{
-		var zb0001 string
-		zb0001, err = dc.ReadString()
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = PulseStrength(zb0001)
-	}
-	return
-}
-
-// EncodeMsg implements msgp.Encodable
-func (z PulseStrength) EncodeMsg(en *msgp.Writer) (err error) {
-	err = en.WriteString(string(z))
-	if err != nil {
-		err = msgp.WrapError(err)
-		return
-	}
-	return
-}
-
-// MarshalMsg implements msgp.Marshaler
-func (z PulseStrength) MarshalMsg(b []byte) (o []byte, err error) {
-	o = msgp.Require(b, z.Msgsize())
-	o = msgp.AppendString(o, string(z))
-	return
-}
-
-// UnmarshalMsg implements msgp.Unmarshaler
-func (z *PulseStrength) UnmarshalMsg(bts []byte) (o []byte, err error) {
-	{
-		var zb0001 string
-		zb0001, bts, err = msgp.ReadStringBytes(bts)
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = PulseStrength(zb0001)
-	}
-	o = bts
-	return
-}
-
-// Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
-func (z PulseStrength) Msgsize() (s int) {
-	s = msgp.StringPrefixSize + len(string(z))
-	return
-}
-
-// DecodeMsg implements msgp.Decodable
 func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 	var field []byte
 	_ = field
@@ -3593,16 +3133,12 @@ func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.Central = nil
 			} else {
 				if z.Central == nil {
-					z.Central = new(PulseStrength)
+					z.Central = new(string)
 				}
-				{
-					var zb0002 string
-					zb0002, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "Central")
-						return
-					}
-					*z.Central = PulseStrength(zb0002)
+				*z.Central, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "Central")
+					return
 				}
 			}
 		case "central_limited":
@@ -3615,16 +3151,12 @@ func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.CentralLimited = nil
 			} else {
 				if z.CentralLimited == nil {
-					z.CentralLimited = new(PulseStrength)
+					z.CentralLimited = new(string)
 				}
-				{
-					var zb0003 string
-					zb0003, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "CentralLimited")
-						return
-					}
-					*z.CentralLimited = PulseStrength(zb0003)
+				*z.CentralLimited, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "CentralLimited")
+					return
 				}
 			}
 		case "right_leg":
@@ -3637,16 +3169,12 @@ func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.RightLeg = nil
 			} else {
 				if z.RightLeg == nil {
-					z.RightLeg = new(PulseStrength)
+					z.RightLeg = new(string)
 				}
-				{
-					var zb0004 string
-					zb0004, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "RightLeg")
-						return
-					}
-					*z.RightLeg = PulseStrength(zb0004)
+				*z.RightLeg, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "RightLeg")
+					return
 				}
 			}
 		case "right_leg_limited":
@@ -3659,16 +3187,12 @@ func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.RightLegLimited = nil
 			} else {
 				if z.RightLegLimited == nil {
-					z.RightLegLimited = new(PulseStrength)
+					z.RightLegLimited = new(string)
 				}
-				{
-					var zb0005 string
-					zb0005, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "RightLegLimited")
-						return
-					}
-					*z.RightLegLimited = PulseStrength(zb0005)
+				*z.RightLegLimited, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "RightLegLimited")
+					return
 				}
 			}
 		case "left_leg":
@@ -3681,16 +3205,12 @@ func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.LeftLeg = nil
 			} else {
 				if z.LeftLeg == nil {
-					z.LeftLeg = new(PulseStrength)
+					z.LeftLeg = new(string)
 				}
-				{
-					var zb0006 string
-					zb0006, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "LeftLeg")
-						return
-					}
-					*z.LeftLeg = PulseStrength(zb0006)
+				*z.LeftLeg, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "LeftLeg")
+					return
 				}
 			}
 		case "left_leg_limited":
@@ -3703,16 +3223,12 @@ func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.LeftLegLimited = nil
 			} else {
 				if z.LeftLegLimited == nil {
-					z.LeftLegLimited = new(PulseStrength)
+					z.LeftLegLimited = new(string)
 				}
-				{
-					var zb0007 string
-					zb0007, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "LeftLegLimited")
-						return
-					}
-					*z.LeftLegLimited = PulseStrength(zb0007)
+				*z.LeftLegLimited, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "LeftLegLimited")
+					return
 				}
 			}
 		case "right_foot":
@@ -3725,16 +3241,12 @@ func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.RightFoot = nil
 			} else {
 				if z.RightFoot == nil {
-					z.RightFoot = new(PulseStrength)
+					z.RightFoot = new(string)
 				}
-				{
-					var zb0008 string
-					zb0008, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "RightFoot")
-						return
-					}
-					*z.RightFoot = PulseStrength(zb0008)
+				*z.RightFoot, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "RightFoot")
+					return
 				}
 			}
 		case "right_foot_limited":
@@ -3747,16 +3259,12 @@ func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.RightFootLimited = nil
 			} else {
 				if z.RightFootLimited == nil {
-					z.RightFootLimited = new(PulseStrength)
+					z.RightFootLimited = new(string)
 				}
-				{
-					var zb0009 string
-					zb0009, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "RightFootLimited")
-						return
-					}
-					*z.RightFootLimited = PulseStrength(zb0009)
+				*z.RightFootLimited, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "RightFootLimited")
+					return
 				}
 			}
 		case "left_foot":
@@ -3769,16 +3277,12 @@ func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.LeftFoot = nil
 			} else {
 				if z.LeftFoot == nil {
-					z.LeftFoot = new(PulseStrength)
+					z.LeftFoot = new(string)
 				}
-				{
-					var zb0010 string
-					zb0010, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "LeftFoot")
-						return
-					}
-					*z.LeftFoot = PulseStrength(zb0010)
+				*z.LeftFoot, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "LeftFoot")
+					return
 				}
 			}
 		case "left_foot_limited":
@@ -3791,16 +3295,12 @@ func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.LeftFootLimited = nil
 			} else {
 				if z.LeftFootLimited == nil {
-					z.LeftFootLimited = new(PulseStrength)
+					z.LeftFootLimited = new(string)
 				}
-				{
-					var zb0011 string
-					zb0011, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "LeftFootLimited")
-						return
-					}
-					*z.LeftFootLimited = PulseStrength(zb0011)
+				*z.LeftFootLimited, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "LeftFootLimited")
+					return
 				}
 			}
 		case "right_arm":
@@ -3813,16 +3313,12 @@ func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.RightArm = nil
 			} else {
 				if z.RightArm == nil {
-					z.RightArm = new(PulseStrength)
+					z.RightArm = new(string)
 				}
-				{
-					var zb0012 string
-					zb0012, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "RightArm")
-						return
-					}
-					*z.RightArm = PulseStrength(zb0012)
+				*z.RightArm, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "RightArm")
+					return
 				}
 			}
 		case "right_arm_limited":
@@ -3835,16 +3331,12 @@ func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.RightArmLimited = nil
 			} else {
 				if z.RightArmLimited == nil {
-					z.RightArmLimited = new(PulseStrength)
+					z.RightArmLimited = new(string)
 				}
-				{
-					var zb0013 string
-					zb0013, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "RightArmLimited")
-						return
-					}
-					*z.RightArmLimited = PulseStrength(zb0013)
+				*z.RightArmLimited, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "RightArmLimited")
+					return
 				}
 			}
 		case "left_arm":
@@ -3857,16 +3349,12 @@ func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.LeftArm = nil
 			} else {
 				if z.LeftArm == nil {
-					z.LeftArm = new(PulseStrength)
+					z.LeftArm = new(string)
 				}
-				{
-					var zb0014 string
-					zb0014, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "LeftArm")
-						return
-					}
-					*z.LeftArm = PulseStrength(zb0014)
+				*z.LeftArm, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "LeftArm")
+					return
 				}
 			}
 		case "left_arm_limited":
@@ -3879,16 +3367,12 @@ func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.LeftArmLimited = nil
 			} else {
 				if z.LeftArmLimited == nil {
-					z.LeftArmLimited = new(PulseStrength)
+					z.LeftArmLimited = new(string)
 				}
-				{
-					var zb0015 string
-					zb0015, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "LeftArmLimited")
-						return
-					}
-					*z.LeftArmLimited = PulseStrength(zb0015)
+				*z.LeftArmLimited, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "LeftArmLimited")
+					return
 				}
 			}
 		case "right_hand":
@@ -3901,16 +3385,12 @@ func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.RightHand = nil
 			} else {
 				if z.RightHand == nil {
-					z.RightHand = new(PulseStrength)
+					z.RightHand = new(string)
 				}
-				{
-					var zb0016 string
-					zb0016, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "RightHand")
-						return
-					}
-					*z.RightHand = PulseStrength(zb0016)
+				*z.RightHand, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "RightHand")
+					return
 				}
 			}
 		case "right_hand_limited":
@@ -3923,16 +3403,12 @@ func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.RightHandLimited = nil
 			} else {
 				if z.RightHandLimited == nil {
-					z.RightHandLimited = new(PulseStrength)
+					z.RightHandLimited = new(string)
 				}
-				{
-					var zb0017 string
-					zb0017, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "RightHandLimited")
-						return
-					}
-					*z.RightHandLimited = PulseStrength(zb0017)
+				*z.RightHandLimited, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "RightHandLimited")
+					return
 				}
 			}
 		case "left_hand":
@@ -3945,16 +3421,12 @@ func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.LeftHand = nil
 			} else {
 				if z.LeftHand == nil {
-					z.LeftHand = new(PulseStrength)
+					z.LeftHand = new(string)
 				}
-				{
-					var zb0018 string
-					zb0018, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "LeftHand")
-						return
-					}
-					*z.LeftHand = PulseStrength(zb0018)
+				*z.LeftHand, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "LeftHand")
+					return
 				}
 			}
 		case "left_hand_limited":
@@ -3967,16 +3439,12 @@ func (z *Pulses) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.LeftHandLimited = nil
 			} else {
 				if z.LeftHandLimited == nil {
-					z.LeftHandLimited = new(PulseStrength)
+					z.LeftHandLimited = new(string)
 				}
-				{
-					var zb0019 string
-					zb0019, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "LeftHandLimited")
-						return
-					}
-					*z.LeftHandLimited = PulseStrength(zb0019)
+				*z.LeftHandLimited, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "LeftHandLimited")
+					return
 				}
 			}
 		default:
@@ -4087,7 +3555,7 @@ func (z *Pulses) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.Central))
+			err = en.WriteString(*z.Central)
 			if err != nil {
 				err = msgp.WrapError(err, "Central")
 				return
@@ -4106,7 +3574,7 @@ func (z *Pulses) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.CentralLimited))
+			err = en.WriteString(*z.CentralLimited)
 			if err != nil {
 				err = msgp.WrapError(err, "CentralLimited")
 				return
@@ -4125,7 +3593,7 @@ func (z *Pulses) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.RightLeg))
+			err = en.WriteString(*z.RightLeg)
 			if err != nil {
 				err = msgp.WrapError(err, "RightLeg")
 				return
@@ -4144,7 +3612,7 @@ func (z *Pulses) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.RightLegLimited))
+			err = en.WriteString(*z.RightLegLimited)
 			if err != nil {
 				err = msgp.WrapError(err, "RightLegLimited")
 				return
@@ -4163,7 +3631,7 @@ func (z *Pulses) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.LeftLeg))
+			err = en.WriteString(*z.LeftLeg)
 			if err != nil {
 				err = msgp.WrapError(err, "LeftLeg")
 				return
@@ -4182,7 +3650,7 @@ func (z *Pulses) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.LeftLegLimited))
+			err = en.WriteString(*z.LeftLegLimited)
 			if err != nil {
 				err = msgp.WrapError(err, "LeftLegLimited")
 				return
@@ -4201,7 +3669,7 @@ func (z *Pulses) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.RightFoot))
+			err = en.WriteString(*z.RightFoot)
 			if err != nil {
 				err = msgp.WrapError(err, "RightFoot")
 				return
@@ -4220,7 +3688,7 @@ func (z *Pulses) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.RightFootLimited))
+			err = en.WriteString(*z.RightFootLimited)
 			if err != nil {
 				err = msgp.WrapError(err, "RightFootLimited")
 				return
@@ -4239,7 +3707,7 @@ func (z *Pulses) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.LeftFoot))
+			err = en.WriteString(*z.LeftFoot)
 			if err != nil {
 				err = msgp.WrapError(err, "LeftFoot")
 				return
@@ -4258,7 +3726,7 @@ func (z *Pulses) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.LeftFootLimited))
+			err = en.WriteString(*z.LeftFootLimited)
 			if err != nil {
 				err = msgp.WrapError(err, "LeftFootLimited")
 				return
@@ -4277,7 +3745,7 @@ func (z *Pulses) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.RightArm))
+			err = en.WriteString(*z.RightArm)
 			if err != nil {
 				err = msgp.WrapError(err, "RightArm")
 				return
@@ -4296,7 +3764,7 @@ func (z *Pulses) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.RightArmLimited))
+			err = en.WriteString(*z.RightArmLimited)
 			if err != nil {
 				err = msgp.WrapError(err, "RightArmLimited")
 				return
@@ -4315,7 +3783,7 @@ func (z *Pulses) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.LeftArm))
+			err = en.WriteString(*z.LeftArm)
 			if err != nil {
 				err = msgp.WrapError(err, "LeftArm")
 				return
@@ -4334,7 +3802,7 @@ func (z *Pulses) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.LeftArmLimited))
+			err = en.WriteString(*z.LeftArmLimited)
 			if err != nil {
 				err = msgp.WrapError(err, "LeftArmLimited")
 				return
@@ -4353,7 +3821,7 @@ func (z *Pulses) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.RightHand))
+			err = en.WriteString(*z.RightHand)
 			if err != nil {
 				err = msgp.WrapError(err, "RightHand")
 				return
@@ -4372,7 +3840,7 @@ func (z *Pulses) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.RightHandLimited))
+			err = en.WriteString(*z.RightHandLimited)
 			if err != nil {
 				err = msgp.WrapError(err, "RightHandLimited")
 				return
@@ -4391,7 +3859,7 @@ func (z *Pulses) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.LeftHand))
+			err = en.WriteString(*z.LeftHand)
 			if err != nil {
 				err = msgp.WrapError(err, "LeftHand")
 				return
@@ -4410,7 +3878,7 @@ func (z *Pulses) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.LeftHandLimited))
+			err = en.WriteString(*z.LeftHandLimited)
 			if err != nil {
 				err = msgp.WrapError(err, "LeftHandLimited")
 				return
@@ -4509,7 +3977,7 @@ func (z *Pulses) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.Central == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.Central))
+			o = msgp.AppendString(o, *z.Central)
 		}
 	}
 	if (zb0001Mask & 0x2) == 0 { // if not empty
@@ -4518,7 +3986,7 @@ func (z *Pulses) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.CentralLimited == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.CentralLimited))
+			o = msgp.AppendString(o, *z.CentralLimited)
 		}
 	}
 	if (zb0001Mask & 0x4) == 0 { // if not empty
@@ -4527,7 +3995,7 @@ func (z *Pulses) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.RightLeg == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.RightLeg))
+			o = msgp.AppendString(o, *z.RightLeg)
 		}
 	}
 	if (zb0001Mask & 0x8) == 0 { // if not empty
@@ -4536,7 +4004,7 @@ func (z *Pulses) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.RightLegLimited == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.RightLegLimited))
+			o = msgp.AppendString(o, *z.RightLegLimited)
 		}
 	}
 	if (zb0001Mask & 0x10) == 0 { // if not empty
@@ -4545,7 +4013,7 @@ func (z *Pulses) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.LeftLeg == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.LeftLeg))
+			o = msgp.AppendString(o, *z.LeftLeg)
 		}
 	}
 	if (zb0001Mask & 0x20) == 0 { // if not empty
@@ -4554,7 +4022,7 @@ func (z *Pulses) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.LeftLegLimited == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.LeftLegLimited))
+			o = msgp.AppendString(o, *z.LeftLegLimited)
 		}
 	}
 	if (zb0001Mask & 0x40) == 0 { // if not empty
@@ -4563,7 +4031,7 @@ func (z *Pulses) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.RightFoot == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.RightFoot))
+			o = msgp.AppendString(o, *z.RightFoot)
 		}
 	}
 	if (zb0001Mask & 0x80) == 0 { // if not empty
@@ -4572,7 +4040,7 @@ func (z *Pulses) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.RightFootLimited == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.RightFootLimited))
+			o = msgp.AppendString(o, *z.RightFootLimited)
 		}
 	}
 	if (zb0001Mask & 0x100) == 0 { // if not empty
@@ -4581,7 +4049,7 @@ func (z *Pulses) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.LeftFoot == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.LeftFoot))
+			o = msgp.AppendString(o, *z.LeftFoot)
 		}
 	}
 	if (zb0001Mask & 0x200) == 0 { // if not empty
@@ -4590,7 +4058,7 @@ func (z *Pulses) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.LeftFootLimited == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.LeftFootLimited))
+			o = msgp.AppendString(o, *z.LeftFootLimited)
 		}
 	}
 	if (zb0001Mask & 0x400) == 0 { // if not empty
@@ -4599,7 +4067,7 @@ func (z *Pulses) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.RightArm == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.RightArm))
+			o = msgp.AppendString(o, *z.RightArm)
 		}
 	}
 	if (zb0001Mask & 0x800) == 0 { // if not empty
@@ -4608,7 +4076,7 @@ func (z *Pulses) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.RightArmLimited == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.RightArmLimited))
+			o = msgp.AppendString(o, *z.RightArmLimited)
 		}
 	}
 	if (zb0001Mask & 0x1000) == 0 { // if not empty
@@ -4617,7 +4085,7 @@ func (z *Pulses) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.LeftArm == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.LeftArm))
+			o = msgp.AppendString(o, *z.LeftArm)
 		}
 	}
 	if (zb0001Mask & 0x2000) == 0 { // if not empty
@@ -4626,7 +4094,7 @@ func (z *Pulses) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.LeftArmLimited == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.LeftArmLimited))
+			o = msgp.AppendString(o, *z.LeftArmLimited)
 		}
 	}
 	if (zb0001Mask & 0x4000) == 0 { // if not empty
@@ -4635,7 +4103,7 @@ func (z *Pulses) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.RightHand == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.RightHand))
+			o = msgp.AppendString(o, *z.RightHand)
 		}
 	}
 	if (zb0001Mask & 0x8000) == 0 { // if not empty
@@ -4644,7 +4112,7 @@ func (z *Pulses) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.RightHandLimited == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.RightHandLimited))
+			o = msgp.AppendString(o, *z.RightHandLimited)
 		}
 	}
 	if (zb0001Mask & 0x10000) == 0 { // if not empty
@@ -4653,7 +4121,7 @@ func (z *Pulses) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.LeftHand == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.LeftHand))
+			o = msgp.AppendString(o, *z.LeftHand)
 		}
 	}
 	if (zb0001Mask & 0x20000) == 0 { // if not empty
@@ -4662,7 +4130,7 @@ func (z *Pulses) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.LeftHandLimited == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.LeftHandLimited))
+			o = msgp.AppendString(o, *z.LeftHandLimited)
 		}
 	}
 	return
@@ -4695,16 +4163,12 @@ func (z *Pulses) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.Central = nil
 			} else {
 				if z.Central == nil {
-					z.Central = new(PulseStrength)
+					z.Central = new(string)
 				}
-				{
-					var zb0002 string
-					zb0002, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "Central")
-						return
-					}
-					*z.Central = PulseStrength(zb0002)
+				*z.Central, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "Central")
+					return
 				}
 			}
 		case "central_limited":
@@ -4716,16 +4180,12 @@ func (z *Pulses) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.CentralLimited = nil
 			} else {
 				if z.CentralLimited == nil {
-					z.CentralLimited = new(PulseStrength)
+					z.CentralLimited = new(string)
 				}
-				{
-					var zb0003 string
-					zb0003, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "CentralLimited")
-						return
-					}
-					*z.CentralLimited = PulseStrength(zb0003)
+				*z.CentralLimited, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "CentralLimited")
+					return
 				}
 			}
 		case "right_leg":
@@ -4737,16 +4197,12 @@ func (z *Pulses) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.RightLeg = nil
 			} else {
 				if z.RightLeg == nil {
-					z.RightLeg = new(PulseStrength)
+					z.RightLeg = new(string)
 				}
-				{
-					var zb0004 string
-					zb0004, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "RightLeg")
-						return
-					}
-					*z.RightLeg = PulseStrength(zb0004)
+				*z.RightLeg, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "RightLeg")
+					return
 				}
 			}
 		case "right_leg_limited":
@@ -4758,16 +4214,12 @@ func (z *Pulses) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.RightLegLimited = nil
 			} else {
 				if z.RightLegLimited == nil {
-					z.RightLegLimited = new(PulseStrength)
+					z.RightLegLimited = new(string)
 				}
-				{
-					var zb0005 string
-					zb0005, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "RightLegLimited")
-						return
-					}
-					*z.RightLegLimited = PulseStrength(zb0005)
+				*z.RightLegLimited, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "RightLegLimited")
+					return
 				}
 			}
 		case "left_leg":
@@ -4779,16 +4231,12 @@ func (z *Pulses) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.LeftLeg = nil
 			} else {
 				if z.LeftLeg == nil {
-					z.LeftLeg = new(PulseStrength)
+					z.LeftLeg = new(string)
 				}
-				{
-					var zb0006 string
-					zb0006, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "LeftLeg")
-						return
-					}
-					*z.LeftLeg = PulseStrength(zb0006)
+				*z.LeftLeg, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "LeftLeg")
+					return
 				}
 			}
 		case "left_leg_limited":
@@ -4800,16 +4248,12 @@ func (z *Pulses) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.LeftLegLimited = nil
 			} else {
 				if z.LeftLegLimited == nil {
-					z.LeftLegLimited = new(PulseStrength)
+					z.LeftLegLimited = new(string)
 				}
-				{
-					var zb0007 string
-					zb0007, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "LeftLegLimited")
-						return
-					}
-					*z.LeftLegLimited = PulseStrength(zb0007)
+				*z.LeftLegLimited, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "LeftLegLimited")
+					return
 				}
 			}
 		case "right_foot":
@@ -4821,16 +4265,12 @@ func (z *Pulses) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.RightFoot = nil
 			} else {
 				if z.RightFoot == nil {
-					z.RightFoot = new(PulseStrength)
+					z.RightFoot = new(string)
 				}
-				{
-					var zb0008 string
-					zb0008, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "RightFoot")
-						return
-					}
-					*z.RightFoot = PulseStrength(zb0008)
+				*z.RightFoot, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "RightFoot")
+					return
 				}
 			}
 		case "right_foot_limited":
@@ -4842,16 +4282,12 @@ func (z *Pulses) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.RightFootLimited = nil
 			} else {
 				if z.RightFootLimited == nil {
-					z.RightFootLimited = new(PulseStrength)
+					z.RightFootLimited = new(string)
 				}
-				{
-					var zb0009 string
-					zb0009, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "RightFootLimited")
-						return
-					}
-					*z.RightFootLimited = PulseStrength(zb0009)
+				*z.RightFootLimited, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "RightFootLimited")
+					return
 				}
 			}
 		case "left_foot":
@@ -4863,16 +4299,12 @@ func (z *Pulses) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.LeftFoot = nil
 			} else {
 				if z.LeftFoot == nil {
-					z.LeftFoot = new(PulseStrength)
+					z.LeftFoot = new(string)
 				}
-				{
-					var zb0010 string
-					zb0010, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "LeftFoot")
-						return
-					}
-					*z.LeftFoot = PulseStrength(zb0010)
+				*z.LeftFoot, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "LeftFoot")
+					return
 				}
 			}
 		case "left_foot_limited":
@@ -4884,16 +4316,12 @@ func (z *Pulses) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.LeftFootLimited = nil
 			} else {
 				if z.LeftFootLimited == nil {
-					z.LeftFootLimited = new(PulseStrength)
+					z.LeftFootLimited = new(string)
 				}
-				{
-					var zb0011 string
-					zb0011, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "LeftFootLimited")
-						return
-					}
-					*z.LeftFootLimited = PulseStrength(zb0011)
+				*z.LeftFootLimited, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "LeftFootLimited")
+					return
 				}
 			}
 		case "right_arm":
@@ -4905,16 +4333,12 @@ func (z *Pulses) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.RightArm = nil
 			} else {
 				if z.RightArm == nil {
-					z.RightArm = new(PulseStrength)
+					z.RightArm = new(string)
 				}
-				{
-					var zb0012 string
-					zb0012, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "RightArm")
-						return
-					}
-					*z.RightArm = PulseStrength(zb0012)
+				*z.RightArm, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "RightArm")
+					return
 				}
 			}
 		case "right_arm_limited":
@@ -4926,16 +4350,12 @@ func (z *Pulses) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.RightArmLimited = nil
 			} else {
 				if z.RightArmLimited == nil {
-					z.RightArmLimited = new(PulseStrength)
+					z.RightArmLimited = new(string)
 				}
-				{
-					var zb0013 string
-					zb0013, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "RightArmLimited")
-						return
-					}
-					*z.RightArmLimited = PulseStrength(zb0013)
+				*z.RightArmLimited, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "RightArmLimited")
+					return
 				}
 			}
 		case "left_arm":
@@ -4947,16 +4367,12 @@ func (z *Pulses) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.LeftArm = nil
 			} else {
 				if z.LeftArm == nil {
-					z.LeftArm = new(PulseStrength)
+					z.LeftArm = new(string)
 				}
-				{
-					var zb0014 string
-					zb0014, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "LeftArm")
-						return
-					}
-					*z.LeftArm = PulseStrength(zb0014)
+				*z.LeftArm, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "LeftArm")
+					return
 				}
 			}
 		case "left_arm_limited":
@@ -4968,16 +4384,12 @@ func (z *Pulses) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.LeftArmLimited = nil
 			} else {
 				if z.LeftArmLimited == nil {
-					z.LeftArmLimited = new(PulseStrength)
+					z.LeftArmLimited = new(string)
 				}
-				{
-					var zb0015 string
-					zb0015, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "LeftArmLimited")
-						return
-					}
-					*z.LeftArmLimited = PulseStrength(zb0015)
+				*z.LeftArmLimited, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "LeftArmLimited")
+					return
 				}
 			}
 		case "right_hand":
@@ -4989,16 +4401,12 @@ func (z *Pulses) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.RightHand = nil
 			} else {
 				if z.RightHand == nil {
-					z.RightHand = new(PulseStrength)
+					z.RightHand = new(string)
 				}
-				{
-					var zb0016 string
-					zb0016, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "RightHand")
-						return
-					}
-					*z.RightHand = PulseStrength(zb0016)
+				*z.RightHand, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "RightHand")
+					return
 				}
 			}
 		case "right_hand_limited":
@@ -5010,16 +4418,12 @@ func (z *Pulses) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.RightHandLimited = nil
 			} else {
 				if z.RightHandLimited == nil {
-					z.RightHandLimited = new(PulseStrength)
+					z.RightHandLimited = new(string)
 				}
-				{
-					var zb0017 string
-					zb0017, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "RightHandLimited")
-						return
-					}
-					*z.RightHandLimited = PulseStrength(zb0017)
+				*z.RightHandLimited, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "RightHandLimited")
+					return
 				}
 			}
 		case "left_hand":
@@ -5031,16 +4435,12 @@ func (z *Pulses) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.LeftHand = nil
 			} else {
 				if z.LeftHand == nil {
-					z.LeftHand = new(PulseStrength)
+					z.LeftHand = new(string)
 				}
-				{
-					var zb0018 string
-					zb0018, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "LeftHand")
-						return
-					}
-					*z.LeftHand = PulseStrength(zb0018)
+				*z.LeftHand, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "LeftHand")
+					return
 				}
 			}
 		case "left_hand_limited":
@@ -5052,16 +4452,12 @@ func (z *Pulses) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.LeftHandLimited = nil
 			} else {
 				if z.LeftHandLimited == nil {
-					z.LeftHandLimited = new(PulseStrength)
+					z.LeftHandLimited = new(string)
 				}
-				{
-					var zb0019 string
-					zb0019, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "LeftHandLimited")
-						return
-					}
-					*z.LeftHandLimited = PulseStrength(zb0019)
+				*z.LeftHandLimited, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "LeftHandLimited")
+					return
 				}
 			}
 		default:
@@ -5082,214 +4478,110 @@ func (z *Pulses) Msgsize() (s int) {
 	if z.Central == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.Central))
+		s += msgp.StringPrefixSize + len(*z.Central)
 	}
 	s += 16
 	if z.CentralLimited == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.CentralLimited))
+		s += msgp.StringPrefixSize + len(*z.CentralLimited)
 	}
 	s += 10
 	if z.RightLeg == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.RightLeg))
+		s += msgp.StringPrefixSize + len(*z.RightLeg)
 	}
 	s += 18
 	if z.RightLegLimited == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.RightLegLimited))
+		s += msgp.StringPrefixSize + len(*z.RightLegLimited)
 	}
 	s += 9
 	if z.LeftLeg == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.LeftLeg))
+		s += msgp.StringPrefixSize + len(*z.LeftLeg)
 	}
 	s += 17
 	if z.LeftLegLimited == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.LeftLegLimited))
+		s += msgp.StringPrefixSize + len(*z.LeftLegLimited)
 	}
 	s += 11
 	if z.RightFoot == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.RightFoot))
+		s += msgp.StringPrefixSize + len(*z.RightFoot)
 	}
 	s += 19
 	if z.RightFootLimited == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.RightFootLimited))
+		s += msgp.StringPrefixSize + len(*z.RightFootLimited)
 	}
 	s += 10
 	if z.LeftFoot == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.LeftFoot))
+		s += msgp.StringPrefixSize + len(*z.LeftFoot)
 	}
 	s += 18
 	if z.LeftFootLimited == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.LeftFootLimited))
+		s += msgp.StringPrefixSize + len(*z.LeftFootLimited)
 	}
 	s += 10
 	if z.RightArm == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.RightArm))
+		s += msgp.StringPrefixSize + len(*z.RightArm)
 	}
 	s += 18
 	if z.RightArmLimited == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.RightArmLimited))
+		s += msgp.StringPrefixSize + len(*z.RightArmLimited)
 	}
 	s += 9
 	if z.LeftArm == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.LeftArm))
+		s += msgp.StringPrefixSize + len(*z.LeftArm)
 	}
 	s += 17
 	if z.LeftArmLimited == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.LeftArmLimited))
+		s += msgp.StringPrefixSize + len(*z.LeftArmLimited)
 	}
 	s += 11
 	if z.RightHand == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.RightHand))
+		s += msgp.StringPrefixSize + len(*z.RightHand)
 	}
 	s += 19
 	if z.RightHandLimited == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.RightHandLimited))
+		s += msgp.StringPrefixSize + len(*z.RightHandLimited)
 	}
 	s += 10
 	if z.LeftHand == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.LeftHand))
+		s += msgp.StringPrefixSize + len(*z.LeftHand)
 	}
 	s += 18
 	if z.LeftHandLimited == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.LeftHandLimited))
+		s += msgp.StringPrefixSize + len(*z.LeftHandLimited)
 	}
-	return
-}
-
-// DecodeMsg implements msgp.Decodable
-func (z *PupilResponsiveness) DecodeMsg(dc *msgp.Reader) (err error) {
-	{
-		var zb0001 string
-		zb0001, err = dc.ReadString()
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = PupilResponsiveness(zb0001)
-	}
-	return
-}
-
-// EncodeMsg implements msgp.Encodable
-func (z PupilResponsiveness) EncodeMsg(en *msgp.Writer) (err error) {
-	err = en.WriteString(string(z))
-	if err != nil {
-		err = msgp.WrapError(err)
-		return
-	}
-	return
-}
-
-// MarshalMsg implements msgp.Marshaler
-func (z PupilResponsiveness) MarshalMsg(b []byte) (o []byte, err error) {
-	o = msgp.Require(b, z.Msgsize())
-	o = msgp.AppendString(o, string(z))
-	return
-}
-
-// UnmarshalMsg implements msgp.Unmarshaler
-func (z *PupilResponsiveness) UnmarshalMsg(bts []byte) (o []byte, err error) {
-	{
-		var zb0001 string
-		zb0001, bts, err = msgp.ReadStringBytes(bts)
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = PupilResponsiveness(zb0001)
-	}
-	o = bts
-	return
-}
-
-// Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
-func (z PupilResponsiveness) Msgsize() (s int) {
-	s = msgp.StringPrefixSize + len(string(z))
-	return
-}
-
-// DecodeMsg implements msgp.Decodable
-func (z *PupilSize) DecodeMsg(dc *msgp.Reader) (err error) {
-	{
-		var zb0001 int
-		zb0001, err = dc.ReadInt()
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = PupilSize(zb0001)
-	}
-	return
-}
-
-// EncodeMsg implements msgp.Encodable
-func (z PupilSize) EncodeMsg(en *msgp.Writer) (err error) {
-	err = en.WriteInt(int(z))
-	if err != nil {
-		err = msgp.WrapError(err)
-		return
-	}
-	return
-}
-
-// MarshalMsg implements msgp.Marshaler
-func (z PupilSize) MarshalMsg(b []byte) (o []byte, err error) {
-	o = msgp.Require(b, z.Msgsize())
-	o = msgp.AppendInt(o, int(z))
-	return
-}
-
-// UnmarshalMsg implements msgp.Unmarshaler
-func (z *PupilSize) UnmarshalMsg(bts []byte) (o []byte, err error) {
-	{
-		var zb0001 int
-		zb0001, bts, err = msgp.ReadIntBytes(bts)
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = PupilSize(zb0001)
-	}
-	o = bts
-	return
-}
-
-// Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
-func (z PupilSize) Msgsize() (s int) {
-	s = msgp.IntSize
 	return
 }
 
@@ -5321,16 +4613,12 @@ func (z *SingleLungSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.AnteriorUpper = nil
 			} else {
 				if z.AnteriorUpper == nil {
-					z.AnteriorUpper = new(LungSound)
+					z.AnteriorUpper = new(string)
 				}
-				{
-					var zb0002 string
-					zb0002, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "AnteriorUpper")
-						return
-					}
-					*z.AnteriorUpper = LungSound(zb0002)
+				*z.AnteriorUpper, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "AnteriorUpper")
+					return
 				}
 			}
 		case "anterior_upper_volume":
@@ -5343,9 +4631,9 @@ func (z *SingleLungSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.AnteriorUpperVolume = nil
 			} else {
 				if z.AnteriorUpperVolume == nil {
-					z.AnteriorUpperVolume = new(int)
+					z.AnteriorUpperVolume = new(int64)
 				}
-				*z.AnteriorUpperVolume, err = dc.ReadInt()
+				*z.AnteriorUpperVolume, err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "AnteriorUpperVolume")
 					return
@@ -5361,16 +4649,12 @@ func (z *SingleLungSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.AnteriorLower = nil
 			} else {
 				if z.AnteriorLower == nil {
-					z.AnteriorLower = new(LungSound)
+					z.AnteriorLower = new(string)
 				}
-				{
-					var zb0003 string
-					zb0003, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "AnteriorLower")
-						return
-					}
-					*z.AnteriorLower = LungSound(zb0003)
+				*z.AnteriorLower, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "AnteriorLower")
+					return
 				}
 			}
 		case "anterior_lower_volume":
@@ -5383,9 +4667,9 @@ func (z *SingleLungSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.AnteriorLowerVolume = nil
 			} else {
 				if z.AnteriorLowerVolume == nil {
-					z.AnteriorLowerVolume = new(int)
+					z.AnteriorLowerVolume = new(int64)
 				}
-				*z.AnteriorLowerVolume, err = dc.ReadInt()
+				*z.AnteriorLowerVolume, err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "AnteriorLowerVolume")
 					return
@@ -5401,16 +4685,12 @@ func (z *SingleLungSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.AnteriorMiddle = nil
 			} else {
 				if z.AnteriorMiddle == nil {
-					z.AnteriorMiddle = new(LungSound)
+					z.AnteriorMiddle = new(string)
 				}
-				{
-					var zb0004 string
-					zb0004, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "AnteriorMiddle")
-						return
-					}
-					*z.AnteriorMiddle = LungSound(zb0004)
+				*z.AnteriorMiddle, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "AnteriorMiddle")
+					return
 				}
 			}
 		case "anterior_middle_volume":
@@ -5423,9 +4703,9 @@ func (z *SingleLungSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.AnteriorMiddleVolume = nil
 			} else {
 				if z.AnteriorMiddleVolume == nil {
-					z.AnteriorMiddleVolume = new(int)
+					z.AnteriorMiddleVolume = new(int64)
 				}
-				*z.AnteriorMiddleVolume, err = dc.ReadInt()
+				*z.AnteriorMiddleVolume, err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "AnteriorMiddleVolume")
 					return
@@ -5441,16 +4721,12 @@ func (z *SingleLungSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.PosteriorUpper = nil
 			} else {
 				if z.PosteriorUpper == nil {
-					z.PosteriorUpper = new(LungSound)
+					z.PosteriorUpper = new(string)
 				}
-				{
-					var zb0005 string
-					zb0005, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "PosteriorUpper")
-						return
-					}
-					*z.PosteriorUpper = LungSound(zb0005)
+				*z.PosteriorUpper, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "PosteriorUpper")
+					return
 				}
 			}
 		case "posterior_upper_volume":
@@ -5463,9 +4739,9 @@ func (z *SingleLungSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.PosteriorUpperVolume = nil
 			} else {
 				if z.PosteriorUpperVolume == nil {
-					z.PosteriorUpperVolume = new(int)
+					z.PosteriorUpperVolume = new(int64)
 				}
-				*z.PosteriorUpperVolume, err = dc.ReadInt()
+				*z.PosteriorUpperVolume, err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "PosteriorUpperVolume")
 					return
@@ -5481,16 +4757,12 @@ func (z *SingleLungSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.PosteriorLower = nil
 			} else {
 				if z.PosteriorLower == nil {
-					z.PosteriorLower = new(LungSound)
+					z.PosteriorLower = new(string)
 				}
-				{
-					var zb0006 string
-					zb0006, err = dc.ReadString()
-					if err != nil {
-						err = msgp.WrapError(err, "PosteriorLower")
-						return
-					}
-					*z.PosteriorLower = LungSound(zb0006)
+				*z.PosteriorLower, err = dc.ReadString()
+				if err != nil {
+					err = msgp.WrapError(err, "PosteriorLower")
+					return
 				}
 			}
 		case "posterior_lower_volume":
@@ -5503,9 +4775,9 @@ func (z *SingleLungSounds) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.PosteriorLowerVolume = nil
 			} else {
 				if z.PosteriorLowerVolume == nil {
-					z.PosteriorLowerVolume = new(int)
+					z.PosteriorLowerVolume = new(int64)
 				}
-				*z.PosteriorLowerVolume, err = dc.ReadInt()
+				*z.PosteriorLowerVolume, err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "PosteriorLowerVolume")
 					return
@@ -5587,7 +4859,7 @@ func (z *SingleLungSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.AnteriorUpper))
+			err = en.WriteString(*z.AnteriorUpper)
 			if err != nil {
 				err = msgp.WrapError(err, "AnteriorUpper")
 				return
@@ -5606,7 +4878,7 @@ func (z *SingleLungSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(*z.AnteriorUpperVolume)
+			err = en.WriteInt64(*z.AnteriorUpperVolume)
 			if err != nil {
 				err = msgp.WrapError(err, "AnteriorUpperVolume")
 				return
@@ -5625,7 +4897,7 @@ func (z *SingleLungSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.AnteriorLower))
+			err = en.WriteString(*z.AnteriorLower)
 			if err != nil {
 				err = msgp.WrapError(err, "AnteriorLower")
 				return
@@ -5644,7 +4916,7 @@ func (z *SingleLungSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(*z.AnteriorLowerVolume)
+			err = en.WriteInt64(*z.AnteriorLowerVolume)
 			if err != nil {
 				err = msgp.WrapError(err, "AnteriorLowerVolume")
 				return
@@ -5663,7 +4935,7 @@ func (z *SingleLungSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.AnteriorMiddle))
+			err = en.WriteString(*z.AnteriorMiddle)
 			if err != nil {
 				err = msgp.WrapError(err, "AnteriorMiddle")
 				return
@@ -5682,7 +4954,7 @@ func (z *SingleLungSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(*z.AnteriorMiddleVolume)
+			err = en.WriteInt64(*z.AnteriorMiddleVolume)
 			if err != nil {
 				err = msgp.WrapError(err, "AnteriorMiddleVolume")
 				return
@@ -5701,7 +4973,7 @@ func (z *SingleLungSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.PosteriorUpper))
+			err = en.WriteString(*z.PosteriorUpper)
 			if err != nil {
 				err = msgp.WrapError(err, "PosteriorUpper")
 				return
@@ -5720,7 +4992,7 @@ func (z *SingleLungSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(*z.PosteriorUpperVolume)
+			err = en.WriteInt64(*z.PosteriorUpperVolume)
 			if err != nil {
 				err = msgp.WrapError(err, "PosteriorUpperVolume")
 				return
@@ -5739,7 +5011,7 @@ func (z *SingleLungSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteString(string(*z.PosteriorLower))
+			err = en.WriteString(*z.PosteriorLower)
 			if err != nil {
 				err = msgp.WrapError(err, "PosteriorLower")
 				return
@@ -5758,7 +5030,7 @@ func (z *SingleLungSounds) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(*z.PosteriorLowerVolume)
+			err = en.WriteInt64(*z.PosteriorLowerVolume)
 			if err != nil {
 				err = msgp.WrapError(err, "PosteriorLowerVolume")
 				return
@@ -5825,7 +5097,7 @@ func (z *SingleLungSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.AnteriorUpper == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.AnteriorUpper))
+			o = msgp.AppendString(o, *z.AnteriorUpper)
 		}
 	}
 	if (zb0001Mask & 0x2) == 0 { // if not empty
@@ -5834,7 +5106,7 @@ func (z *SingleLungSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.AnteriorUpperVolume == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, *z.AnteriorUpperVolume)
+			o = msgp.AppendInt64(o, *z.AnteriorUpperVolume)
 		}
 	}
 	if (zb0001Mask & 0x4) == 0 { // if not empty
@@ -5843,7 +5115,7 @@ func (z *SingleLungSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.AnteriorLower == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.AnteriorLower))
+			o = msgp.AppendString(o, *z.AnteriorLower)
 		}
 	}
 	if (zb0001Mask & 0x8) == 0 { // if not empty
@@ -5852,7 +5124,7 @@ func (z *SingleLungSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.AnteriorLowerVolume == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, *z.AnteriorLowerVolume)
+			o = msgp.AppendInt64(o, *z.AnteriorLowerVolume)
 		}
 	}
 	if (zb0001Mask & 0x10) == 0 { // if not empty
@@ -5861,7 +5133,7 @@ func (z *SingleLungSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.AnteriorMiddle == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.AnteriorMiddle))
+			o = msgp.AppendString(o, *z.AnteriorMiddle)
 		}
 	}
 	if (zb0001Mask & 0x20) == 0 { // if not empty
@@ -5870,7 +5142,7 @@ func (z *SingleLungSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.AnteriorMiddleVolume == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, *z.AnteriorMiddleVolume)
+			o = msgp.AppendInt64(o, *z.AnteriorMiddleVolume)
 		}
 	}
 	if (zb0001Mask & 0x40) == 0 { // if not empty
@@ -5879,7 +5151,7 @@ func (z *SingleLungSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.PosteriorUpper == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.PosteriorUpper))
+			o = msgp.AppendString(o, *z.PosteriorUpper)
 		}
 	}
 	if (zb0001Mask & 0x80) == 0 { // if not empty
@@ -5888,7 +5160,7 @@ func (z *SingleLungSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.PosteriorUpperVolume == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, *z.PosteriorUpperVolume)
+			o = msgp.AppendInt64(o, *z.PosteriorUpperVolume)
 		}
 	}
 	if (zb0001Mask & 0x100) == 0 { // if not empty
@@ -5897,7 +5169,7 @@ func (z *SingleLungSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.PosteriorLower == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendString(o, string(*z.PosteriorLower))
+			o = msgp.AppendString(o, *z.PosteriorLower)
 		}
 	}
 	if (zb0001Mask & 0x200) == 0 { // if not empty
@@ -5906,7 +5178,7 @@ func (z *SingleLungSounds) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.PosteriorLowerVolume == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, *z.PosteriorLowerVolume)
+			o = msgp.AppendInt64(o, *z.PosteriorLowerVolume)
 		}
 	}
 	return
@@ -5939,16 +5211,12 @@ func (z *SingleLungSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.AnteriorUpper = nil
 			} else {
 				if z.AnteriorUpper == nil {
-					z.AnteriorUpper = new(LungSound)
+					z.AnteriorUpper = new(string)
 				}
-				{
-					var zb0002 string
-					zb0002, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "AnteriorUpper")
-						return
-					}
-					*z.AnteriorUpper = LungSound(zb0002)
+				*z.AnteriorUpper, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "AnteriorUpper")
+					return
 				}
 			}
 		case "anterior_upper_volume":
@@ -5960,9 +5228,9 @@ func (z *SingleLungSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.AnteriorUpperVolume = nil
 			} else {
 				if z.AnteriorUpperVolume == nil {
-					z.AnteriorUpperVolume = new(int)
+					z.AnteriorUpperVolume = new(int64)
 				}
-				*z.AnteriorUpperVolume, bts, err = msgp.ReadIntBytes(bts)
+				*z.AnteriorUpperVolume, bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "AnteriorUpperVolume")
 					return
@@ -5977,16 +5245,12 @@ func (z *SingleLungSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.AnteriorLower = nil
 			} else {
 				if z.AnteriorLower == nil {
-					z.AnteriorLower = new(LungSound)
+					z.AnteriorLower = new(string)
 				}
-				{
-					var zb0003 string
-					zb0003, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "AnteriorLower")
-						return
-					}
-					*z.AnteriorLower = LungSound(zb0003)
+				*z.AnteriorLower, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "AnteriorLower")
+					return
 				}
 			}
 		case "anterior_lower_volume":
@@ -5998,9 +5262,9 @@ func (z *SingleLungSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.AnteriorLowerVolume = nil
 			} else {
 				if z.AnteriorLowerVolume == nil {
-					z.AnteriorLowerVolume = new(int)
+					z.AnteriorLowerVolume = new(int64)
 				}
-				*z.AnteriorLowerVolume, bts, err = msgp.ReadIntBytes(bts)
+				*z.AnteriorLowerVolume, bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "AnteriorLowerVolume")
 					return
@@ -6015,16 +5279,12 @@ func (z *SingleLungSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.AnteriorMiddle = nil
 			} else {
 				if z.AnteriorMiddle == nil {
-					z.AnteriorMiddle = new(LungSound)
+					z.AnteriorMiddle = new(string)
 				}
-				{
-					var zb0004 string
-					zb0004, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "AnteriorMiddle")
-						return
-					}
-					*z.AnteriorMiddle = LungSound(zb0004)
+				*z.AnteriorMiddle, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "AnteriorMiddle")
+					return
 				}
 			}
 		case "anterior_middle_volume":
@@ -6036,9 +5296,9 @@ func (z *SingleLungSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.AnteriorMiddleVolume = nil
 			} else {
 				if z.AnteriorMiddleVolume == nil {
-					z.AnteriorMiddleVolume = new(int)
+					z.AnteriorMiddleVolume = new(int64)
 				}
-				*z.AnteriorMiddleVolume, bts, err = msgp.ReadIntBytes(bts)
+				*z.AnteriorMiddleVolume, bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "AnteriorMiddleVolume")
 					return
@@ -6053,16 +5313,12 @@ func (z *SingleLungSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.PosteriorUpper = nil
 			} else {
 				if z.PosteriorUpper == nil {
-					z.PosteriorUpper = new(LungSound)
+					z.PosteriorUpper = new(string)
 				}
-				{
-					var zb0005 string
-					zb0005, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "PosteriorUpper")
-						return
-					}
-					*z.PosteriorUpper = LungSound(zb0005)
+				*z.PosteriorUpper, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "PosteriorUpper")
+					return
 				}
 			}
 		case "posterior_upper_volume":
@@ -6074,9 +5330,9 @@ func (z *SingleLungSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.PosteriorUpperVolume = nil
 			} else {
 				if z.PosteriorUpperVolume == nil {
-					z.PosteriorUpperVolume = new(int)
+					z.PosteriorUpperVolume = new(int64)
 				}
-				*z.PosteriorUpperVolume, bts, err = msgp.ReadIntBytes(bts)
+				*z.PosteriorUpperVolume, bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "PosteriorUpperVolume")
 					return
@@ -6091,16 +5347,12 @@ func (z *SingleLungSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.PosteriorLower = nil
 			} else {
 				if z.PosteriorLower == nil {
-					z.PosteriorLower = new(LungSound)
+					z.PosteriorLower = new(string)
 				}
-				{
-					var zb0006 string
-					zb0006, bts, err = msgp.ReadStringBytes(bts)
-					if err != nil {
-						err = msgp.WrapError(err, "PosteriorLower")
-						return
-					}
-					*z.PosteriorLower = LungSound(zb0006)
+				*z.PosteriorLower, bts, err = msgp.ReadStringBytes(bts)
+				if err != nil {
+					err = msgp.WrapError(err, "PosteriorLower")
+					return
 				}
 			}
 		case "posterior_lower_volume":
@@ -6112,9 +5364,9 @@ func (z *SingleLungSounds) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.PosteriorLowerVolume = nil
 			} else {
 				if z.PosteriorLowerVolume == nil {
-					z.PosteriorLowerVolume = new(int)
+					z.PosteriorLowerVolume = new(int64)
 				}
-				*z.PosteriorLowerVolume, bts, err = msgp.ReadIntBytes(bts)
+				*z.PosteriorLowerVolume, bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "PosteriorLowerVolume")
 					return
@@ -6138,166 +5390,62 @@ func (z *SingleLungSounds) Msgsize() (s int) {
 	if z.AnteriorUpper == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.AnteriorUpper))
+		s += msgp.StringPrefixSize + len(*z.AnteriorUpper)
 	}
 	s += 22
 	if z.AnteriorUpperVolume == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
 	s += 15
 	if z.AnteriorLower == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.AnteriorLower))
+		s += msgp.StringPrefixSize + len(*z.AnteriorLower)
 	}
 	s += 22
 	if z.AnteriorLowerVolume == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
 	s += 16
 	if z.AnteriorMiddle == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.AnteriorMiddle))
+		s += msgp.StringPrefixSize + len(*z.AnteriorMiddle)
 	}
 	s += 23
 	if z.AnteriorMiddleVolume == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
 	s += 16
 	if z.PosteriorUpper == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.PosteriorUpper))
+		s += msgp.StringPrefixSize + len(*z.PosteriorUpper)
 	}
 	s += 23
 	if z.PosteriorUpperVolume == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
 	s += 16
 	if z.PosteriorLower == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.StringPrefixSize + len(string(*z.PosteriorLower))
+		s += msgp.StringPrefixSize + len(*z.PosteriorLower)
 	}
 	s += 23
 	if z.PosteriorLowerVolume == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
-	return
-}
-
-// DecodeMsg implements msgp.Decodable
-func (z *Systole) DecodeMsg(dc *msgp.Reader) (err error) {
-	{
-		var zb0001 string
-		zb0001, err = dc.ReadString()
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = Systole(zb0001)
-	}
-	return
-}
-
-// EncodeMsg implements msgp.Encodable
-func (z Systole) EncodeMsg(en *msgp.Writer) (err error) {
-	err = en.WriteString(string(z))
-	if err != nil {
-		err = msgp.WrapError(err)
-		return
-	}
-	return
-}
-
-// MarshalMsg implements msgp.Marshaler
-func (z Systole) MarshalMsg(b []byte) (o []byte, err error) {
-	o = msgp.Require(b, z.Msgsize())
-	o = msgp.AppendString(o, string(z))
-	return
-}
-
-// UnmarshalMsg implements msgp.Unmarshaler
-func (z *Systole) UnmarshalMsg(bts []byte) (o []byte, err error) {
-	{
-		var zb0001 string
-		zb0001, bts, err = msgp.ReadStringBytes(bts)
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = Systole(zb0001)
-	}
-	o = bts
-	return
-}
-
-// Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
-func (z Systole) Msgsize() (s int) {
-	s = msgp.StringPrefixSize + len(string(z))
-	return
-}
-
-// DecodeMsg implements msgp.Decodable
-func (z *TongueEdema) DecodeMsg(dc *msgp.Reader) (err error) {
-	{
-		var zb0001 string
-		zb0001, err = dc.ReadString()
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = TongueEdema(zb0001)
-	}
-	return
-}
-
-// EncodeMsg implements msgp.Encodable
-func (z TongueEdema) EncodeMsg(en *msgp.Writer) (err error) {
-	err = en.WriteString(string(z))
-	if err != nil {
-		err = msgp.WrapError(err)
-		return
-	}
-	return
-}
-
-// MarshalMsg implements msgp.Marshaler
-func (z TongueEdema) MarshalMsg(b []byte) (o []byte, err error) {
-	o = msgp.Require(b, z.Msgsize())
-	o = msgp.AppendString(o, string(z))
-	return
-}
-
-// UnmarshalMsg implements msgp.Unmarshaler
-func (z *TongueEdema) UnmarshalMsg(bts []byte) (o []byte, err error) {
-	{
-		var zb0001 string
-		zb0001, bts, err = msgp.ReadStringBytes(bts)
-		if err != nil {
-			err = msgp.WrapError(err)
-			return
-		}
-		(*z) = TongueEdema(zb0001)
-	}
-	o = bts
-	return
-}
-
-// Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
-func (z TongueEdema) Msgsize() (s int) {
-	s = msgp.StringPrefixSize + len(string(z))
 	return
 }
 
@@ -6340,7 +5488,7 @@ func (z *VitalsTemplate) DecodeMsg(dc *msgp.Reader) (err error) {
 func (z *VitalsTemplate) EncodeMsg(en *msgp.Writer) (err error) {
 	// omitempty: check for empty values
 	zb0001Len := uint32(1)
-	var zb0001Mask uint8 /* 1 bits */
+	// var zb0001Mask uint8 /* 1 bits */
 	// variable map header, size zb0001Len
 	err = en.Append(0x80 | uint8(zb0001Len))
 	if err != nil {
@@ -6367,7 +5515,7 @@ func (z *VitalsTemplate) MarshalMsg(b []byte) (o []byte, err error) {
 	o = msgp.Require(b, z.Msgsize())
 	// omitempty: check for empty values
 	zb0001Len := uint32(1)
-	var zb0001Mask uint8 /* 1 bits */
+	// var zb0001Mask uint8 /* 1 bits */
 	// variable map header, size zb0001Len
 	o = append(o, 0x80|uint8(zb0001Len))
 	if zb0001Len == 0 {
@@ -6453,9 +5601,9 @@ func (z *VitalsTemplateSpec) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.RespiratoryRate = nil
 			} else {
 				if z.RespiratoryRate == nil {
-					z.RespiratoryRate = new(int)
+					z.RespiratoryRate = new(int64)
 				}
-				*z.RespiratoryRate, err = dc.ReadInt()
+				*z.RespiratoryRate, err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "RespiratoryRate")
 					return
@@ -6471,9 +5619,9 @@ func (z *VitalsTemplateSpec) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.SpO2 = nil
 			} else {
 				if z.SpO2 == nil {
-					z.SpO2 = new(int)
+					z.SpO2 = new(int64)
 				}
-				*z.SpO2, err = dc.ReadInt()
+				*z.SpO2, err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "SpO2")
 					return
@@ -6507,9 +5655,9 @@ func (z *VitalsTemplateSpec) DecodeMsg(dc *msgp.Reader) (err error) {
 				z.EtCO2 = nil
 			} else {
 				if z.EtCO2 == nil {
-					z.EtCO2 = new(int)
+					z.EtCO2 = new(int64)
 				}
-				*z.EtCO2, err = dc.ReadInt()
+				*z.EtCO2, err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "EtCO2")
 					return
@@ -6623,16 +5771,12 @@ func (z *VitalsTemplateSpec) DecodeMsg(dc *msgp.Reader) (err error) {
 							z.AirwayObstruction.TongueEdema = nil
 						} else {
 							if z.AirwayObstruction.TongueEdema == nil {
-								z.AirwayObstruction.TongueEdema = new(TongueEdema)
+								z.AirwayObstruction.TongueEdema = new(string)
 							}
-							{
-								var zb0003 string
-								zb0003, err = dc.ReadString()
-								if err != nil {
-									err = msgp.WrapError(err, "AirwayObstruction", "TongueEdema")
-									return
-								}
-								*z.AirwayObstruction.TongueEdema = TongueEdema(zb0003)
+							*z.AirwayObstruction.TongueEdema, err = dc.ReadString()
+							if err != nil {
+								err = msgp.WrapError(err, "AirwayObstruction", "TongueEdema")
+								return
 							}
 						}
 					default:
@@ -6804,7 +5948,7 @@ func (z *VitalsTemplateSpec) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(*z.RespiratoryRate)
+			err = en.WriteInt64(*z.RespiratoryRate)
 			if err != nil {
 				err = msgp.WrapError(err, "RespiratoryRate")
 				return
@@ -6823,7 +5967,7 @@ func (z *VitalsTemplateSpec) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(*z.SpO2)
+			err = en.WriteInt64(*z.SpO2)
 			if err != nil {
 				err = msgp.WrapError(err, "SpO2")
 				return
@@ -6861,7 +6005,7 @@ func (z *VitalsTemplateSpec) EncodeMsg(en *msgp.Writer) (err error) {
 				return
 			}
 		} else {
-			err = en.WriteInt(*z.EtCO2)
+			err = en.WriteInt64(*z.EtCO2)
 			if err != nil {
 				err = msgp.WrapError(err, "EtCO2")
 				return
@@ -6980,7 +6124,7 @@ func (z *VitalsTemplateSpec) EncodeMsg(en *msgp.Writer) (err error) {
 						return
 					}
 				} else {
-					err = en.WriteString(string(*z.AirwayObstruction.TongueEdema))
+					err = en.WriteString(*z.AirwayObstruction.TongueEdema)
 					if err != nil {
 						err = msgp.WrapError(err, "AirwayObstruction", "TongueEdema")
 						return
@@ -7137,7 +6281,7 @@ func (z *VitalsTemplateSpec) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.RespiratoryRate == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, *z.RespiratoryRate)
+			o = msgp.AppendInt64(o, *z.RespiratoryRate)
 		}
 	}
 	if (zb0001Mask & 0x2) == 0 { // if not empty
@@ -7146,7 +6290,7 @@ func (z *VitalsTemplateSpec) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.SpO2 == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, *z.SpO2)
+			o = msgp.AppendInt64(o, *z.SpO2)
 		}
 	}
 	if (zb0001Mask & 0x4) == 0 { // if not empty
@@ -7168,7 +6312,7 @@ func (z *VitalsTemplateSpec) MarshalMsg(b []byte) (o []byte, err error) {
 		if z.EtCO2 == nil {
 			o = msgp.AppendNil(o)
 		} else {
-			o = msgp.AppendInt(o, *z.EtCO2)
+			o = msgp.AppendInt64(o, *z.EtCO2)
 		}
 	}
 	if (zb0001Mask & 0x10) == 0 { // if not empty
@@ -7236,7 +6380,7 @@ func (z *VitalsTemplateSpec) MarshalMsg(b []byte) (o []byte, err error) {
 				if z.AirwayObstruction.TongueEdema == nil {
 					o = msgp.AppendNil(o)
 				} else {
-					o = msgp.AppendString(o, string(*z.AirwayObstruction.TongueEdema))
+					o = msgp.AppendString(o, *z.AirwayObstruction.TongueEdema)
 				}
 			}
 		}
@@ -7323,9 +6467,9 @@ func (z *VitalsTemplateSpec) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.RespiratoryRate = nil
 			} else {
 				if z.RespiratoryRate == nil {
-					z.RespiratoryRate = new(int)
+					z.RespiratoryRate = new(int64)
 				}
-				*z.RespiratoryRate, bts, err = msgp.ReadIntBytes(bts)
+				*z.RespiratoryRate, bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "RespiratoryRate")
 					return
@@ -7340,9 +6484,9 @@ func (z *VitalsTemplateSpec) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.SpO2 = nil
 			} else {
 				if z.SpO2 == nil {
-					z.SpO2 = new(int)
+					z.SpO2 = new(int64)
 				}
-				*z.SpO2, bts, err = msgp.ReadIntBytes(bts)
+				*z.SpO2, bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "SpO2")
 					return
@@ -7374,9 +6518,9 @@ func (z *VitalsTemplateSpec) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				z.EtCO2 = nil
 			} else {
 				if z.EtCO2 == nil {
-					z.EtCO2 = new(int)
+					z.EtCO2 = new(int64)
 				}
-				*z.EtCO2, bts, err = msgp.ReadIntBytes(bts)
+				*z.EtCO2, bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "EtCO2")
 					return
@@ -7484,16 +6628,12 @@ func (z *VitalsTemplateSpec) UnmarshalMsg(bts []byte) (o []byte, err error) {
 							z.AirwayObstruction.TongueEdema = nil
 						} else {
 							if z.AirwayObstruction.TongueEdema == nil {
-								z.AirwayObstruction.TongueEdema = new(TongueEdema)
+								z.AirwayObstruction.TongueEdema = new(string)
 							}
-							{
-								var zb0003 string
-								zb0003, bts, err = msgp.ReadStringBytes(bts)
-								if err != nil {
-									err = msgp.WrapError(err, "AirwayObstruction", "TongueEdema")
-									return
-								}
-								*z.AirwayObstruction.TongueEdema = TongueEdema(zb0003)
+							*z.AirwayObstruction.TongueEdema, bts, err = msgp.ReadStringBytes(bts)
+							if err != nil {
+								err = msgp.WrapError(err, "AirwayObstruction", "TongueEdema")
+								return
 							}
 						}
 					default:
@@ -7591,13 +6731,13 @@ func (z *VitalsTemplateSpec) Msgsize() (s int) {
 	if z.RespiratoryRate == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
 	s += 5
 	if z.SpO2 == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
 	s += 15
 	if z.BloodPressure == nil {
@@ -7609,7 +6749,7 @@ func (z *VitalsTemplateSpec) Msgsize() (s int) {
 	if z.EtCO2 == nil {
 		s += msgp.NilSize
 	} else {
-		s += msgp.IntSize
+		s += msgp.Int64Size
 	}
 	s += 18
 	if z.TemperatureBlood == nil {
@@ -7643,7 +6783,7 @@ func (z *VitalsTemplateSpec) Msgsize() (s int) {
 		if z.AirwayObstruction.TongueEdema == nil {
 			s += msgp.NilSize
 		} else {
-			s += msgp.StringPrefixSize + len(string(*z.AirwayObstruction.TongueEdema))
+			s += msgp.StringPrefixSize + len(*z.AirwayObstruction.TongueEdema)
 		}
 	}
 	s += 12

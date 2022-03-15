@@ -46,10 +46,10 @@ func (z *CurveGenReplyV1) DecodeMsg(dc *msgp.Reader) (err error) {
 			if cap(z.Lead1) >= int(zb0002) {
 				z.Lead1 = (z.Lead1)[:zb0002]
 			} else {
-				z.Lead1 = make([]int, zb0002)
+				z.Lead1 = make([]int64, zb0002)
 			}
 			for za0001 := range z.Lead1 {
-				z.Lead1[za0001], err = dc.ReadInt()
+				z.Lead1[za0001], err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Lead1", za0001)
 					return
@@ -65,10 +65,10 @@ func (z *CurveGenReplyV1) DecodeMsg(dc *msgp.Reader) (err error) {
 			if cap(z.Lead2) >= int(zb0003) {
 				z.Lead2 = (z.Lead2)[:zb0003]
 			} else {
-				z.Lead2 = make([]int, zb0003)
+				z.Lead2 = make([]int64, zb0003)
 			}
 			for za0002 := range z.Lead2 {
-				z.Lead2[za0002], err = dc.ReadInt()
+				z.Lead2[za0002], err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Lead2", za0002)
 					return
@@ -84,10 +84,10 @@ func (z *CurveGenReplyV1) DecodeMsg(dc *msgp.Reader) (err error) {
 			if cap(z.Lead3) >= int(zb0004) {
 				z.Lead3 = (z.Lead3)[:zb0004]
 			} else {
-				z.Lead3 = make([]int, zb0004)
+				z.Lead3 = make([]int64, zb0004)
 			}
 			for za0003 := range z.Lead3 {
-				z.Lead3[za0003], err = dc.ReadInt()
+				z.Lead3[za0003], err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Lead3", za0003)
 					return
@@ -103,10 +103,10 @@ func (z *CurveGenReplyV1) DecodeMsg(dc *msgp.Reader) (err error) {
 			if cap(z.Lead4) >= int(zb0005) {
 				z.Lead4 = (z.Lead4)[:zb0005]
 			} else {
-				z.Lead4 = make([]int, zb0005)
+				z.Lead4 = make([]int64, zb0005)
 			}
 			for za0004 := range z.Lead4 {
-				z.Lead4[za0004], err = dc.ReadInt()
+				z.Lead4[za0004], err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Lead4", za0004)
 					return
@@ -122,10 +122,10 @@ func (z *CurveGenReplyV1) DecodeMsg(dc *msgp.Reader) (err error) {
 			if cap(z.Lead5) >= int(zb0006) {
 				z.Lead5 = (z.Lead5)[:zb0006]
 			} else {
-				z.Lead5 = make([]int, zb0006)
+				z.Lead5 = make([]int64, zb0006)
 			}
 			for za0005 := range z.Lead5 {
-				z.Lead5[za0005], err = dc.ReadInt()
+				z.Lead5[za0005], err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Lead5", za0005)
 					return
@@ -141,10 +141,10 @@ func (z *CurveGenReplyV1) DecodeMsg(dc *msgp.Reader) (err error) {
 			if cap(z.Lead6) >= int(zb0007) {
 				z.Lead6 = (z.Lead6)[:zb0007]
 			} else {
-				z.Lead6 = make([]int, zb0007)
+				z.Lead6 = make([]int64, zb0007)
 			}
 			for za0006 := range z.Lead6 {
-				z.Lead6[za0006], err = dc.ReadInt()
+				z.Lead6[za0006], err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Lead6", za0006)
 					return
@@ -160,10 +160,10 @@ func (z *CurveGenReplyV1) DecodeMsg(dc *msgp.Reader) (err error) {
 			if cap(z.Lead7) >= int(zb0008) {
 				z.Lead7 = (z.Lead7)[:zb0008]
 			} else {
-				z.Lead7 = make([]int, zb0008)
+				z.Lead7 = make([]int64, zb0008)
 			}
 			for za0007 := range z.Lead7 {
-				z.Lead7[za0007], err = dc.ReadInt()
+				z.Lead7[za0007], err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Lead7", za0007)
 					return
@@ -179,10 +179,10 @@ func (z *CurveGenReplyV1) DecodeMsg(dc *msgp.Reader) (err error) {
 			if cap(z.Lead8) >= int(zb0009) {
 				z.Lead8 = (z.Lead8)[:zb0009]
 			} else {
-				z.Lead8 = make([]int, zb0009)
+				z.Lead8 = make([]int64, zb0009)
 			}
 			for za0008 := range z.Lead8 {
-				z.Lead8[za0008], err = dc.ReadInt()
+				z.Lead8[za0008], err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Lead8", za0008)
 					return
@@ -198,10 +198,10 @@ func (z *CurveGenReplyV1) DecodeMsg(dc *msgp.Reader) (err error) {
 			if cap(z.Lead9) >= int(zb0010) {
 				z.Lead9 = (z.Lead9)[:zb0010]
 			} else {
-				z.Lead9 = make([]int, zb0010)
+				z.Lead9 = make([]int64, zb0010)
 			}
 			for za0009 := range z.Lead9 {
-				z.Lead9[za0009], err = dc.ReadInt()
+				z.Lead9[za0009], err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Lead9", za0009)
 					return
@@ -217,10 +217,10 @@ func (z *CurveGenReplyV1) DecodeMsg(dc *msgp.Reader) (err error) {
 			if cap(z.Lead10) >= int(zb0011) {
 				z.Lead10 = (z.Lead10)[:zb0011]
 			} else {
-				z.Lead10 = make([]int, zb0011)
+				z.Lead10 = make([]int64, zb0011)
 			}
 			for za0010 := range z.Lead10 {
-				z.Lead10[za0010], err = dc.ReadInt()
+				z.Lead10[za0010], err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Lead10", za0010)
 					return
@@ -236,10 +236,10 @@ func (z *CurveGenReplyV1) DecodeMsg(dc *msgp.Reader) (err error) {
 			if cap(z.Lead11) >= int(zb0012) {
 				z.Lead11 = (z.Lead11)[:zb0012]
 			} else {
-				z.Lead11 = make([]int, zb0012)
+				z.Lead11 = make([]int64, zb0012)
 			}
 			for za0011 := range z.Lead11 {
-				z.Lead11[za0011], err = dc.ReadInt()
+				z.Lead11[za0011], err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Lead11", za0011)
 					return
@@ -255,10 +255,10 @@ func (z *CurveGenReplyV1) DecodeMsg(dc *msgp.Reader) (err error) {
 			if cap(z.Lead12) >= int(zb0013) {
 				z.Lead12 = (z.Lead12)[:zb0013]
 			} else {
-				z.Lead12 = make([]int, zb0013)
+				z.Lead12 = make([]int64, zb0013)
 			}
 			for za0012 := range z.Lead12 {
-				z.Lead12[za0012], err = dc.ReadInt()
+				z.Lead12[za0012], err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Lead12", za0012)
 					return
@@ -274,10 +274,10 @@ func (z *CurveGenReplyV1) DecodeMsg(dc *msgp.Reader) (err error) {
 			if cap(z.Abp) >= int(zb0014) {
 				z.Abp = (z.Abp)[:zb0014]
 			} else {
-				z.Abp = make([]int, zb0014)
+				z.Abp = make([]int64, zb0014)
 			}
 			for za0013 := range z.Abp {
-				z.Abp[za0013], err = dc.ReadInt()
+				z.Abp[za0013], err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Abp", za0013)
 					return
@@ -293,10 +293,10 @@ func (z *CurveGenReplyV1) DecodeMsg(dc *msgp.Reader) (err error) {
 			if cap(z.Cvp) >= int(zb0015) {
 				z.Cvp = (z.Cvp)[:zb0015]
 			} else {
-				z.Cvp = make([]int, zb0015)
+				z.Cvp = make([]int64, zb0015)
 			}
 			for za0014 := range z.Cvp {
-				z.Cvp[za0014], err = dc.ReadInt()
+				z.Cvp[za0014], err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Cvp", za0014)
 					return
@@ -312,10 +312,10 @@ func (z *CurveGenReplyV1) DecodeMsg(dc *msgp.Reader) (err error) {
 			if cap(z.Pap) >= int(zb0016) {
 				z.Pap = (z.Pap)[:zb0016]
 			} else {
-				z.Pap = make([]int, zb0016)
+				z.Pap = make([]int64, zb0016)
 			}
 			for za0015 := range z.Pap {
-				z.Pap[za0015], err = dc.ReadInt()
+				z.Pap[za0015], err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Pap", za0015)
 					return
@@ -331,10 +331,10 @@ func (z *CurveGenReplyV1) DecodeMsg(dc *msgp.Reader) (err error) {
 			if cap(z.Spo2) >= int(zb0017) {
 				z.Spo2 = (z.Spo2)[:zb0017]
 			} else {
-				z.Spo2 = make([]int, zb0017)
+				z.Spo2 = make([]int64, zb0017)
 			}
 			for za0016 := range z.Spo2 {
-				z.Spo2[za0016], err = dc.ReadInt()
+				z.Spo2[za0016], err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Spo2", za0016)
 					return
@@ -350,10 +350,10 @@ func (z *CurveGenReplyV1) DecodeMsg(dc *msgp.Reader) (err error) {
 			if cap(z.Wp) >= int(zb0018) {
 				z.Wp = (z.Wp)[:zb0018]
 			} else {
-				z.Wp = make([]int, zb0018)
+				z.Wp = make([]int64, zb0018)
 			}
 			for za0017 := range z.Wp {
-				z.Wp[za0017], err = dc.ReadInt()
+				z.Wp[za0017], err = dc.ReadInt64()
 				if err != nil {
 					err = msgp.WrapError(err, "Wp", za0017)
 					return
@@ -393,7 +393,7 @@ func (z *CurveGenReplyV1) DecodeMsg(dc *msgp.Reader) (err error) {
 							return
 						}
 					case "tp":
-						z.Tags[za0018].TagType, err = dc.ReadInt()
+						z.Tags[za0018].TagType, err = dc.ReadInt64()
 						if err != nil {
 							err = msgp.WrapError(err, "Tags", za0018, "TagType")
 							return
@@ -452,7 +452,7 @@ func (z *CurveGenReplyV1) EncodeMsg(en *msgp.Writer) (err error) {
 		return
 	}
 	for za0001 := range z.Lead1 {
-		err = en.WriteInt(z.Lead1[za0001])
+		err = en.WriteInt64(z.Lead1[za0001])
 		if err != nil {
 			err = msgp.WrapError(err, "Lead1", za0001)
 			return
@@ -469,7 +469,7 @@ func (z *CurveGenReplyV1) EncodeMsg(en *msgp.Writer) (err error) {
 		return
 	}
 	for za0002 := range z.Lead2 {
-		err = en.WriteInt(z.Lead2[za0002])
+		err = en.WriteInt64(z.Lead2[za0002])
 		if err != nil {
 			err = msgp.WrapError(err, "Lead2", za0002)
 			return
@@ -486,7 +486,7 @@ func (z *CurveGenReplyV1) EncodeMsg(en *msgp.Writer) (err error) {
 		return
 	}
 	for za0003 := range z.Lead3 {
-		err = en.WriteInt(z.Lead3[za0003])
+		err = en.WriteInt64(z.Lead3[za0003])
 		if err != nil {
 			err = msgp.WrapError(err, "Lead3", za0003)
 			return
@@ -503,7 +503,7 @@ func (z *CurveGenReplyV1) EncodeMsg(en *msgp.Writer) (err error) {
 		return
 	}
 	for za0004 := range z.Lead4 {
-		err = en.WriteInt(z.Lead4[za0004])
+		err = en.WriteInt64(z.Lead4[za0004])
 		if err != nil {
 			err = msgp.WrapError(err, "Lead4", za0004)
 			return
@@ -520,7 +520,7 @@ func (z *CurveGenReplyV1) EncodeMsg(en *msgp.Writer) (err error) {
 		return
 	}
 	for za0005 := range z.Lead5 {
-		err = en.WriteInt(z.Lead5[za0005])
+		err = en.WriteInt64(z.Lead5[za0005])
 		if err != nil {
 			err = msgp.WrapError(err, "Lead5", za0005)
 			return
@@ -537,7 +537,7 @@ func (z *CurveGenReplyV1) EncodeMsg(en *msgp.Writer) (err error) {
 		return
 	}
 	for za0006 := range z.Lead6 {
-		err = en.WriteInt(z.Lead6[za0006])
+		err = en.WriteInt64(z.Lead6[za0006])
 		if err != nil {
 			err = msgp.WrapError(err, "Lead6", za0006)
 			return
@@ -554,7 +554,7 @@ func (z *CurveGenReplyV1) EncodeMsg(en *msgp.Writer) (err error) {
 		return
 	}
 	for za0007 := range z.Lead7 {
-		err = en.WriteInt(z.Lead7[za0007])
+		err = en.WriteInt64(z.Lead7[za0007])
 		if err != nil {
 			err = msgp.WrapError(err, "Lead7", za0007)
 			return
@@ -571,7 +571,7 @@ func (z *CurveGenReplyV1) EncodeMsg(en *msgp.Writer) (err error) {
 		return
 	}
 	for za0008 := range z.Lead8 {
-		err = en.WriteInt(z.Lead8[za0008])
+		err = en.WriteInt64(z.Lead8[za0008])
 		if err != nil {
 			err = msgp.WrapError(err, "Lead8", za0008)
 			return
@@ -588,7 +588,7 @@ func (z *CurveGenReplyV1) EncodeMsg(en *msgp.Writer) (err error) {
 		return
 	}
 	for za0009 := range z.Lead9 {
-		err = en.WriteInt(z.Lead9[za0009])
+		err = en.WriteInt64(z.Lead9[za0009])
 		if err != nil {
 			err = msgp.WrapError(err, "Lead9", za0009)
 			return
@@ -605,7 +605,7 @@ func (z *CurveGenReplyV1) EncodeMsg(en *msgp.Writer) (err error) {
 		return
 	}
 	for za0010 := range z.Lead10 {
-		err = en.WriteInt(z.Lead10[za0010])
+		err = en.WriteInt64(z.Lead10[za0010])
 		if err != nil {
 			err = msgp.WrapError(err, "Lead10", za0010)
 			return
@@ -622,7 +622,7 @@ func (z *CurveGenReplyV1) EncodeMsg(en *msgp.Writer) (err error) {
 		return
 	}
 	for za0011 := range z.Lead11 {
-		err = en.WriteInt(z.Lead11[za0011])
+		err = en.WriteInt64(z.Lead11[za0011])
 		if err != nil {
 			err = msgp.WrapError(err, "Lead11", za0011)
 			return
@@ -639,7 +639,7 @@ func (z *CurveGenReplyV1) EncodeMsg(en *msgp.Writer) (err error) {
 		return
 	}
 	for za0012 := range z.Lead12 {
-		err = en.WriteInt(z.Lead12[za0012])
+		err = en.WriteInt64(z.Lead12[za0012])
 		if err != nil {
 			err = msgp.WrapError(err, "Lead12", za0012)
 			return
@@ -656,7 +656,7 @@ func (z *CurveGenReplyV1) EncodeMsg(en *msgp.Writer) (err error) {
 		return
 	}
 	for za0013 := range z.Abp {
-		err = en.WriteInt(z.Abp[za0013])
+		err = en.WriteInt64(z.Abp[za0013])
 		if err != nil {
 			err = msgp.WrapError(err, "Abp", za0013)
 			return
@@ -673,7 +673,7 @@ func (z *CurveGenReplyV1) EncodeMsg(en *msgp.Writer) (err error) {
 		return
 	}
 	for za0014 := range z.Cvp {
-		err = en.WriteInt(z.Cvp[za0014])
+		err = en.WriteInt64(z.Cvp[za0014])
 		if err != nil {
 			err = msgp.WrapError(err, "Cvp", za0014)
 			return
@@ -690,7 +690,7 @@ func (z *CurveGenReplyV1) EncodeMsg(en *msgp.Writer) (err error) {
 		return
 	}
 	for za0015 := range z.Pap {
-		err = en.WriteInt(z.Pap[za0015])
+		err = en.WriteInt64(z.Pap[za0015])
 		if err != nil {
 			err = msgp.WrapError(err, "Pap", za0015)
 			return
@@ -707,7 +707,7 @@ func (z *CurveGenReplyV1) EncodeMsg(en *msgp.Writer) (err error) {
 		return
 	}
 	for za0016 := range z.Spo2 {
-		err = en.WriteInt(z.Spo2[za0016])
+		err = en.WriteInt64(z.Spo2[za0016])
 		if err != nil {
 			err = msgp.WrapError(err, "Spo2", za0016)
 			return
@@ -724,7 +724,7 @@ func (z *CurveGenReplyV1) EncodeMsg(en *msgp.Writer) (err error) {
 		return
 	}
 	for za0017 := range z.Wp {
-		err = en.WriteInt(z.Wp[za0017])
+		err = en.WriteInt64(z.Wp[za0017])
 		if err != nil {
 			err = msgp.WrapError(err, "Wp", za0017)
 			return
@@ -757,7 +757,7 @@ func (z *CurveGenReplyV1) EncodeMsg(en *msgp.Writer) (err error) {
 		if err != nil {
 			return
 		}
-		err = en.WriteInt(z.Tags[za0018].TagType)
+		err = en.WriteInt64(z.Tags[za0018].TagType)
 		if err != nil {
 			err = msgp.WrapError(err, "Tags", za0018, "TagType")
 			return
@@ -784,103 +784,103 @@ func (z *CurveGenReplyV1) MarshalMsg(b []byte) (o []byte, err error) {
 	o = append(o, 0xaa, 0x45, 0x43, 0x47, 0x5f, 0x4c, 0x45, 0x41, 0x44, 0x5f, 0x31)
 	o = msgp.AppendArrayHeader(o, uint32(len(z.Lead1)))
 	for za0001 := range z.Lead1 {
-		o = msgp.AppendInt(o, z.Lead1[za0001])
+		o = msgp.AppendInt64(o, z.Lead1[za0001])
 	}
 	// string "ECG_LEAD_2"
 	o = append(o, 0xaa, 0x45, 0x43, 0x47, 0x5f, 0x4c, 0x45, 0x41, 0x44, 0x5f, 0x32)
 	o = msgp.AppendArrayHeader(o, uint32(len(z.Lead2)))
 	for za0002 := range z.Lead2 {
-		o = msgp.AppendInt(o, z.Lead2[za0002])
+		o = msgp.AppendInt64(o, z.Lead2[za0002])
 	}
 	// string "ECG_LEAD_3"
 	o = append(o, 0xaa, 0x45, 0x43, 0x47, 0x5f, 0x4c, 0x45, 0x41, 0x44, 0x5f, 0x33)
 	o = msgp.AppendArrayHeader(o, uint32(len(z.Lead3)))
 	for za0003 := range z.Lead3 {
-		o = msgp.AppendInt(o, z.Lead3[za0003])
+		o = msgp.AppendInt64(o, z.Lead3[za0003])
 	}
 	// string "ECG_LEAD_4"
 	o = append(o, 0xaa, 0x45, 0x43, 0x47, 0x5f, 0x4c, 0x45, 0x41, 0x44, 0x5f, 0x34)
 	o = msgp.AppendArrayHeader(o, uint32(len(z.Lead4)))
 	for za0004 := range z.Lead4 {
-		o = msgp.AppendInt(o, z.Lead4[za0004])
+		o = msgp.AppendInt64(o, z.Lead4[za0004])
 	}
 	// string "ECG_LEAD_5"
 	o = append(o, 0xaa, 0x45, 0x43, 0x47, 0x5f, 0x4c, 0x45, 0x41, 0x44, 0x5f, 0x35)
 	o = msgp.AppendArrayHeader(o, uint32(len(z.Lead5)))
 	for za0005 := range z.Lead5 {
-		o = msgp.AppendInt(o, z.Lead5[za0005])
+		o = msgp.AppendInt64(o, z.Lead5[za0005])
 	}
 	// string "ECG_LEAD_6"
 	o = append(o, 0xaa, 0x45, 0x43, 0x47, 0x5f, 0x4c, 0x45, 0x41, 0x44, 0x5f, 0x36)
 	o = msgp.AppendArrayHeader(o, uint32(len(z.Lead6)))
 	for za0006 := range z.Lead6 {
-		o = msgp.AppendInt(o, z.Lead6[za0006])
+		o = msgp.AppendInt64(o, z.Lead6[za0006])
 	}
 	// string "ECG_LEAD_7"
 	o = append(o, 0xaa, 0x45, 0x43, 0x47, 0x5f, 0x4c, 0x45, 0x41, 0x44, 0x5f, 0x37)
 	o = msgp.AppendArrayHeader(o, uint32(len(z.Lead7)))
 	for za0007 := range z.Lead7 {
-		o = msgp.AppendInt(o, z.Lead7[za0007])
+		o = msgp.AppendInt64(o, z.Lead7[za0007])
 	}
 	// string "ECG_LEAD_8"
 	o = append(o, 0xaa, 0x45, 0x43, 0x47, 0x5f, 0x4c, 0x45, 0x41, 0x44, 0x5f, 0x38)
 	o = msgp.AppendArrayHeader(o, uint32(len(z.Lead8)))
 	for za0008 := range z.Lead8 {
-		o = msgp.AppendInt(o, z.Lead8[za0008])
+		o = msgp.AppendInt64(o, z.Lead8[za0008])
 	}
 	// string "ECG_LEAD_9"
 	o = append(o, 0xaa, 0x45, 0x43, 0x47, 0x5f, 0x4c, 0x45, 0x41, 0x44, 0x5f, 0x39)
 	o = msgp.AppendArrayHeader(o, uint32(len(z.Lead9)))
 	for za0009 := range z.Lead9 {
-		o = msgp.AppendInt(o, z.Lead9[za0009])
+		o = msgp.AppendInt64(o, z.Lead9[za0009])
 	}
 	// string "ECG_LEAD_10"
 	o = append(o, 0xab, 0x45, 0x43, 0x47, 0x5f, 0x4c, 0x45, 0x41, 0x44, 0x5f, 0x31, 0x30)
 	o = msgp.AppendArrayHeader(o, uint32(len(z.Lead10)))
 	for za0010 := range z.Lead10 {
-		o = msgp.AppendInt(o, z.Lead10[za0010])
+		o = msgp.AppendInt64(o, z.Lead10[za0010])
 	}
 	// string "ECG_LEAD_11"
 	o = append(o, 0xab, 0x45, 0x43, 0x47, 0x5f, 0x4c, 0x45, 0x41, 0x44, 0x5f, 0x31, 0x31)
 	o = msgp.AppendArrayHeader(o, uint32(len(z.Lead11)))
 	for za0011 := range z.Lead11 {
-		o = msgp.AppendInt(o, z.Lead11[za0011])
+		o = msgp.AppendInt64(o, z.Lead11[za0011])
 	}
 	// string "ECG_LEAD_12"
 	o = append(o, 0xab, 0x45, 0x43, 0x47, 0x5f, 0x4c, 0x45, 0x41, 0x44, 0x5f, 0x31, 0x32)
 	o = msgp.AppendArrayHeader(o, uint32(len(z.Lead12)))
 	for za0012 := range z.Lead12 {
-		o = msgp.AppendInt(o, z.Lead12[za0012])
+		o = msgp.AppendInt64(o, z.Lead12[za0012])
 	}
 	// string "ABP"
 	o = append(o, 0xa3, 0x41, 0x42, 0x50)
 	o = msgp.AppendArrayHeader(o, uint32(len(z.Abp)))
 	for za0013 := range z.Abp {
-		o = msgp.AppendInt(o, z.Abp[za0013])
+		o = msgp.AppendInt64(o, z.Abp[za0013])
 	}
 	// string "CVP"
 	o = append(o, 0xa3, 0x43, 0x56, 0x50)
 	o = msgp.AppendArrayHeader(o, uint32(len(z.Cvp)))
 	for za0014 := range z.Cvp {
-		o = msgp.AppendInt(o, z.Cvp[za0014])
+		o = msgp.AppendInt64(o, z.Cvp[za0014])
 	}
 	// string "PAP"
 	o = append(o, 0xa3, 0x50, 0x41, 0x50)
 	o = msgp.AppendArrayHeader(o, uint32(len(z.Pap)))
 	for za0015 := range z.Pap {
-		o = msgp.AppendInt(o, z.Pap[za0015])
+		o = msgp.AppendInt64(o, z.Pap[za0015])
 	}
 	// string "SPO2"
 	o = append(o, 0xa4, 0x53, 0x50, 0x4f, 0x32)
 	o = msgp.AppendArrayHeader(o, uint32(len(z.Spo2)))
 	for za0016 := range z.Spo2 {
-		o = msgp.AppendInt(o, z.Spo2[za0016])
+		o = msgp.AppendInt64(o, z.Spo2[za0016])
 	}
 	// string "WP"
 	o = append(o, 0xa2, 0x57, 0x50)
 	o = msgp.AppendArrayHeader(o, uint32(len(z.Wp)))
 	for za0017 := range z.Wp {
-		o = msgp.AppendInt(o, z.Wp[za0017])
+		o = msgp.AppendInt64(o, z.Wp[za0017])
 	}
 	// string "TAGS"
 	o = append(o, 0xa4, 0x54, 0x41, 0x47, 0x53)
@@ -892,7 +892,7 @@ func (z *CurveGenReplyV1) MarshalMsg(b []byte) (o []byte, err error) {
 		o = msgp.AppendInt64(o, z.Tags[za0018].TagTime)
 		// string "tp"
 		o = append(o, 0xa2, 0x74, 0x70)
-		o = msgp.AppendInt(o, z.Tags[za0018].TagType)
+		o = msgp.AppendInt64(o, z.Tags[za0018].TagType)
 	}
 	return
 }
@@ -937,10 +937,10 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 			if cap(z.Lead1) >= int(zb0002) {
 				z.Lead1 = (z.Lead1)[:zb0002]
 			} else {
-				z.Lead1 = make([]int, zb0002)
+				z.Lead1 = make([]int64, zb0002)
 			}
 			for za0001 := range z.Lead1 {
-				z.Lead1[za0001], bts, err = msgp.ReadIntBytes(bts)
+				z.Lead1[za0001], bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Lead1", za0001)
 					return
@@ -956,10 +956,10 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 			if cap(z.Lead2) >= int(zb0003) {
 				z.Lead2 = (z.Lead2)[:zb0003]
 			} else {
-				z.Lead2 = make([]int, zb0003)
+				z.Lead2 = make([]int64, zb0003)
 			}
 			for za0002 := range z.Lead2 {
-				z.Lead2[za0002], bts, err = msgp.ReadIntBytes(bts)
+				z.Lead2[za0002], bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Lead2", za0002)
 					return
@@ -975,10 +975,10 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 			if cap(z.Lead3) >= int(zb0004) {
 				z.Lead3 = (z.Lead3)[:zb0004]
 			} else {
-				z.Lead3 = make([]int, zb0004)
+				z.Lead3 = make([]int64, zb0004)
 			}
 			for za0003 := range z.Lead3 {
-				z.Lead3[za0003], bts, err = msgp.ReadIntBytes(bts)
+				z.Lead3[za0003], bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Lead3", za0003)
 					return
@@ -994,10 +994,10 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 			if cap(z.Lead4) >= int(zb0005) {
 				z.Lead4 = (z.Lead4)[:zb0005]
 			} else {
-				z.Lead4 = make([]int, zb0005)
+				z.Lead4 = make([]int64, zb0005)
 			}
 			for za0004 := range z.Lead4 {
-				z.Lead4[za0004], bts, err = msgp.ReadIntBytes(bts)
+				z.Lead4[za0004], bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Lead4", za0004)
 					return
@@ -1013,10 +1013,10 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 			if cap(z.Lead5) >= int(zb0006) {
 				z.Lead5 = (z.Lead5)[:zb0006]
 			} else {
-				z.Lead5 = make([]int, zb0006)
+				z.Lead5 = make([]int64, zb0006)
 			}
 			for za0005 := range z.Lead5 {
-				z.Lead5[za0005], bts, err = msgp.ReadIntBytes(bts)
+				z.Lead5[za0005], bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Lead5", za0005)
 					return
@@ -1032,10 +1032,10 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 			if cap(z.Lead6) >= int(zb0007) {
 				z.Lead6 = (z.Lead6)[:zb0007]
 			} else {
-				z.Lead6 = make([]int, zb0007)
+				z.Lead6 = make([]int64, zb0007)
 			}
 			for za0006 := range z.Lead6 {
-				z.Lead6[za0006], bts, err = msgp.ReadIntBytes(bts)
+				z.Lead6[za0006], bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Lead6", za0006)
 					return
@@ -1051,10 +1051,10 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 			if cap(z.Lead7) >= int(zb0008) {
 				z.Lead7 = (z.Lead7)[:zb0008]
 			} else {
-				z.Lead7 = make([]int, zb0008)
+				z.Lead7 = make([]int64, zb0008)
 			}
 			for za0007 := range z.Lead7 {
-				z.Lead7[za0007], bts, err = msgp.ReadIntBytes(bts)
+				z.Lead7[za0007], bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Lead7", za0007)
 					return
@@ -1070,10 +1070,10 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 			if cap(z.Lead8) >= int(zb0009) {
 				z.Lead8 = (z.Lead8)[:zb0009]
 			} else {
-				z.Lead8 = make([]int, zb0009)
+				z.Lead8 = make([]int64, zb0009)
 			}
 			for za0008 := range z.Lead8 {
-				z.Lead8[za0008], bts, err = msgp.ReadIntBytes(bts)
+				z.Lead8[za0008], bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Lead8", za0008)
 					return
@@ -1089,10 +1089,10 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 			if cap(z.Lead9) >= int(zb0010) {
 				z.Lead9 = (z.Lead9)[:zb0010]
 			} else {
-				z.Lead9 = make([]int, zb0010)
+				z.Lead9 = make([]int64, zb0010)
 			}
 			for za0009 := range z.Lead9 {
-				z.Lead9[za0009], bts, err = msgp.ReadIntBytes(bts)
+				z.Lead9[za0009], bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Lead9", za0009)
 					return
@@ -1108,10 +1108,10 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 			if cap(z.Lead10) >= int(zb0011) {
 				z.Lead10 = (z.Lead10)[:zb0011]
 			} else {
-				z.Lead10 = make([]int, zb0011)
+				z.Lead10 = make([]int64, zb0011)
 			}
 			for za0010 := range z.Lead10 {
-				z.Lead10[za0010], bts, err = msgp.ReadIntBytes(bts)
+				z.Lead10[za0010], bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Lead10", za0010)
 					return
@@ -1127,10 +1127,10 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 			if cap(z.Lead11) >= int(zb0012) {
 				z.Lead11 = (z.Lead11)[:zb0012]
 			} else {
-				z.Lead11 = make([]int, zb0012)
+				z.Lead11 = make([]int64, zb0012)
 			}
 			for za0011 := range z.Lead11 {
-				z.Lead11[za0011], bts, err = msgp.ReadIntBytes(bts)
+				z.Lead11[za0011], bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Lead11", za0011)
 					return
@@ -1146,10 +1146,10 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 			if cap(z.Lead12) >= int(zb0013) {
 				z.Lead12 = (z.Lead12)[:zb0013]
 			} else {
-				z.Lead12 = make([]int, zb0013)
+				z.Lead12 = make([]int64, zb0013)
 			}
 			for za0012 := range z.Lead12 {
-				z.Lead12[za0012], bts, err = msgp.ReadIntBytes(bts)
+				z.Lead12[za0012], bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Lead12", za0012)
 					return
@@ -1165,10 +1165,10 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 			if cap(z.Abp) >= int(zb0014) {
 				z.Abp = (z.Abp)[:zb0014]
 			} else {
-				z.Abp = make([]int, zb0014)
+				z.Abp = make([]int64, zb0014)
 			}
 			for za0013 := range z.Abp {
-				z.Abp[za0013], bts, err = msgp.ReadIntBytes(bts)
+				z.Abp[za0013], bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Abp", za0013)
 					return
@@ -1184,10 +1184,10 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 			if cap(z.Cvp) >= int(zb0015) {
 				z.Cvp = (z.Cvp)[:zb0015]
 			} else {
-				z.Cvp = make([]int, zb0015)
+				z.Cvp = make([]int64, zb0015)
 			}
 			for za0014 := range z.Cvp {
-				z.Cvp[za0014], bts, err = msgp.ReadIntBytes(bts)
+				z.Cvp[za0014], bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Cvp", za0014)
 					return
@@ -1203,10 +1203,10 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 			if cap(z.Pap) >= int(zb0016) {
 				z.Pap = (z.Pap)[:zb0016]
 			} else {
-				z.Pap = make([]int, zb0016)
+				z.Pap = make([]int64, zb0016)
 			}
 			for za0015 := range z.Pap {
-				z.Pap[za0015], bts, err = msgp.ReadIntBytes(bts)
+				z.Pap[za0015], bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Pap", za0015)
 					return
@@ -1222,10 +1222,10 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 			if cap(z.Spo2) >= int(zb0017) {
 				z.Spo2 = (z.Spo2)[:zb0017]
 			} else {
-				z.Spo2 = make([]int, zb0017)
+				z.Spo2 = make([]int64, zb0017)
 			}
 			for za0016 := range z.Spo2 {
-				z.Spo2[za0016], bts, err = msgp.ReadIntBytes(bts)
+				z.Spo2[za0016], bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Spo2", za0016)
 					return
@@ -1241,10 +1241,10 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 			if cap(z.Wp) >= int(zb0018) {
 				z.Wp = (z.Wp)[:zb0018]
 			} else {
-				z.Wp = make([]int, zb0018)
+				z.Wp = make([]int64, zb0018)
 			}
 			for za0017 := range z.Wp {
-				z.Wp[za0017], bts, err = msgp.ReadIntBytes(bts)
+				z.Wp[za0017], bts, err = msgp.ReadInt64Bytes(bts)
 				if err != nil {
 					err = msgp.WrapError(err, "Wp", za0017)
 					return
@@ -1284,7 +1284,7 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 							return
 						}
 					case "tp":
-						z.Tags[za0018].TagType, bts, err = msgp.ReadIntBytes(bts)
+						z.Tags[za0018].TagType, bts, err = msgp.ReadInt64Bytes(bts)
 						if err != nil {
 							err = msgp.WrapError(err, "Tags", za0018, "TagType")
 							return
@@ -1312,7 +1312,7 @@ func (z *CurveGenReplyV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 
 // Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
 func (z *CurveGenReplyV1) Msgsize() (s int) {
-	s = 3 + 10 + msgp.StringPrefixSize + len(z.ClientId) + 5 + z.Spec.Msgsize() + 11 + msgp.ArrayHeaderSize + (len(z.Lead1) * (msgp.IntSize)) + 11 + msgp.ArrayHeaderSize + (len(z.Lead2) * (msgp.IntSize)) + 11 + msgp.ArrayHeaderSize + (len(z.Lead3) * (msgp.IntSize)) + 11 + msgp.ArrayHeaderSize + (len(z.Lead4) * (msgp.IntSize)) + 11 + msgp.ArrayHeaderSize + (len(z.Lead5) * (msgp.IntSize)) + 11 + msgp.ArrayHeaderSize + (len(z.Lead6) * (msgp.IntSize)) + 11 + msgp.ArrayHeaderSize + (len(z.Lead7) * (msgp.IntSize)) + 11 + msgp.ArrayHeaderSize + (len(z.Lead8) * (msgp.IntSize)) + 11 + msgp.ArrayHeaderSize + (len(z.Lead9) * (msgp.IntSize)) + 12 + msgp.ArrayHeaderSize + (len(z.Lead10) * (msgp.IntSize)) + 12 + msgp.ArrayHeaderSize + (len(z.Lead11) * (msgp.IntSize)) + 12 + msgp.ArrayHeaderSize + (len(z.Lead12) * (msgp.IntSize)) + 4 + msgp.ArrayHeaderSize + (len(z.Abp) * (msgp.IntSize)) + 4 + msgp.ArrayHeaderSize + (len(z.Cvp) * (msgp.IntSize)) + 4 + msgp.ArrayHeaderSize + (len(z.Pap) * (msgp.IntSize)) + 5 + msgp.ArrayHeaderSize + (len(z.Spo2) * (msgp.IntSize)) + 3 + msgp.ArrayHeaderSize + (len(z.Wp) * (msgp.IntSize)) + 5 + msgp.ArrayHeaderSize + (len(z.Tags) * (7 + msgp.Int64Size + msgp.IntSize))
+	s = 3 + 10 + msgp.StringPrefixSize + len(z.ClientId) + 5 + z.Spec.Msgsize() + 11 + msgp.ArrayHeaderSize + (len(z.Lead1) * (msgp.Int64Size)) + 11 + msgp.ArrayHeaderSize + (len(z.Lead2) * (msgp.Int64Size)) + 11 + msgp.ArrayHeaderSize + (len(z.Lead3) * (msgp.Int64Size)) + 11 + msgp.ArrayHeaderSize + (len(z.Lead4) * (msgp.Int64Size)) + 11 + msgp.ArrayHeaderSize + (len(z.Lead5) * (msgp.Int64Size)) + 11 + msgp.ArrayHeaderSize + (len(z.Lead6) * (msgp.Int64Size)) + 11 + msgp.ArrayHeaderSize + (len(z.Lead7) * (msgp.Int64Size)) + 11 + msgp.ArrayHeaderSize + (len(z.Lead8) * (msgp.Int64Size)) + 11 + msgp.ArrayHeaderSize + (len(z.Lead9) * (msgp.Int64Size)) + 12 + msgp.ArrayHeaderSize + (len(z.Lead10) * (msgp.Int64Size)) + 12 + msgp.ArrayHeaderSize + (len(z.Lead11) * (msgp.Int64Size)) + 12 + msgp.ArrayHeaderSize + (len(z.Lead12) * (msgp.Int64Size)) + 4 + msgp.ArrayHeaderSize + (len(z.Abp) * (msgp.Int64Size)) + 4 + msgp.ArrayHeaderSize + (len(z.Cvp) * (msgp.Int64Size)) + 4 + msgp.ArrayHeaderSize + (len(z.Pap) * (msgp.Int64Size)) + 5 + msgp.ArrayHeaderSize + (len(z.Spo2) * (msgp.Int64Size)) + 3 + msgp.ArrayHeaderSize + (len(z.Wp) * (msgp.Int64Size)) + 5 + msgp.ArrayHeaderSize + (len(z.Tags) * (7 + msgp.Int64Size + msgp.Int64Size))
 	return
 }
 
@@ -1359,13 +1359,13 @@ func (z *CurveSpecificationV1) DecodeMsg(dc *msgp.Reader) (err error) {
 				return
 			}
 		case "sample_interval":
-			z.SampleInterval, err = dc.ReadInt()
+			z.SampleInterval, err = dc.ReadInt64()
 			if err != nil {
 				err = msgp.WrapError(err, "SampleInterval")
 				return
 			}
 		case "curve_types":
-			z.CurveTypes, err = dc.ReadInt()
+			z.CurveTypes, err = dc.ReadInt64()
 			if err != nil {
 				err = msgp.WrapError(err, "CurveTypes")
 				return
@@ -1429,7 +1429,7 @@ func (z *CurveSpecificationV1) EncodeMsg(en *msgp.Writer) (err error) {
 	if err != nil {
 		return
 	}
-	err = en.WriteInt(z.SampleInterval)
+	err = en.WriteInt64(z.SampleInterval)
 	if err != nil {
 		err = msgp.WrapError(err, "SampleInterval")
 		return
@@ -1439,7 +1439,7 @@ func (z *CurveSpecificationV1) EncodeMsg(en *msgp.Writer) (err error) {
 	if err != nil {
 		return
 	}
-	err = en.WriteInt(z.CurveTypes)
+	err = en.WriteInt64(z.CurveTypes)
 	if err != nil {
 		err = msgp.WrapError(err, "CurveTypes")
 		return
@@ -1465,10 +1465,10 @@ func (z *CurveSpecificationV1) MarshalMsg(b []byte) (o []byte, err error) {
 	o = msgp.AppendInt64(o, z.EndTime)
 	// string "sample_interval"
 	o = append(o, 0xaf, 0x73, 0x61, 0x6d, 0x70, 0x6c, 0x65, 0x5f, 0x69, 0x6e, 0x74, 0x65, 0x72, 0x76, 0x61, 0x6c)
-	o = msgp.AppendInt(o, z.SampleInterval)
+	o = msgp.AppendInt64(o, z.SampleInterval)
 	// string "curve_types"
 	o = append(o, 0xab, 0x63, 0x75, 0x72, 0x76, 0x65, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x73)
-	o = msgp.AppendInt(o, z.CurveTypes)
+	o = msgp.AppendInt64(o, z.CurveTypes)
 	return
 }
 
@@ -1515,13 +1515,13 @@ func (z *CurveSpecificationV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				return
 			}
 		case "sample_interval":
-			z.SampleInterval, bts, err = msgp.ReadIntBytes(bts)
+			z.SampleInterval, bts, err = msgp.ReadInt64Bytes(bts)
 			if err != nil {
 				err = msgp.WrapError(err, "SampleInterval")
 				return
 			}
 		case "curve_types":
-			z.CurveTypes, bts, err = msgp.ReadIntBytes(bts)
+			z.CurveTypes, bts, err = msgp.ReadInt64Bytes(bts)
 			if err != nil {
 				err = msgp.WrapError(err, "CurveTypes")
 				return
@@ -1540,7 +1540,7 @@ func (z *CurveSpecificationV1) UnmarshalMsg(bts []byte) (o []byte, err error) {
 
 // Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
 func (z *CurveSpecificationV1) Msgsize() (s int) {
-	s = 1 + 15 + msgp.StringPrefixSize + len(z.SimulatorName) + 7 + msgp.StringPrefixSize + len(z.Tenant) + 11 + msgp.Int64Size + 9 + msgp.Int64Size + 16 + msgp.IntSize + 12 + msgp.IntSize
+	s = 1 + 15 + msgp.StringPrefixSize + len(z.SimulatorName) + 7 + msgp.StringPrefixSize + len(z.Tenant) + 11 + msgp.Int64Size + 9 + msgp.Int64Size + 16 + msgp.Int64Size + 12 + msgp.Int64Size
 	return
 }
 
@@ -1569,7 +1569,7 @@ func (z *Tag) DecodeMsg(dc *msgp.Reader) (err error) {
 				return
 			}
 		case "tp":
-			z.TagType, err = dc.ReadInt()
+			z.TagType, err = dc.ReadInt64()
 			if err != nil {
 				err = msgp.WrapError(err, "TagType")
 				return
@@ -1603,7 +1603,7 @@ func (z Tag) EncodeMsg(en *msgp.Writer) (err error) {
 	if err != nil {
 		return
 	}
-	err = en.WriteInt(z.TagType)
+	err = en.WriteInt64(z.TagType)
 	if err != nil {
 		err = msgp.WrapError(err, "TagType")
 		return
@@ -1620,7 +1620,7 @@ func (z Tag) MarshalMsg(b []byte) (o []byte, err error) {
 	o = msgp.AppendInt64(o, z.TagTime)
 	// string "tp"
 	o = append(o, 0xa2, 0x74, 0x70)
-	o = msgp.AppendInt(o, z.TagType)
+	o = msgp.AppendInt64(o, z.TagType)
 	return
 }
 
@@ -1649,7 +1649,7 @@ func (z *Tag) UnmarshalMsg(bts []byte) (o []byte, err error) {
 				return
 			}
 		case "tp":
-			z.TagType, bts, err = msgp.ReadIntBytes(bts)
+			z.TagType, bts, err = msgp.ReadInt64Bytes(bts)
 			if err != nil {
 				err = msgp.WrapError(err, "TagType")
 				return
@@ -1668,6 +1668,6 @@ func (z *Tag) UnmarshalMsg(bts []byte) (o []byte, err error) {
 
 // Msgsize returns an upper bound estimate of the number of bytes occupied by the serialized message
 func (z Tag) Msgsize() (s int) {
-	s = 1 + 3 + msgp.Int64Size + 3 + msgp.IntSize
+	s = 1 + 3 + msgp.Int64Size + 3 + msgp.Int64Size
 	return
 }
