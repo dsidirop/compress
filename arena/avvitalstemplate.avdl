@@ -7,7 +7,7 @@
 protocol AV {
 
   // union{null, string} street  = null;   <-- TODO  use this for nullable types
-
+ 
   record AVVitalsTemplate {
   	AVVitalsTemplateSpec  Spec;
   }
