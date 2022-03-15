@@ -9,7 +9,9 @@ import (
 	"github.com/hamba/avro"
 	"github.com/klauspost/compress/arena/thcurvegenresponsev1"
 	"github.com/klauspost/compress/arena/thfooitem"
+	"github.com/klauspost/compress/arena/thvitalstemplate"
 	"github.com/tinylib/msgp/msgp"
+
 	"google.golang.org/protobuf/proto"
 )
 
@@ -29,6 +31,7 @@ type DatasourceEntry struct {
 var MainDatasource = []DatasourceEntry{}
 
 func InitializeMainDatasource() {
+	sampleVitalsTemplatePatched := &VitalsTemplate{}
 	sampleCurveGenReplyV1_fromCurveGenSrv_toManikin := &CurveGenReplyV1{}
 	sampleCurveGenReplyV1_fromCurveGenSrv_toPatientMonitor := &CurveGenReplyV1{}
 
@@ -48,12 +51,25 @@ func InitializeMainDatasource() {
 		panic(err)
 	}
 
-	goHambaAvroFooItemSchema, err := os.ReadFile("../avfooitem.fixedmanually.avsc") // intentionally avoid 'avfooitem.avsc' because its problematic
+	err = json.Unmarshal(
+		[]byte(Vitalset_patched___json_string),
+		sampleVitalsTemplatePatched,
+	)
 	if err != nil {
 		panic(err)
 	}
 
-	goHambaAvroCurveGenResponseV1Schema, err := os.ReadFile("../avcurvegenresponsev1.fixedmanually.avsc") // intentionally avoid 'avcurvegenresponsev1.avsc' because its problematic
+	goHambaAvroFooItemSchema, err := os.ReadFile("../avfooitem.fixedmanually.avsc") // intentionally avoided 'avfooitem.avsc' because its problematic
+	if err != nil {
+		panic(err)
+	}
+
+	goHambaAvroCurveGenResponseV1Schema, err := os.ReadFile("../avcurvegenresponsev1.fixedmanually.avsc") // intentionally avoided 'avcurvegenresponsev1.avsc' because its problematic
+	if err != nil {
+		panic(err)
+	}
+
+	goHambaAvroVitalSetPatchedSchema, err := os.ReadFile("../avvitalsetpatched.fixedmanually.avsc") // intentionally avoided 'avvitalsetpatched.avsc' because its problematic
 	if err != nil {
 		panic(err)
 	}
@@ -85,6 +101,21 @@ func InitializeMainDatasource() {
 			NewEmptyProtobufItem: func() proto.Message { return &PBCurveGenReplyV1{} },
 
 			HambaAvroSchema: avro.MustParse(string(goHambaAvroCurveGenResponseV1Schema)),
+		},
+	)
+
+	MainDatasource = append(
+		MainDatasource,
+		DatasourceEntry{
+			Item:         sampleVitalsTemplatePatched,
+			ThriftItem:   ConvertVitalsTemplateToThrift(sampleVitalsTemplatePatched),
+			ProtobufItem: ConvertVitalsTemplateToProtobuf(sampleVitalsTemplatePatched),
+
+			NewEmptyItem:         func() msgp.Decodable { return &VitalsTemplate{} },
+			NewEmptyThriftItem:   func() thrift.TStruct { return thvitalstemplate.NewTHVitalsTemplate() },
+			NewEmptyProtobufItem: func() proto.Message { return &PBVitalsTemplate{} },
+
+			HambaAvroSchema: avro.MustParse(string(goHambaAvroVitalSetPatchedSchema)),
 		},
 	)
 

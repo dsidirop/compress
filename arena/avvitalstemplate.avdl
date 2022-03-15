@@ -1,0 +1,133 @@
+// NOT REALLY BEING USED - JUST A SAMPLE
+//
+// even though the structure of this file is correct unfortunately the avro transpiler to json generates a "types[]"
+// json-array which cannot be digested by goavro    well too bad    we tweaked the json by hand to make it digestible by goavro
+
+@namespace("org.arena.avro.fooitem")
+protocol AV {
+
+  // union{null, string} street  = null;   <-- TODO  use this for nullable types
+
+  record AVVitalsTemplate {
+  	PBVitalsTemplateSpec  Spec;
+  }
+  
+  record AVVitalsTemplateSpec {
+  	optional int64                      RespiratoryRate        ;
+  	optional int64                      SpO2                   ;
+  	optional AVBloodPressure            BloodPressure          ;
+  	optional int64                      EtCO2                  ;
+  	optional double                     TemperatureBlood       ;
+  	optional double                     TemperaturePeripheral  ;
+  	optional AVEcg                      Ecg                    ;
+  	optional AVEyes                     Eyes                   ;
+  	optional AVAirwayObstruction        AirwayObstruction      ;
+  	optional AVLungSounds               LungSounds             ;
+  	optional AVHeartSounds              HeartSounds            ;
+  	optional AVBowelSounds              BowelSounds            ;
+  	optional AVPulses                   Pulses                 ;
+  }
+  
+  record AVBloodPressure {
+  	optional int64                 Systolic               ;
+  	optional int64                 Diastolic              ;
+  }
+  
+  record AVEcg {
+  	optional int64                 HeartRate              ;
+  	optional string                BasicRhythm            ;
+  	optional AVExtrasystole        Extrasystole           ;
+  	optional int64                 Severity               ;
+  	optional bool                  AllowPacing            ;
+  	optional bool                  EmdPea                 ;
+  }
+  
+  record AVExtrasystole {
+  	optional string                Type                   ;
+  	optional int64                 Probability            ;
+  }
+  
+  record AVEyes {
+  	optional AVEye                 Left                   ;
+  	optional AVEye                 Right                  ;
+  	optional string                BlinkRate              ;
+  }
+  
+  record AVHeartSounds {
+  	optional string                Aortic                 ;
+  	optional int64                 AorticVolume           ;
+  	optional string                Pulmonary              ;
+  	optional int64                 PulmonaryVolume        ;
+  	optional string                Tricuspid              ;
+  	optional int64                 TricuspidVolume        ;
+  	optional string                Mitral                 ;
+  	optional int64                 MitralVolume           ;
+  }
+  
+  
+  record AVEye {
+  	optional string                EyelidPosition         ;
+  	optional int64                 PupilSize              ;
+  	optional string                PupilResponsiveness    ;
+  }
+  
+  record AVAirwayObstruction {
+  	optional string                TongueEdema            ;
+  }
+  
+  record AVLungSounds {
+  	optional AVSingleLungSounds    Left                   ;
+  	optional AVSingleLungSounds    Right                  ;
+  }
+  
+  record AVstring {
+  	optional string                Aortic                 ;
+  	optional int64                 AorticVolume           ;
+  	optional string                Pulmonary              ;
+  	optional int64                 PulmonaryVolume        ;
+  	optional string                Tricuspid              ;
+  	optional int64                 TricuspidVolume        ;
+  	optional string                Mitral                 ;
+  	optional int64                 MitralVolume           ;
+  }
+  
+  record AVSingleLungSounds {
+  	optional string                AnteriorUpper          ;
+  	optional int64                 AnteriorUpperVolume    ;
+  	optional string                AnteriorLower          ;
+  	optional int64                 AnteriorLowerVolume    ;
+  	optional string                AnteriorMiddle         ;
+  	optional int64                 AnteriorMiddleVolume   ;
+  	optional string                PosteriorUpper         ;
+  	optional int64                 PosteriorUpperVolume   ;
+  	optional string                PosteriorLower         ;
+  	optional int64                 PosteriorLowerVolume   ;
+  }
+  
+  record AVBowelSounds {
+  	optional string                Bowel                  ;
+  	optional int64                 BowelVolume            ;
+  }
+  
+  record AVPulses {
+      optional string                Central                ;
+      optional string                CentralLimited         ;
+      optional string                RightLeg               ;
+      optional string                RightLegLimited        ;
+      optional string                LeftLeg                ;
+      optional string                LeftLegLimited         ;
+      optional string                RightFoot              ;
+      optional string                RightFootLimited       ;
+      optional string                LeftFoot               ;
+      optional string                LeftFootLimited        ;
+      optional string                RightArm               ;
+      optional string                RightArmLimited        ;
+      optional string                LeftArm                ;
+      optional string                LeftArmLimited         ;
+      optional string                RightHand              ;
+      optional string                RightHandLimited       ;
+      optional string                LeftHand               ;
+      optional string                LeftHandLimited        ;
+  }
+
+}

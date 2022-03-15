@@ -11,24 +11,24 @@ func ConvertCurvegenResponseV1ToThrift(x *CurveGenReplyV1) *thcurvegenresponsev1
 
 	y.Spec = thriftConvertCurveSpecificationV1(x.Spec)
 
-	y.Lead1 = thriftConvertIntArrayToInt64Array(x.Lead1)
-	y.Lead2 = thriftConvertIntArrayToInt64Array(x.Lead2)
-	y.Lead3 = thriftConvertIntArrayToInt64Array(x.Lead3)
-	y.Lead4 = thriftConvertIntArrayToInt64Array(x.Lead4)
-	y.Lead5 = thriftConvertIntArrayToInt64Array(x.Lead5)
-	y.Lead6 = thriftConvertIntArrayToInt64Array(x.Lead6)
-	y.Lead7 = thriftConvertIntArrayToInt64Array(x.Lead7)
-	y.Lead8 = thriftConvertIntArrayToInt64Array(x.Lead8)
-	y.Lead9 = thriftConvertIntArrayToInt64Array(x.Lead9)
-	y.Lead10 = thriftConvertIntArrayToInt64Array(x.Lead10)
-	y.Lead11 = thriftConvertIntArrayToInt64Array(x.Lead11)
-	y.Lead12 = thriftConvertIntArrayToInt64Array(x.Lead12)
+	y.Lead1 = x.Lead1
+	y.Lead2 = x.Lead2
+	y.Lead3 = x.Lead3
+	y.Lead4 = x.Lead4
+	y.Lead5 = x.Lead5
+	y.Lead6 = x.Lead6
+	y.Lead7 = x.Lead7
+	y.Lead8 = x.Lead8
+	y.Lead9 = x.Lead9
+	y.Lead10 = x.Lead10
+	y.Lead11 = x.Lead11
+	y.Lead12 = x.Lead12
 
-	y.Wp = thriftConvertIntArrayToInt64Array(x.Wp)
-	y.Abp = thriftConvertIntArrayToInt64Array(x.Abp)
-	y.Cvp = thriftConvertIntArrayToInt64Array(x.Cvp)
-	y.Pap = thriftConvertIntArrayToInt64Array(x.Pap)
-	y.Spo2 = thriftConvertIntArrayToInt64Array(x.Spo2)
+	y.Wp = x.Wp
+	y.Abp = x.Abp
+	y.Cvp = x.Cvp
+	y.Pap = x.Pap
+	y.Spo2 = x.Spo2
 
 	y.Tags = thriftConvertTags(x.Tags)
 

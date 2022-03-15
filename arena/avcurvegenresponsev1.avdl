@@ -40,7 +40,6 @@ protocol AV {
   
   record AVTag {
       long                       TagTime        ;
-	    int                        TagType        ;
+      int                        TagType        ;
   }
-  
 }

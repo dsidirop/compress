@@ -1,0 +1,128 @@
+syntax = "proto3";
+
+package foo.vitalstemplate;
+
+option go_package = ".;arena"; // can also be   github.com/example/path/gen;gen
+
+
+message PBVitalsTemplate {
+	PBVitalsTemplateSpec  Spec = 1;
+}
+
+message PBVitalsTemplateSpec {
+	optional int64                      RespiratoryRate        = 1;
+	optional int64                      SpO2                   = 2;
+	optional PBBloodPressure            BloodPressure          = 3;
+	optional int64                      EtCO2                  = 4;
+	optional double                     TemperatureBlood       = 5;
+	optional double                     TemperaturePeripheral  = 6;
+	optional PBEcg                      Ecg                    = 7;
+	optional PBEyes                     Eyes                   = 8;
+	optional PBAirwayObstruction        AirwayObstruction      = 9;
+	optional PBLungSounds               LungSounds             = 10;
+	optional PBHeartSounds              HeartSounds            = 11;
+	optional PBBowelSounds              BowelSounds            = 12;
+	optional PBPulses                   Pulses                 = 13;
+}
+
+message PBBloodPressure {
+	optional int64                 Systolic               = 1;
+	optional int64                 Diastolic              = 2;
+}
+
+message PBEcg {
+	optional int64                 HeartRate              = 1;
+	optional string                BasicRhythm            = 2;
+	optional PBExtrasystole        Extrasystole           = 3;
+	optional int64                 Severity               = 4;
+	optional bool                  AllowPacing            = 5;
+	optional bool                  EmdPea                 = 6;
+}
+
+message PBExtrasystole {
+	optional string                Type                   = 1;
+	optional int64                 Probability            = 2;
+}
+
+message PBEyes {
+	optional PBEye                 Left                   = 1;
+	optional PBEye                 Right                  = 2;
+	optional string                BlinkRate              = 3;
+}
+
+message PBHeartSounds {
+	optional string                Aortic                 = 1;
+	optional int64                 AorticVolume           = 2;
+	optional string                Pulmonary              = 3;
+	optional int64                 PulmonaryVolume        = 4;
+	optional string                Tricuspid              = 5;
+	optional int64                 TricuspidVolume        = 6;
+	optional string                Mitral                 = 7;
+	optional int64                 MitralVolume           = 8;
+}
+
+
+message PBEye {
+	optional string                EyelidPosition         = 1;
+	optional int64                 PupilSize              = 2;
+	optional string                PupilResponsiveness    = 3;
+}
+
+message PBAirwayObstruction {
+	optional string                TongueEdema            = 1;
+}
+
+message PBLungSounds {
+	optional PBSingleLungSounds    Left                   = 1;
+	optional PBSingleLungSounds    Right                  = 2;
+}
+
+message PBstring {
+	optional string                Aortic                 = 1;
+	optional int64                 AorticVolume           = 2;
+	optional string                Pulmonary              = 3;
+	optional int64                 PulmonaryVolume        = 4;
+	optional string                Tricuspid              = 5;
+	optional int64                 TricuspidVolume        = 6;
+	optional string                Mitral                 = 7;
+	optional int64                 MitralVolume           = 8;
+}
+
+message PBSingleLungSounds {
+	optional string                AnteriorUpper          = 1;
+	optional int64                 AnteriorUpperVolume    = 2;
+	optional string                AnteriorLower          = 3;
+	optional int64                 AnteriorLowerVolume    = 4;
+	optional string                AnteriorMiddle         = 5;
+	optional int64                 AnteriorMiddleVolume   = 6;
+	optional string                PosteriorUpper         = 7;
+	optional int64                 PosteriorUpperVolume   = 8;
+	optional string                PosteriorLower         = 9;
+	optional int64                 PosteriorLowerVolume   = 10;
+}
+
+message PBBowelSounds {
+	optional string                Bowel                  = 1;
+	optional int64                 BowelVolume            = 2;
+}
+
+message PBPulses {
+    optional string                Central                = 1;
+    optional string                CentralLimited         = 2;
+    optional string                RightLeg               = 3;
+    optional string                RightLegLimited        = 4;
+    optional string                LeftLeg                = 5;
+    optional string                LeftLegLimited         = 6;
+    optional string                RightFoot              = 7;
+    optional string                RightFootLimited       = 8;
+    optional string                LeftFoot               = 9;
+    optional string                LeftFootLimited        = 10;
+    optional string                RightArm               = 11;
+    optional string                RightArmLimited        = 12;
+    optional string                LeftArm                = 13;
+    optional string                LeftArmLimited         = 14;
+    optional string                RightHand              = 15;
+    optional string                RightHandLimited       = 16;
+    optional string                LeftHand               = 17;
+    optional string                LeftHandLimited        = 18;
+}
