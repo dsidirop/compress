@@ -9,23 +9,23 @@ protocol AV {
   record AVCurveGenReplyV1 {
   		string                     ClientId       ;
 	    AVCurveSpecificationV1     Spec           ;
-	    array<int>                 Lead1          ;
-	    array<int>                 Lead2          ;
-	    array<int>                 Lead3          ;
-	    array<int>                 Lead4          ;
-	    array<int>                 Lead5          ;
-	    array<int>                 Lead6          ;
-	    array<int>                 Lead7          ;
-	    array<int>                 Lead8          ;
-	    array<int>                 Lead9          ;
-	    array<int>                 Lead10         ;
-	    array<int>                 Lead11         ;
-	    array<int>                 Lead12         ;
-	    array<int>                 Abp            ;
-	    array<int>                 Cvp            ;
-	    array<int>                 Pap            ;
-	    array<int>                 Spo2           ;
-	    array<int>                 Wp             ;
+	    array<long>                Lead1          ;
+	    array<long>                Lead2          ;
+	    array<long>                Lead3          ;
+	    array<long>                Lead4          ;
+	    array<long>                Lead5          ;
+	    array<long>                Lead6          ;
+	    array<long>                Lead7          ;
+	    array<long>                Lead8          ;
+	    array<long>                Lead9          ;
+	    array<long>                Lead10         ;
+	    array<long>                Lead11         ;
+	    array<long>                Lead12         ;
+	    array<long>                Abp            ;
+	    array<long>                Cvp            ;
+	    array<long>                Pap            ;
+	    array<long>                Spo2           ;
+	    array<long>                Wp             ;
 	    array<AVTag>               Tags           ;
   }
 
@@ -34,13 +34,12 @@ protocol AV {
       string                     Tenant         ;
       long                       StartTime      ;
       long                       EndTime        ;
-      int                        SampleInterval ;
-      int                        CurveTypes     ;
+      long                       SampleInterval ;
+      long                       CurveTypes     ;
   }
   
   record AVTag {
       long                       TagTime        ;
-	    int                        TagType        ;
+      long                       TagType        ;
   }
-  
 }

@@ -26,113 +26,113 @@
           "type" : "long"
         }, {
           "name" : "SampleInterval",
-          "type" : "int"
+          "type" : "long"
         }, {
           "name" : "CurveTypes",
-          "type" : "int"
+          "type" : "long"
         } ]
       }
     }, {
       "name" : "Lead1",
       "type" : {
         "type" : "array",
-        "items" : "int"
+        "items" : "long"
       }
     }, {
       "name" : "Lead2",
       "type" : {
         "type" : "array",
-        "items" : "int"
+        "items" : "long"
       }
     }, {
       "name" : "Lead3",
       "type" : {
         "type" : "array",
-        "items" : "int"
+        "items" : "long"
       }
     }, {
       "name" : "Lead4",
       "type" : {
         "type" : "array",
-        "items" : "int"
+        "items" : "long"
       }
     }, {
       "name" : "Lead5",
       "type" : {
         "type" : "array",
-        "items" : "int"
+        "items" : "long"
       }
     }, {
       "name" : "Lead6",
       "type" : {
         "type" : "array",
-        "items" : "int"
+        "items" : "long"
       }
     }, {
       "name" : "Lead7",
       "type" : {
         "type" : "array",
-        "items" : "int"
+        "items" : "long"
       }
     }, {
       "name" : "Lead8",
       "type" : {
         "type" : "array",
-        "items" : "int"
+        "items" : "long"
       }
     }, {
       "name" : "Lead9",
       "type" : {
         "type" : "array",
-        "items" : "int"
+        "items" : "long"
       }
     }, {
       "name" : "Lead10",
       "type" : {
         "type" : "array",
-        "items" : "int"
+        "items" : "long"
       }
     }, {
       "name" : "Lead11",
       "type" : {
         "type" : "array",
-        "items" : "int"
+        "items" : "long"
       }
     }, {
       "name" : "Lead12",
       "type" : {
         "type" : "array",
-        "items" : "int"
+        "items" : "long"
       }
     }, {
       "name" : "Abp",
       "type" : {
         "type" : "array",
-        "items" : "int"
+        "items" : "long"
       }
     }, {
       "name" : "Cvp",
       "type" : {
         "type" : "array",
-        "items" : "int"
+        "items" : "long"
       }
     }, {
       "name" : "Pap",
       "type" : {
         "type" : "array",
-        "items" : "int"
+        "items" : "long"
       }
     }, {
       "name" : "Spo2",
       "type" : {
         "type" : "array",
-        "items" : "int"
+        "items" : "long"
       }
     }, {
       "name" : "Wp",
       "type" : {
         "type" : "array",
-        "items" : "int"
+        "items" : "long"
       }
     }, {
       "name" : "Tags",
@@ -146,7 +146,7 @@
             "type" : "long"
           }, {
             "name" : "TagType",
-            "type" : "int"
+            "type" : "long"
           } ]
         }
       }
