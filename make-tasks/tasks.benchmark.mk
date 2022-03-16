@@ -96,7 +96,7 @@ compile-idl:           \
 	compile-protobuf
 
 compile-msgp: ./arena/fooitem.go   ./arena/curvegenreplyv1.go   ./arena/vitalstemplate.go
-	@which msgp  &&  cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  msgp      --file                           "./$${x}"                      ;  done
+	@which msgp    &&  cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  msgp      --file                           "./$${x}"                      ;  done
 	@touch  $@
 
 compile-protobuf: ./arena/*.proto
@@ -104,7 +104,7 @@ compile-protobuf: ./arena/*.proto
 	@touch  $@
 
 compile-avro: ./arena/*.avdl   # java must be jdk8    jdk14+ doesn't work for some reason
-	@which java  &&  cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  java      -jar       avro-tools.jar   idl  "./$${x}"   "./$${x%.*}.avsc"  ;  done
+	@which java    &&  cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  java      -jar       avro-tools.jar   idl  "./$${x}"   "./$${x%.*}.avsc"  ;  done
 	@touch  $@
 
 compile-thrift: ./arena/*.thrift
