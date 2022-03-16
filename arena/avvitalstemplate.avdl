@@ -9,7 +9,7 @@ protocol AV {
   record AVVitalsTemplate {
   	AVVitalsTemplateSpec  Spec;
   }
-  
+
   record AVVitalsTemplateSpec {
   	union { null, long                }       RespiratoryRate       = null;
   	union { null, long                }       SpO2                  = null;
