@@ -96,17 +96,17 @@ compile-idl:           \
 	compile-protobuf
 
 compile-msgp: ./arena/fooitem.go   ./arena/curvegenreplyv1.go   ./arena/vitalstemplate.go
-	@cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  msgp      --file                           "./$${x}"                      ;  done
+	@which msgp  &&  cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  msgp      --file                           "./$${x}"                      ;  done
 	@touch  $@
 
 compile-protobuf: ./arena/*.proto
-	@cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  protoc    --go_out=.    "./$${x}"  ;  done
+	@which protoc  &&  cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  protoc    --go_out=.    "./$${x}"  ;  done
 	@touch  $@
 
-compile-avro: ./arena/*.avdl
-	@cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  java      -jar       avro-tools.jar   idl  "./$${x}"   "./$${x%.*}.avsc"  ;  done
+compile-avro: ./arena/*.avdl   # java must be jdk8    jdk14+ doesn't work for some reason
+	@which java  &&  cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  java      -jar       avro-tools.jar   idl  "./$${x}"   "./$${x%.*}.avsc"  ;  done
 	@touch  $@
 
 compile-thrift: ./arena/*.thrift
-	@cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  thrift    --gen      go    -recurse     -out .    "./$${x}"  ;  done
+	@which thrift  &&  cd arena    &&    for file in $^ ; do    x=$$(basename "$${file}");  thrift    --gen      go    -recurse     -out .    "./$${x}"  ;  done
 	@touch  $@
