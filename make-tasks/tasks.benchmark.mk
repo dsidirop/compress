@@ -15,7 +15,9 @@ benchmark:									               \
 	benchmark-serialization-message-size-footprint         \
 	benchmark-serialization-deserialization-with-compression-elapsed-time \
 	benchmark-serialization-with-compression-eventual-message-size        \
-	merge-output-images-of-plots  #		benchmark-serialization-deserialization-elapsed-time
+	merge-output-images-of-plots                                          \
+	generate-scatter-plot-for-size-vs-time-impl  #		benchmark-serialization-deserialization-elapsed-time
+
 
 .PHONY:\
 benchmark-serialization-performance
@@ -74,7 +76,15 @@ merge-output-images-of-plots: # merge all images into one
 
 .PHONY:\
 generate-scatter-plot-for-size-vs-time
-generate-scatter-plot-for-size-vs-time: benchmark-serialization-deserialization-with-compression-elapsed-time    benchmark-serialization-with-compression-eventual-message-size
+generate-scatter-plot-for-size-vs-time:                                                      \
+    benchmark-serialization-deserialization-with-compression-elapsed-time                    \
+	benchmark-serialization-with-compression-eventual-message-size                           \
+	generate-scatter-plot-for-size-vs-time-impl
+	@$(call generate-scatter-plot-for-size-vs-time)
+
+.PHONY:\
+generate-scatter-plot-for-size-vs-time-impl
+generate-scatter-plot-for-size-vs-time-impl:
 	@$(call generate-scatter-plot-for-size-vs-time)
 
 .PHONY:\

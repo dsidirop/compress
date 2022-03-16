@@ -8,7 +8,7 @@ protocol AV {
 
   record AVVitalsTemplate {
   	AVVitalsTemplateSpec  Spec;
-  } 
+  }
   
   record AVVitalsTemplateSpec {
   	union { null, long                }       RespiratoryRate       = null;
