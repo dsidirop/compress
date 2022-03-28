@@ -1,0 +1,48 @@
+{
+    "protocol": "AV",
+    "namespace": "org.arena.avro.simeventregistereventcmd",
+    "type": "record",
+    "name": "AVSimEventRegisterEventCmd",
+    "fields": [
+        {
+            "name": "ApiVersion",
+            "type": "string"
+        },
+        {
+            "name": "SimulatorName",
+            "type": "string"
+        },
+        {
+            "name": "Tenant",
+            "type": "string"
+        },
+        {
+            "name": "EventID",
+            "type": "string"
+        },
+        {
+            "name": "TimeStamp",
+            "type": {
+                "type": "long",
+                "logicalType": "timestamp-millis"
+            }
+        },
+        {
+            "name": "Arguments",
+            "type": {
+                "type": "map",
+                "values": [
+                    "null",
+                    "string",
+                    "int",
+                    "double",
+                    "boolean",
+                    {
+                        "type": "long",
+                        "logicalType": "timestamp-millis"
+                    }
+                ]
+            }
+        }
+    ]
+}

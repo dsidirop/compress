@@ -1,0 +1,29 @@
+# syntax=docker/dockerfile:experimental
+FROM --platform=arm64 golang:1.18
+
+# to future maintainers    bare in mind that changes made to this file might have to
+# to future maintainers    be mirrored to all other docker files in this directory
+
+ENV GO111MODULE=on
+
+ARG ARCH=arm64
+
+ADD        /    /go/src/bitbucket.org/laerdalmedical/magellan-serialization-and-compression-benchmarks-testbed/
+WORKDIR         /go/src/bitbucket.org/laerdalmedical/magellan-serialization-and-compression-benchmarks-testbed/
+
+RUN mkdir -p ~/.ssh                                                                       \
+    && git config --global url."git@bitbucket.org:".insteadOf https://bitbucket.org/      \
+    && ssh-keyscan bitbucket.org >> ~/.ssh/known_hosts
+
+ARG   DEBIAN_FRONTEND=noninteractive
+RUN   apt-get   update
+RUN   apt-get   install --assume-yes make dos2unix
+RUN   make      install-dev-dependencies
+
+# Download all the dependencies   https://stackoverflow.com/questions/28031603/what-do-three-dots-mean-in-go-command-line-invocations
+RUN --mount=type=ssh  GOSUMDB=off go get -d -v ./...
+
+# Install the package
+RUN --mount=type=ssh go install -v ./...
+
+CMD ["/bin/bash", "-c", "export CGO_ENABLED=0 && export GOOS=linux && export GOARCH=$ARCH && make clean benchmark-raw"]

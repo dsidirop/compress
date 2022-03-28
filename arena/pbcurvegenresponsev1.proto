@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package foo.curvegenreplyv1;
+
+option go_package = ".;arena"; // can also be   github.com/example/path/gen;gen
+ 
+message PBCurveGenReplyV1 {
+	string                     ClientId         = 1;
+	PBCurveSpecificationV1     Spec             = 2;
+	repeated int64             Lead1            = 3;
+	repeated int64             Lead2            = 4;
+	repeated int64             Lead3            = 5;
+	repeated int64             Lead4            = 6;
+	repeated int64             Lead5            = 7;
+	repeated int64             Lead6            = 8;
+	repeated int64             Lead7            = 9;
+	repeated int64             Lead8            = 10;
+	repeated int64             Lead9            = 11;
+	repeated int64             Lead10           = 12;
+	repeated int64             Lead11           = 13;
+	repeated int64             Lead12           = 14;
+	repeated int64             Abp              = 15;
+	repeated int64             Cvp              = 16;
+	repeated int64             Pap              = 17;
+	repeated int64             Spo2             = 18;
+	repeated int64             Wp               = 19;
+	repeated PBTag             Tags             = 20;
+}
+
+message PBCurveSpecificationV1 {
+	string                     SimulatorName    = 1;
+	string                     Tenant           = 2;
+	int64                      StartTime        = 3;
+	int64                      EndTime          = 4;
+	int64                      SampleInterval   = 5;
+	int64                      CurveTypes       = 6;
+}
+
+message PBTag {
+	int64                      TagTime          = 1;
+	int64                      TagType          = 2;
+}

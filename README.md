@@ -1,3 +1,13 @@
+# intro
+
+This repo contains benchmarks for various serialization & compression libraries. Before running the benchmarks you will need to install the tooling for Thrift (thrift binary), Msgp (msgp binary), Protobuf (protoc) and Avro (avro-tools.jar).
+
+To run the benchmarks:
+
+          cd arena
+		  make install-dev-dependencies
+		  make benchmark
+
 # compress
 
 This package provides various compression algorithms.

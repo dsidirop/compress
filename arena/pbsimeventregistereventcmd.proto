@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package foo.item;
+
+import "google/protobuf/timestamp.proto"; // needed by the created_at timestamp
+
+option go_package = ".;arena"; // can also be   github.com/example/path/gen;gen
+
+message PBSimEventRegisterEventCmd {
+    string                                ApiVersion        = 1;
+    string                                SimulatorName     = 2;
+    string                                Tenant            = 3;
+    string                                EventID           = 4;
+    google.protobuf.Timestamp             TimeStamp         = 5;
+
+    oneof Arguments { //by definition optional   so we dont need to specify 'optional' explicitly
+
+        PBPacingArguments                 PacingArguments = 10;
+
+        // more can be added later on ...
+    }
+}
+
+message PBPacingArguments {
+    google.protobuf.Timestamp             TimeStamp         = 1;
+    int32                                 MeasuredCurrent   = 2;
+    bool                                  Capture           = 3;
+}
+

@@ -18,7 +18,9 @@ apt-get    install                                     \
               montage                                  \
               graphicsmagick-imagemagick-compat
 
+# openjdk-8-jdk                            \
+# gradle                                   \
+#
 wget                                                                                                 \
            https://repo1.maven.org/maven2/org/apache/avro/avro-tools/1.11.0/avro-tools-1.11.0.jar    \
            -O ./arena/avro-tools.jar
-

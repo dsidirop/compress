@@ -1,0 +1,25 @@
+// NOT REALLY BEING USED - JUST A SAMPLE
+//
+// even though the structure of this file is correct unfortunately the avro transpiler to json generates a "types[]"
+// json-array which cannot be digested by goavro    well too bad    we tweaked the json by hand to make it digestible by goavro
+
+@namespace("org.arena.avro.simeventregistereventcmd")
+protocol AV {
+
+  record AVSimEventRegisterEventCmd {
+  	string                                                                ApiVersion        ;
+  	string                                                                SimulatorName     ;
+  	string                                                                Tenant            ;
+  	string                                                                EventID           ;
+  	timestamp_ms                                                          TimeStamp         ;
+    map<union { null, string, int, double, boolean, timestamp_ms }>       Arguments         ;
+
+  	//union { null, AVPacingArguments }                          Arguments         ;  //needs more work for avro to work like this
+  }
+  
+  // record AVPacingArguments {
+  //   timestamp_ms                          TimeStamp         ;
+  //   int                                   MeasuredCurrent   ;
+  //   boolean                               Capture           ;
+  // }
+}
