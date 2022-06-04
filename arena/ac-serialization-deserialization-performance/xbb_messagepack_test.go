@@ -8,19 +8,19 @@ import (
 )
 
 func Benchmark___SerializationDeserializationPerformance___MessagePack(b *testing.B) {
-	y := arena.FooItem{}
-	datasourceArrayLength := len(arena.Datasource)
+	datasourceArrayLength := len(arena.MainDatasource)
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		x := arena.Datasource[i%datasourceArrayLength]
+		x := arena.MainDatasource[i%datasourceArrayLength]
 
-		bytes, err := msgpack.Marshal(x)
+		bytes, err := msgpack.Marshal(x.Item)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}
 
-		err = msgpack.Unmarshal(bytes, &y)
+		newitem := x.NewEmptyItem()
+		err = msgpack.Unmarshal(bytes, newitem)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}

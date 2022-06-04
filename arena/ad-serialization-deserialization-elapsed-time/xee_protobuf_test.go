@@ -10,19 +10,20 @@ import (
 )
 
 func Test___SerializationDeserializationElapsedTime___Protobuf(t *testing.T) {
-	datasourceArrayLength := len(arena.Datasource)
+	datasource := arena.SpecialDatasourcesForIDLMechanisms.Protobuf
+	datasourceArrayLength := len(datasource)
 
 	startTime := time.Now()
 	for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
-		x := arena.SpecialDatasourcesForIDLMechanisms.Protobuf[i%datasourceArrayLength]
+		x := datasource[i%datasourceArrayLength]
 
-		bytes, err := proto.Marshal(x)
+		bytes, err := proto.Marshal(x.Item)
 		if err != nil {
 			t.Fatalf("Error: %s", err)
 		}
 
-		y := &arena.PBFooItem{}
-		err = proto.Unmarshal(bytes, y)
+		newitem := x.NewEmptyProtobufItem()
+		err = proto.Unmarshal(bytes, newitem)
 		if err != nil {
 			t.Fatalf("Error: %s", err)
 		}

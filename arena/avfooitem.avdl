@@ -3,7 +3,7 @@
 // even though the structure of this file is correct unfortunately the avro transpiler to json generates a "types[]"
 // json-array which cannot be digested by goavro    well too bad    we tweaked the json by hand to make it digestible by goavro
 
-@namespace("org.arena.avro.test")
+@namespace("org.arena.avro.fooitem")
 protocol AV {
 
   record AVFooItem {

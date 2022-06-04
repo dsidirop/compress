@@ -9,14 +9,20 @@ import (
 )
 
 func Test___SerializationMessageSizeFootprint___HambaAvro(t *testing.T) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
+	datasourceArrayLength := len(datasource)
 
-	x := datasource[0]
+	totalBytesCount := 0
+	for i := 0; i < datasourceArrayLength; i++ {
+		x := datasource[i]
 
-	rawBytes, err := avro.Marshal(arena.Schemas.GoHambaAvro, &x)
-	if err != nil {
-		b.Fatalf("Error: %s", err)
+		rawBytes, err := avro.Marshal(x.HambaAvroSchema, x.Item)
+		if err != nil {
+			t.Fatalf("Error: %s", err)
+		}
+
+		totalBytesCount += len(rawBytes)
 	}
 
-	fmt.Printf("** HambaAvro %d bytes\n", len(rawBytes))
+	fmt.Printf("** HambaAvro %d bytes\n", totalBytesCount)
 }

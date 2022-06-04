@@ -8,7 +8,7 @@ import (
 )
 
 func Benchmark___SerializationAndCompressionPerformance___MessagePack(b *testing.B) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	b.ResetTimer()
@@ -18,9 +18,9 @@ func Benchmark___SerializationAndCompressionPerformance___MessagePack(b *testing
 			for i := 0; i < bench.N; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				msgpackBytes, err := msgpack.Marshal(x)
+				msgpackBytes, err := msgpack.Marshal(x.Item)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				test.CompressionCallback(msgpackBytes)

@@ -8,15 +8,20 @@ import (
 )
 
 func Benchmark___DeserializationPerformance___HambaAvro(b *testing.B) {
-	y := &arena.FooItem{}
 	datasource := arena.SerializedDataSources.GoHambaAvro
 	datasourceArrayLength := len(datasource)
 
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		x := datasource[i%datasourceArrayLength]
+	for iterator := 0; iterator < b.N; iterator++ {
+		i := iterator % datasourceArrayLength
 
-		err := avro.Unmarshal(arena.Schemas.GoHambaAvro, x, y)
+		mainDatasourceEntry := arena.MainDatasource[i]
+
+		schema := mainDatasourceEntry.HambaAvroSchema
+		newitem := mainDatasourceEntry.NewEmptyItem()
+		rawbytes := datasource[i]
+
+		err := avro.Unmarshal(schema, rawbytes, newitem)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}

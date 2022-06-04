@@ -11,7 +11,7 @@
 ##
 
 # graphic will be saved as 800x600 png image file
-set terminal png size 3600,800
+set terminal png size 15000,800
 
 # allows grid lines to be drawn on the plot
 set grid x,y
@@ -33,7 +33,7 @@ set key off
 set ylabel y_label
 
 # range for values in x/y axes
-set xrange[0.05:37]
+set xrange[0.1:245]
 set yrange[0:]
 
 # to avoid displaying large numbers in exponential format

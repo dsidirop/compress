@@ -1,6 +1,7 @@
 package serialization_deserialization_performance
 
 import (
+	"fmt"
 	"testing"
 	"time"
 
@@ -8,18 +9,18 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-func Test___SerializationDeserializationWithCompressionPerformance___Bson(t *testing.T) {
-	datasource := arena.Datasource
+func Test___SerializationDeserializationWithCompressionPerformance___Bson(rootTestbed *testing.T) {
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
-		t.Run(test.Desc, func(testbed *testing.T) {
-			startTime := time.Now()
+		rootTestbed.Run(test.Desc, func(testbed *testing.T) {
 
+			startTime := time.Now()
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				serializedBytes, err := bson.Marshal(x)
+				serializedBytes, err := bson.Marshal(x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -34,8 +35,8 @@ func Test___SerializationDeserializationWithCompressionPerformance___Bson(t *tes
 					testbed.Fatalf("Error: %s", err)
 				}
 
-				fooitem := &arena.FooItem{}
-				err = bson.Unmarshal(decompressedSerializedBytes, fooitem)
+				newitem := x.NewEmptyItem()
+				err = bson.Unmarshal(decompressedSerializedBytes, newitem)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -44,7 +45,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___Bson(t *tes
 
 			averageElapsedTime := float64(finishTime.Sub(startTime).Nanoseconds()) / NUMBER_OF_ITERATIONS
 
-			testbed.Logf("** Bson %d nanoseconds\n", int64(averageElapsedTime))
+			fmt.Printf("** BSON+%s %d nanoseconds (avg)\n", test.Desc, int64(averageElapsedTime))
 		})
 	}
 }

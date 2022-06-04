@@ -2,14 +2,14 @@ package serialization_deserialization_performance
 
 import (
 	"context"
+	"fmt"
 	"testing"
 	"time"
 
 	"github.com/klauspost/compress/arena"
-	"github.com/klauspost/compress/arena/thfooitem"
 )
 
-func Test___SerializationDeserializationWithCompressionPerformance___ThriftCompact(t *testing.T) {
+func Test___SerializationDeserializationWithCompressionPerformance___ThriftCompact(rootTestbed *testing.T) {
 	ctx := context.TODO()
 	datasource := arena.SpecialDatasourcesForIDLMechanisms.Thrift
 	datasourceArrayLength := len(datasource)
@@ -17,13 +17,13 @@ func Test___SerializationDeserializationWithCompressionPerformance___ThriftCompa
 	thriftCompactDeserializer := arena.NewThriftCompactDeserializer() //binary deserializer
 
 	for _, test := range arena.AllCompressionTestCases {
-		t.Run(test.Desc, func(testbed *testing.T) {
+		rootTestbed.Run(test.Desc, func(testbed *testing.T) {
 
 			startTime := time.Now()
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				thriftBytes, err := thriftCompactSerializer.Write(ctx, x)
+				thriftBytes, err := thriftCompactSerializer.Write(ctx, x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -38,8 +38,8 @@ func Test___SerializationDeserializationWithCompressionPerformance___ThriftCompa
 					testbed.Fatalf("Error: %s", err)
 				}
 
-				fooitem := thfooitem.NewTHFooItem()
-				err = thriftCompactDeserializer.Read(ctx, fooitem, decompressedSerializedBytes)
+				newitem := x.NewEmptyThriftItem()
+				err = thriftCompactDeserializer.Read(ctx, newitem, decompressedSerializedBytes)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -48,7 +48,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___ThriftCompa
 
 			averageElapsedTime := float64(finishTime.Sub(startTime).Nanoseconds()) / NUMBER_OF_ITERATIONS
 
-			testbed.Logf("** ThriftCompact %d nanoseconds\n", int64(averageElapsedTime))
+			fmt.Printf("** ThriftCompact+%s %d nanoseconds (avg)\n", test.Desc, int64(averageElapsedTime))
 		})
 	}
 }

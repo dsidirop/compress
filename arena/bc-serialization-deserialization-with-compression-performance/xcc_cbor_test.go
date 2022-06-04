@@ -8,7 +8,7 @@ import (
 )
 
 func Benchmark___SerializationDeserializationWithCompressionPerformance___Cbor(b *testing.B) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
@@ -20,23 +20,23 @@ func Benchmark___SerializationDeserializationWithCompressionPerformance___Cbor(b
 
 				serializedBytes, err := cbor.Marshal(x)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				compressedAndSerializedBytes, err := test.CompressionCallback(serializedBytes)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				decompressedBytes, err := test.DecompressionCallback(compressedAndSerializedBytes)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
-				fooitem := &arena.FooItem{}
-				err = cbor.Unmarshal(decompressedBytes, fooitem)
+				newitem := x.NewEmptyItem()
+				err = cbor.Unmarshal(decompressedBytes, newitem)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 			}
 		})

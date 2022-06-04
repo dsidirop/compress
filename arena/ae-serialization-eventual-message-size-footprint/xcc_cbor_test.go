@@ -9,12 +9,19 @@ import (
 )
 
 func Test___SerializationMessageSizeFootprint___Cbor(t *testing.T) {
-	x := arena.Datasource[0]
+	datasourceArrayLength := len(arena.MainDatasource)
 
-	rawBytes, err := cbor.Marshal(x)
-	if err != nil {
-		b.Fatalf("Error: %s", err)
+	totalBytesCount := 0
+	for i := 0; i < datasourceArrayLength; i++ {
+		x := arena.MainDatasource[i]
+
+		rawBytes, err := cbor.Marshal(x.Item)
+		if err != nil {
+			t.Fatalf("Error: %s", err)
+		}
+
+		totalBytesCount += len(rawBytes)
 	}
 
-	fmt.Printf("** CBOR %d bytes\n", len(rawBytes))
+	fmt.Printf("** CBOR %d bytes\n", totalBytesCount)
 }

@@ -1,6 +1,6 @@
 {
   "protocol" : "AV",
-  "namespace" : "org.arena.avro.test",
+  "namespace" : "org.arena.avro.fooitem",
   "types" : [ {
     "type" : "record",
     "name" : "AVFooItem",

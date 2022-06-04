@@ -8,41 +8,44 @@ import (
 )
 
 func Benchmark___DecompressionAndDeserializationPerformance___Json(b *testing.B) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
 		b.Run(test.Desc, func(bench *testing.B) {
 			compressedAndSerializedDatasource := [][]byte{} //first serialize and compress
+
 			for i := 0; i < datasourceArrayLength; i++ {
 				x := datasource[i]
 
-				jsonBytes, err := json.Marshal(x)
+				jsonBytes, err := json.Marshal(x.Item)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				compressedAndSerializedBytes, err := test.CompressionCallback(jsonBytes)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				compressedAndSerializedDatasource = append(compressedAndSerializedDatasource, compressedAndSerializedBytes)
 			}
 
 			bench.ResetTimer() //vital
-			for i := 0; i < bench.N; i++ {
-				x := compressedAndSerializedDatasource[i%datasourceArrayLength] //and now we deserialize and decompress
+			for iteration := 0; iteration < bench.N; iteration++ {
+				i := iteration % datasourceArrayLength
+				x := compressedAndSerializedDatasource[i] //and now we deserialize and decompress
+				mainItemSpec := arena.MainDatasource[i]
 
 				serializedBytes, err := test.DecompressionCallback(x)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
-				fooitem := arena.FooItem{}
-				err = json.Unmarshal(serializedBytes, &fooitem)
+				newitem := mainItemSpec.NewEmptyItem()
+				err = json.Unmarshal(serializedBytes, newitem)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 			}
 		})

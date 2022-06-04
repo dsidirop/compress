@@ -1,0 +1,341 @@
+{
+  "protocol" : "AV",
+  "namespace" : "org.arena.avro.fooitem",
+  "types" : [ {
+    "type" : "record",
+    "name" : "AVVitalsTemplate",
+    "fields" : [ {
+      "name" : "Spec",
+      "type" : {
+        "type" : "record",
+        "name" : "AVVitalsTemplateSpec",
+        "fields" : [ {
+          "name" : "RespiratoryRate",
+          "type" : [ "null", "long" ],
+          "default" : null
+        }, {
+          "name" : "SpO2",
+          "type" : [ "null", "long" ],
+          "default" : null
+        }, {
+          "name" : "BloodPressure",
+          "type" : [ "null", {
+            "type" : "record",
+            "name" : "AVBloodPressure",
+            "fields" : [ {
+              "name" : "Systolic",
+              "type" : [ "null", "long" ],
+              "default" : null
+            }, {
+              "name" : "Diastolic",
+              "type" : [ "null", "long" ],
+              "default" : null
+            } ]
+          } ],
+          "default" : null
+        }, {
+          "name" : "EtCO2",
+          "type" : [ "null", "long" ],
+          "default" : null
+        }, {
+          "name" : "TemperatureBlood",
+          "type" : [ "null", "double" ],
+          "default" : null
+        }, {
+          "name" : "TemperaturePeripheral",
+          "type" : [ "null", "double" ],
+          "default" : null
+        }, {
+          "name" : "Ecg",
+          "type" : [ "null", {
+            "type" : "record",
+            "name" : "AVEcg",
+            "fields" : [ {
+              "name" : "HeartRate",
+              "type" : [ "null", "long" ],
+              "default" : null
+            }, {
+              "name" : "BasicRhythm",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "Extrasystole",
+              "type" : [ "null", {
+                "type" : "record",
+                "name" : "AVExtrasystole",
+                "fields" : [ {
+                  "name" : "Type",
+                  "type" : [ "null", "string" ],
+                  "default" : null
+                }, {
+                  "name" : "Probability",
+                  "type" : [ "null", "long" ],
+                  "default" : null
+                } ]
+              } ],
+              "default" : null
+            }, {
+              "name" : "Severity",
+              "type" : [ "null", "long" ],
+              "default" : null
+            }, {
+              "name" : "AllowPacing",
+              "type" : [ "null", "boolean" ],
+              "default" : null
+            }, {
+              "name" : "EmdPea",
+              "type" : [ "null", "boolean" ],
+              "default" : null
+            } ]
+          } ],
+          "default" : null
+        }, {
+          "name" : "Eyes",
+          "type" : [ "null", {
+            "type" : "record",
+            "name" : "AVEyes",
+            "fields" : [ {
+              "name" : "Left",
+              "type" : [ "null", {
+                "type" : "record",
+                "name" : "AVEye",
+                "fields" : [ {
+                  "name" : "EyelidPosition",
+                  "type" : [ "null", "string" ],
+                  "default" : null
+                }, {
+                  "name" : "PupilSize",
+                  "type" : [ "null", "long" ],
+                  "default" : null
+                }, {
+                  "name" : "PupilResponsiveness",
+                  "type" : [ "null", "string" ],
+                  "default" : null
+                } ]
+              } ],
+              "default" : null
+            }, {
+              "name" : "Right",
+              "type" : [ "null", "AVEye" ],
+              "default" : null
+            }, {
+              "name" : "BlinkRate",
+              "type" : [ "null", "string" ],
+              "default" : null
+            } ]
+          } ],
+          "default" : null
+        }, {
+          "name" : "AirwayObstruction",
+          "type" : [ "null", {
+            "type" : "record",
+            "name" : "AVAirwayObstruction",
+            "fields" : [ {
+              "name" : "TongueEdema",
+              "type" : [ "null", "string" ],
+              "default" : null
+            } ]
+          } ],
+          "default" : null
+        }, {
+          "name" : "LungSounds",
+          "type" : [ "null", {
+            "type" : "record",
+            "name" : "AVLungSounds",
+            "fields" : [ {
+              "name" : "Left",
+              "type" : [ "null", {
+                "type" : "record",
+                "name" : "AVSingleLungSounds",
+                "fields" : [ {
+                  "name" : "AnteriorUpper",
+                  "type" : [ "null", "string" ],
+                  "default" : null
+                }, {
+                  "name" : "AnteriorUpperVolume",
+                  "type" : [ "null", "long" ],
+                  "default" : null
+                }, {
+                  "name" : "AnteriorLower",
+                  "type" : [ "null", "string" ],
+                  "default" : null
+                }, {
+                  "name" : "AnteriorLowerVolume",
+                  "type" : [ "null", "long" ],
+                  "default" : null
+                }, {
+                  "name" : "AnteriorMiddle",
+                  "type" : [ "null", "string" ],
+                  "default" : null
+                }, {
+                  "name" : "AnteriorMiddleVolume",
+                  "type" : [ "null", "long" ],
+                  "default" : null
+                }, {
+                  "name" : "PosteriorUpper",
+                  "type" : [ "null", "string" ],
+                  "default" : null
+                }, {
+                  "name" : "PosteriorUpperVolume",
+                  "type" : [ "null", "long" ],
+                  "default" : null
+                }, {
+                  "name" : "PosteriorLower",
+                  "type" : [ "null", "string" ],
+                  "default" : null
+                }, {
+                  "name" : "PosteriorLowerVolume",
+                  "type" : [ "null", "long" ],
+                  "default" : null
+                } ]
+              } ],
+              "default" : null
+            }, {
+              "name" : "Right",
+              "type" : [ "null", "AVSingleLungSounds" ],
+              "default" : null
+            } ]
+          } ],
+          "default" : null
+        }, {
+          "name" : "HeartSounds",
+          "type" : [ "null", {
+            "type" : "record",
+            "name" : "AVHeartSounds",
+            "fields" : [ {
+              "name" : "Aortic",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "AorticVolume",
+              "type" : [ "null", "long" ],
+              "default" : null
+            }, {
+              "name" : "Pulmonary",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "PulmonaryVolume",
+              "type" : [ "null", "long" ],
+              "default" : null
+            }, {
+              "name" : "Tricuspid",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "TricuspidVolume",
+              "type" : [ "null", "long" ],
+              "default" : null
+            }, {
+              "name" : "Mitral",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "MitralVolume",
+              "type" : [ "null", "long" ],
+              "default" : null
+            } ]
+          } ],
+          "default" : null
+        }, {
+          "name" : "BowelSounds",
+          "type" : [ "null", {
+            "type" : "record",
+            "name" : "AVBowelSounds",
+            "fields" : [ {
+              "name" : "Bowel",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "BowelVolume",
+              "type" : [ "null", "long" ],
+              "default" : null
+            } ]
+          } ],
+          "default" : null
+        }, {
+          "name" : "Pulses",
+          "type" : [ "null", {
+            "type" : "record",
+            "name" : "AVPulses",
+            "fields" : [ {
+              "name" : "Central",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "CentralLimited",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "RightLeg",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "RightLegLimited",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "LeftLeg",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "LeftLegLimited",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "RightFoot",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "RightFootLimited",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "LeftFoot",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "LeftFootLimited",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "RightArm",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "RightArmLimited",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "LeftArm",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "LeftArmLimited",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "RightHand",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "RightHandLimited",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "LeftHand",
+              "type" : [ "null", "string" ],
+              "default" : null
+            }, {
+              "name" : "LeftHandLimited",
+              "type" : [ "null", "string" ],
+              "default" : null
+            } ]
+          } ],
+          "default" : null
+        } ]
+      }
+    } ]
+  } ],
+  "messages" : { }
+}

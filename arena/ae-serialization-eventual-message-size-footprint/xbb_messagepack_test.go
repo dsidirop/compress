@@ -9,12 +9,19 @@ import (
 )
 
 func Test___SerializationMessageSizeFootprint___MessagePack(t *testing.T) {
-	x := arena.Datasource[0]
+	datasourceArrayLength := len(arena.MainDatasource)
 
-	rawBytes, err := msgpack.Marshal(x)
-	if err != nil {
-		b.Fatalf("Error: %s", err)
+	totalBytesCount := 0
+	for i := 0; i < datasourceArrayLength; i++ {
+		x := arena.MainDatasource[i]
+
+		rawBytes, err := msgpack.Marshal(x.Item)
+		if err != nil {
+			t.Fatalf("Error: %s", err)
+		}
+
+		totalBytesCount += len(rawBytes)
 	}
 
-	fmt.Printf("** MessagePack %d bytes\n", len(rawBytes))
+	fmt.Printf("** MessagePack %d bytes\n", totalBytesCount)
 }

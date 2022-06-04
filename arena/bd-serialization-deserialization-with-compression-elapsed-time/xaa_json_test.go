@@ -2,24 +2,25 @@ package serialization_deserialization_performance
 
 import (
 	"encoding/json"
+	"fmt"
 	"testing"
 	"time"
 
 	"github.com/klauspost/compress/arena"
 )
 
-func Test___SerializationDeserializationWithCompressionPerformance___Json(t *testing.T) {
-	datasource := arena.Datasource
+func Test___SerializationDeserializationWithCompressionPerformance___Json(rootTestbed *testing.T) {
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
-		t.Run(test.Desc, func(testbed *testing.T) {
-			startTime := time.Now()
+		rootTestbed.Run(test.Desc, func(testbed *testing.T) {
 
+			startTime := time.Now()
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				jsonBytes, err := json.Marshal(x)
+				jsonBytes, err := json.Marshal(x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -34,8 +35,8 @@ func Test___SerializationDeserializationWithCompressionPerformance___Json(t *tes
 					testbed.Fatalf("Error: %s", err)
 				}
 
-				fooitem := arena.FooItem{}
-				err = json.Unmarshal(serializedBytes, &fooitem)
+				newitem := x.NewEmptyItem()
+				err = json.Unmarshal(serializedBytes, newitem)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -44,7 +45,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___Json(t *tes
 
 			averageElapsedTime := float64(finishTime.Sub(startTime).Nanoseconds()) / NUMBER_OF_ITERATIONS
 
-			testbed.Logf("** JSON %d nanoseconds\n", int64(averageElapsedTime))
+			fmt.Printf("** JSON+%s %d nanoseconds (avg)\n", test.Desc, int64(averageElapsedTime))
 		})
 	}
 }

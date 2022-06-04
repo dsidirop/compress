@@ -1,6 +1,7 @@
 package serialization_deserialization_performance
 
 import (
+	"fmt"
 	"testing"
 	"time"
 
@@ -8,18 +9,18 @@ import (
 	"github.com/klauspost/compress/arena"
 )
 
-func Test___SerializationDeserializationWithCompressionPerformance___HambaAvro(t *testing.T) {
-	datasource := arena.Datasource
+func Test___SerializationDeserializationWithCompressionPerformance___HambaAvro(rootTestbed *testing.T) {
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
-		t.Run(test.Desc, func(testbed *testing.T) {
+		rootTestbed.Run(test.Desc, func(testbed *testing.T) {
 
 			startTime := time.Now()
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				thriftBytes, err := avro.Marshal(arena.Schemas.GoHambaAvro, x)
+				thriftBytes, err := avro.Marshal(x.HambaAvroSchema, x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -34,8 +35,8 @@ func Test___SerializationDeserializationWithCompressionPerformance___HambaAvro(t
 					testbed.Fatalf("Error: %s", err)
 				}
 
-				fooitem := &arena.FooItem{}
-				err = avro.Unmarshal(arena.Schemas.GoHambaAvro, decompressedSerializedBytes, fooitem)
+				newitem := x.NewEmptyItem()
+				err = avro.Unmarshal(x.HambaAvroSchema, decompressedSerializedBytes, newitem)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -44,7 +45,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___HambaAvro(t
 
 			averageElapsedTime := float64(finishTime.Sub(startTime).Nanoseconds()) / NUMBER_OF_ITERATIONS
 
-			testbed.Logf("** HambaAvro %d nanoseconds\n", int64(averageElapsedTime))
+			fmt.Printf("** HambaAvro+%s %d nanoseconds (avg)\n", test.Desc, int64(averageElapsedTime))
 		})
 	}
 }

@@ -2,16 +2,16 @@ package serialization_deserialization_performance
 
 import (
 	"context"
+	"fmt"
 	"testing"
 	"time"
 
 	"github.com/klauspost/compress/arena"
-	"github.com/klauspost/compress/arena/thfooitem"
 
 	"github.com/apache/thrift/lib/go/thrift"
 )
 
-func Test___SerializationDeserializationWithCompressionPerformance___ThriftBinary(t *testing.T) {
+func Test___SerializationDeserializationWithCompressionPerformance___ThriftBinary(rootTestbed *testing.T) {
 	ctx := context.TODO()
 	datasource := arena.SpecialDatasourcesForIDLMechanisms.Thrift
 	datasourceArrayLength := len(datasource)
@@ -19,13 +19,13 @@ func Test___SerializationDeserializationWithCompressionPerformance___ThriftBinar
 	thriftBinaryDeserializer := thrift.NewTDeserializer() //binary deserializer
 
 	for _, test := range arena.AllCompressionTestCases {
-		t.Run(test.Desc, func(testbed *testing.T) {
+		rootTestbed.Run(test.Desc, func(testbed *testing.T) {
 
 			startTime := time.Now()
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				thriftBytes, err := thriftBinarySerializer.Write(ctx, x)
+				thriftBytes, err := thriftBinarySerializer.Write(ctx, x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -40,8 +40,8 @@ func Test___SerializationDeserializationWithCompressionPerformance___ThriftBinar
 					testbed.Fatalf("Error: %s", err)
 				}
 
-				fooitem := thfooitem.NewTHFooItem()
-				err = thriftBinaryDeserializer.Read(ctx, fooitem, decompressedSerializedBytes)
+				newitem := x.NewEmptyThriftItem()
+				err = thriftBinaryDeserializer.Read(ctx, newitem, decompressedSerializedBytes)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -50,7 +50,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___ThriftBinar
 
 			averageElapsedTime := float64(finishTime.Sub(startTime).Nanoseconds()) / NUMBER_OF_ITERATIONS
 
-			testbed.Logf("** ThriftBinary %d nanoseconds\n", int64(averageElapsedTime))
+			fmt.Printf("** ThriftBinary+%s %d nanoseconds (avg)\n", test.Desc, int64(averageElapsedTime))
 		})
 	}
 }

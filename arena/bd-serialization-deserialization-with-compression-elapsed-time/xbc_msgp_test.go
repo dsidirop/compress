@@ -2,6 +2,7 @@ package serialization_deserialization_performance
 
 import (
 	"bytes"
+	"fmt"
 	"testing"
 	"time"
 
@@ -9,19 +10,19 @@ import (
 	"github.com/tinylib/msgp/msgp"
 )
 
-func Test___SerializationDeserializationWithCompressionPerformance___Msgp(t *testing.T) {
-	datasource := arena.Datasource
+func Test___SerializationDeserializationWithCompressionPerformance___Msgp(rootTestbed *testing.T) {
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
-		t.Run(test.Desc, func(testbed *testing.T) {
+		rootTestbed.Run(test.Desc, func(testbed *testing.T) {
 			startTime := time.Now()
 
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 				x := datasource[i%datasourceArrayLength]
 
 				serializedBytesBuffer := &bytes.Buffer{}
-				err := msgp.Encode(serializedBytesBuffer, &x)
+				err := msgp.Encode(serializedBytesBuffer, x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -36,9 +37,8 @@ func Test___SerializationDeserializationWithCompressionPerformance___Msgp(t *tes
 					testbed.Fatalf("Error: %s", err)
 				}
 
-				fooitem := &arena.FooItem{}
-				deserializedBytesBuffer := bytes.NewReader(serializedBytes)
-				err = msgp.Decode(deserializedBytesBuffer, fooitem)
+				newitem := x.NewEmptyItem()
+				err = msgp.Decode(bytes.NewReader(serializedBytes), newitem)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -47,7 +47,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___Msgp(t *tes
 
 			averageElapsedTime := float64(finishTime.Sub(startTime).Nanoseconds()) / NUMBER_OF_ITERATIONS
 
-			testbed.Logf("** Msgp %d nanoseconds\n", int64(averageElapsedTime))
+			fmt.Printf("** Msgp+%s %d nanoseconds (avg)\n", test.Desc, int64(averageElapsedTime))
 		})
 	}
 }

@@ -9,17 +9,17 @@ import (
 )
 
 func Benchmark___Deserialization___Msgp(b *testing.B) {
-	fooitem := &arena.FooItem{}
 	datasource := arena.SerializedDataSources.Msgp
 	datasourceArrayLength := len(datasource)
 
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		rawBytes := datasource[i%datasourceArrayLength]
+	for iteration := 0; iteration < b.N; iteration++ {
+		i := iteration % datasourceArrayLength
 
-		byteBuffer := bytes.NewBuffer(rawBytes) // unfortunate necessity
+		newitem := arena.MainDatasource[i].NewEmptyItem()
+		byteBuffer := bytes.NewBuffer(datasource[i])
 
-		err := msgp.Decode(byteBuffer, fooitem)
+		err := msgp.Decode(byteBuffer, newitem)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}

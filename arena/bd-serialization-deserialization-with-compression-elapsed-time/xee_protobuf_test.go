@@ -1,6 +1,7 @@
 package serialization_deserialization_performance
 
 import (
+	"fmt"
 	"testing"
 	"time"
 
@@ -8,18 +9,18 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-func Test___SerializationDeserializationWithCompressionPerformance___Protobuf(t *testing.T) {
+func Test___SerializationDeserializationWithCompressionPerformance___Protobuf(rootTestbed *testing.T) {
 	datasource := arena.SpecialDatasourcesForIDLMechanisms.Protobuf
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
-		t.Run(test.Desc, func(testbed *testing.T) {
+		rootTestbed.Run(test.Desc, func(testbed *testing.T) {
 
 			startTime := time.Now()
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				serializedBytes, err := proto.Marshal(x)
+				serializedBytes, err := proto.Marshal(x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -34,8 +35,8 @@ func Test___SerializationDeserializationWithCompressionPerformance___Protobuf(t 
 					testbed.Fatalf("Error: %s", err)
 				}
 
-				fooitem := arena.PBFooItem{}
-				err = proto.Unmarshal(decompressedSerializedBytes, &fooitem)
+				newitem := x.NewEmptyProtobufItem()
+				err = proto.Unmarshal(decompressedSerializedBytes, newitem)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -44,7 +45,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___Protobuf(t 
 
 			averageElapsedTime := float64(finishTime.Sub(startTime).Nanoseconds()) / NUMBER_OF_ITERATIONS
 
-			testbed.Logf("** Protobuf %d nanoseconds\n", int64(averageElapsedTime))
+			fmt.Printf("** Protobuf+%s %d nanoseconds (avg)\n", test.Desc, int64(averageElapsedTime))
 		})
 	}
 }

@@ -4,8 +4,8 @@ import (
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func ConvertFooItemToPBFooItem(x FooItem) PBFooItem {
-	return PBFooItem{
+func ConvertFooItemToProtobuf(x *FooItem) *PBFooItem {
+	return &PBFooItem{
 		ID:        x.ID,
 		Email:     x.Email,
 		Roles:     x.Roles,

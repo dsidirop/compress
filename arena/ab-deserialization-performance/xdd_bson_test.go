@@ -8,16 +8,17 @@ import (
 )
 
 func Benchmark___Deserialization___Bson(b *testing.B) {
-	item := arena.FooItem{}
-
 	datasource := arena.SerializedDataSources.Bson
 	datasourceArrayLength := len(datasource)
 
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		bytes := datasource[i%datasourceArrayLength]
+	for iterator := 0; iterator < b.N; iterator++ {
+		i := iterator % datasourceArrayLength
 
-		err := bson.Unmarshal(bytes, &item)
+		rawbytes := datasource[i]
+		newitem := arena.MainDatasource[i].NewEmptyItem()
+
+		err := bson.Unmarshal(rawbytes, newitem)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}

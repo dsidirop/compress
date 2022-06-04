@@ -8,7 +8,7 @@ import (
 )
 
 func Benchmark___SerializationAndCompressionPerformance___Cbor(b *testing.B) { // https://github.com/fxamacker/cbor
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
@@ -18,9 +18,9 @@ func Benchmark___SerializationAndCompressionPerformance___Cbor(b *testing.B) { /
 			for i := 0; i < bench.N; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				rawBytes, err := cbor.Marshal(x)
+				rawBytes, err := cbor.Marshal(x.Item)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				test.CompressionCallback(rawBytes)

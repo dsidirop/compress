@@ -10,13 +10,20 @@ import (
 )
 
 func Test___SerializationMessageSizeFootprint___Msgp(t *testing.T) {
-	x := arena.Datasource[0]
-	buf := &bytes.Buffer{}
+	datasourceArrayLength := len(arena.MainDatasource)
 
-	err := msgp.Encode(buf, &x)
-	if err != nil {
-		b.Fatalf("Error: %s", err)
+	totalBytesCount := 0
+	for i := 0; i < datasourceArrayLength; i++ {
+		x := arena.MainDatasource[i]
+
+		buf := &bytes.Buffer{}
+		err := msgp.Encode(buf, x.Item)
+		if err != nil {
+			t.Fatalf("Error: %s", err)
+		}
+
+		totalBytesCount += len(buf.Bytes())
 	}
 
-	fmt.Printf("** Msgp %d bytes\n", len(buf.Bytes()))
+	fmt.Printf("** Msgp %d bytes\n", totalBytesCount)
 }

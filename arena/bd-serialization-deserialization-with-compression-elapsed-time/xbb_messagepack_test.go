@@ -1,6 +1,7 @@
 package serialization_deserialization_performance
 
 import (
+	"fmt"
 	"testing"
 	"time"
 
@@ -8,18 +9,18 @@ import (
 	"github.com/vmihailenco/msgpack/v5"
 )
 
-func Test___SerializationDeserializationWithCompressionPerformance___MessagePack(t *testing.T) {
-	datasource := arena.Datasource
+func Test___SerializationDeserializationWithCompressionPerformance___MessagePack(rootTestbed *testing.T) {
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
-		t.Run(test.Desc, func(testbed *testing.T) {
+		rootTestbed.Run(test.Desc, func(testbed *testing.T) {
 			startTime := time.Now()
 
 			for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
 				x := datasource[i%datasourceArrayLength]
 
-				bytes, err := msgpack.Marshal(x)
+				bytes, err := msgpack.Marshal(x.Item)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -34,8 +35,8 @@ func Test___SerializationDeserializationWithCompressionPerformance___MessagePack
 					testbed.Fatalf("Error: %s", err)
 				}
 
-				fooitem := &arena.FooItem{}
-				err = msgpack.Unmarshal(serializedBytes, &fooitem)
+				newitem := x.NewEmptyItem()
+				err = msgpack.Unmarshal(serializedBytes, newitem)
 				if err != nil {
 					testbed.Fatalf("Error: %s", err)
 				}
@@ -44,7 +45,7 @@ func Test___SerializationDeserializationWithCompressionPerformance___MessagePack
 
 			averageElapsedTime := float64(finishTime.Sub(startTime).Nanoseconds()) / NUMBER_OF_ITERATIONS
 
-			testbed.Logf("** MessagePack %d nanoseconds\n", int64(averageElapsedTime))
+			fmt.Printf("** MessagePack+%s %d nanoseconds (avg)\n", test.Desc, int64(averageElapsedTime))
 		})
 	}
 }

@@ -8,15 +8,17 @@ import (
 )
 
 func Benchmark___Deserialization___Protobuf(b *testing.B) {
-	item := arena.PBFooItem{}
 	datasource := arena.SerializedDataSources.Protobuf
 	datasourceArrayLength := len(datasource)
 
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		bytes := datasource[i%datasourceArrayLength]
+	for iterator := 0; iterator < b.N; iterator++ {
+		i := iterator % datasourceArrayLength
 
-		err := proto.Unmarshal(bytes, &item)
+		newitem := arena.MainDatasource[i].NewEmptyProtobufItem()
+		rawbytes := datasource[i]
+
+		err := proto.Unmarshal(rawbytes, newitem)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}

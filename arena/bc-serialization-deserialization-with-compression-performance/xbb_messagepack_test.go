@@ -8,7 +8,7 @@ import (
 )
 
 func Benchmark___SerializationDeserializationWithCompressionPerformance___MessagePack(b *testing.B) {
-	datasource := arena.Datasource
+	datasource := arena.MainDatasource
 	datasourceArrayLength := len(datasource)
 
 	for _, test := range arena.AllCompressionTestCases {
@@ -20,23 +20,23 @@ func Benchmark___SerializationDeserializationWithCompressionPerformance___Messag
 
 				bytes, err := msgpack.Marshal(x)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				compressedAndSerializedBytes, err := test.CompressionCallback(bytes)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
 				serializedBytes, err := test.DecompressionCallback(compressedAndSerializedBytes)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 
-				y := &arena.FooItem{}
-				err = msgpack.Unmarshal(serializedBytes, &y)
+				newitem := x.NewEmptyItem()
+				err = msgpack.Unmarshal(serializedBytes, &newitem)
 				if err != nil {
-					b.Fatalf("Error: %s", err)
+					bench.Fatalf("Error: %s", err)
 				}
 			}
 		})

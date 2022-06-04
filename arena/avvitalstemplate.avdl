@@ -1,0 +1,119 @@
+// NOT REALLY BEING USED - JUST A SAMPLE
+//
+// even though the structure of this file is correct unfortunately the avro transpiler to json generates a "types[]"
+// json-array which cannot be digested by goavro    well too bad    we tweaked the json by hand to make it digestible by goavro
+
+@namespace("org.arena.avro.fooitem")
+protocol AV {
+
+  record AVVitalsTemplate {
+  	AVVitalsTemplateSpec  Spec;
+  }
+
+  record AVVitalsTemplateSpec {
+  	union { null, long                }       RespiratoryRate       = null;
+  	union { null, long                }       SpO2                  = null;
+  	union { null, AVBloodPressure     }       BloodPressure         = null;
+  	union { null, long                }       EtCO2                 = null;
+  	union { null, double              }       TemperatureBlood      = null;
+  	union { null, double              }       TemperaturePeripheral = null;
+  	union { null, AVEcg               }       Ecg                   = null;
+  	union { null, AVEyes              }       Eyes                  = null;
+  	union { null, AVAirwayObstruction }       AirwayObstruction     = null;
+  	union { null, AVLungSounds        }       LungSounds            = null;
+  	union { null, AVHeartSounds       }       HeartSounds           = null;
+  	union { null, AVBowelSounds       }       BowelSounds           = null;
+  	union { null, AVPulses            }       Pulses                = null;
+  }
+
+  record AVBloodPressure {
+  	union { null, long                }       Systolic              = null;
+  	union { null, long                }       Diastolic             = null;
+  }
+  
+  record AVEcg {
+  	union { null, long                }       HeartRate             = null;
+  	union { null, string              }       BasicRhythm           = null;
+  	union { null, AVExtrasystole      }       Extrasystole          = null;
+  	union { null, long                }       Severity              = null;
+  	union { null, boolean             }       AllowPacing           = null;
+  	union { null, boolean             }       EmdPea                = null;
+  }
+  
+  record AVExtrasystole {
+  	union { null, string              }       Type                  = null;
+  	union { null, long                }       Probability           = null;
+  }
+  
+  record AVEyes {
+  	union { null, AVEye               }       Left                  = null;
+  	union { null, AVEye               }       Right                 = null;
+  	union { null, string              }       BlinkRate             = null;
+  }
+  
+  record AVEye {
+  	union { null, string              }       EyelidPosition        = null;
+  	union { null, long                }       PupilSize             = null;
+  	union { null, string              }       PupilResponsiveness   = null;
+  }
+  
+  record AVAirwayObstruction {
+  	union { null, string              }       TongueEdema           = null;
+  }
+  
+  record AVLungSounds {
+  	union { null, AVSingleLungSounds  }       Left                  = null;
+  	union { null, AVSingleLungSounds  }       Right                 = null;
+  }
+  
+  record AVHeartSounds {
+  	union { null, string              }       Aortic                = null;
+  	union { null, long                }       AorticVolume          = null;
+  	union { null, string              }       Pulmonary             = null;
+  	union { null, long                }       PulmonaryVolume       = null;
+  	union { null, string              }       Tricuspid             = null;
+  	union { null, long                }       TricuspidVolume       = null;
+  	union { null, string              }       Mitral                = null;
+  	union { null, long                }       MitralVolume          = null;
+  }
+  
+  record AVSingleLungSounds {
+  	union { null, string              }       AnteriorUpper         = null;
+  	union { null, long                }       AnteriorUpperVolume   = null;
+  	union { null, string              }       AnteriorLower         = null;
+  	union { null, long                }       AnteriorLowerVolume   = null;
+  	union { null, string              }       AnteriorMiddle        = null;
+  	union { null, long                }       AnteriorMiddleVolume  = null;
+  	union { null, string              }       PosteriorUpper        = null;
+  	union { null, long                }       PosteriorUpperVolume  = null;
+  	union { null, string              }       PosteriorLower        = null;
+  	union { null, long                }       PosteriorLowerVolume  = null;
+  }
+  
+  record AVBowelSounds {
+  	union { null, string              }       Bowel                 = null;
+  	union { null, long                }       BowelVolume           = null;
+  }
+  
+  record AVPulses {
+    union { null, string              }       Central               = null;
+    union { null, string              }       CentralLimited        = null;
+    union { null, string              }       RightLeg              = null;
+    union { null, string              }       RightLegLimited       = null;
+    union { null, string              }       LeftLeg               = null;
+    union { null, string              }       LeftLegLimited        = null;
+    union { null, string              }       RightFoot             = null;
+    union { null, string              }       RightFootLimited      = null;
+    union { null, string              }       LeftFoot              = null;
+    union { null, string              }       LeftFootLimited       = null;
+    union { null, string              }       RightArm              = null;
+    union { null, string              }       RightArmLimited       = null;
+    union { null, string              }       LeftArm               = null;
+    union { null, string              }       LeftArmLimited        = null;
+    union { null, string              }       RightHand             = null;
+    union { null, string              }       RightHandLimited      = null;
+    union { null, string              }       LeftHand              = null;
+    union { null, string              }       LeftHandLimited       = null;
+  }
+
+}

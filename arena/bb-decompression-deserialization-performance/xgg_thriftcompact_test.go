@@ -5,7 +5,6 @@ import (
 	"testing"
 
 	"github.com/klauspost/compress/arena"
-	"github.com/klauspost/compress/arena/thfooitem"
 )
 
 func Benchmark___DecompressionAndDeserializationPerformance___ThriftCompact(b *testing.B) {
@@ -15,12 +14,13 @@ func Benchmark___DecompressionAndDeserializationPerformance___ThriftCompact(b *t
 
 	for _, test := range arena.AllCompressionTestCases {
 		b.Run(test.Desc, func(bench *testing.B) {
-			thriftCompactSerializer := arena.NewThriftCompactSerializer() //compact serializer
-			compressedAndSerializedDatasource := [][]byte{}               //first serialize and compress
+			thriftCompactSerializer := arena.NewThriftCompactSerializer()     //compact serializer
+			thriftCompactDeserializer := arena.NewThriftCompactDeserializer() //compact deserializer
+
 			for i := 0; i < datasourceArrayLength; i++ {
 				x := datasource[i]
 
-				serializedBytes, err := thriftCompactSerializer.Write(ctx, x)
+				serializedBytes, err := thriftCompactSerializer.Write(ctx, x.Item)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}
@@ -30,21 +30,20 @@ func Benchmark___DecompressionAndDeserializationPerformance___ThriftCompact(b *t
 					bench.Fatalf("Error: %s", err)
 				}
 
-				compressedAndSerializedDatasource = append(compressedAndSerializedDatasource, compressedAndSerializedBytes)
+				x.Bytes = compressedAndSerializedBytes
 			}
 
-			bench.ResetTimer()                                                //vital
-			thriftCompactDeserializer := arena.NewThriftCompactDeserializer() //compact deserializer
+			bench.ResetTimer() //vital
 			for i := 0; i < bench.N; i++ {
-				x := compressedAndSerializedDatasource[i%datasourceArrayLength] //and now we deserialize and decompress
+				x := datasource[i%datasourceArrayLength] //and now we deserialize and decompress
 
-				decompressedSerializedBytes, err := test.DecompressionCallback(x)
+				decompressedSerializedBytes, err := test.DecompressionCallback(x.Bytes)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}
 
-				y := thfooitem.NewTHFooItem()
-				err = thriftCompactDeserializer.Read(ctx, y, decompressedSerializedBytes)
+				emptyitem := x.NewEmptyThriftItem()
+				err = thriftCompactDeserializer.Read(ctx, emptyitem, decompressedSerializedBytes)
 				if err != nil {
 					bench.Fatalf("Error: %s", err)
 				}

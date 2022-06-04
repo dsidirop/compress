@@ -10,19 +10,20 @@ import (
 )
 
 func Test___SerializationDeserializationElapsedTime___HambaAvro(t *testing.T) {
-	datasourceArrayLength := len(arena.Datasource)
+	datasource := arena.MainDatasource
+	datasourceArrayLength := len(datasource)
 
 	startTime := time.Now()
 	for i := 0; i < NUMBER_OF_ITERATIONS; i++ {
-		x := arena.Datasource[i%datasourceArrayLength]
+		x := datasource[i%datasourceArrayLength]
 
-		goAvroBytes, err := avro.Marshal(arena.Schemas.GoHambaAvro, &x)
+		goAvroBytes, err := avro.Marshal(x.HambaAvroSchema, x.Item)
 		if err != nil {
 			t.Fatalf("Error: %s", err)
 		}
 
-		y := &arena.FooItem{}
-		err = avro.Unmarshal(arena.Schemas.GoHambaAvro, goAvroBytes, y)
+		newitem := x.NewEmptyItem()
+		err = avro.Unmarshal(x.HambaAvroSchema, goAvroBytes, newitem)
 		if err != nil {
 			t.Fatalf("Error: %s", err)
 		}

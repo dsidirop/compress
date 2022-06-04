@@ -12,14 +12,20 @@ import (
 func Test___SerializationMessageSizeFootprint___ThriftBinary(t *testing.T) {
 	ctx := context.TODO()
 	datasource := arena.SpecialDatasourcesForIDLMechanisms.Thrift
+	datasourceArrayLength := len(datasource)
 	thriftBinarySerializer := thrift.NewTSerializer() //binary serializer
 
-	x := datasource[0]
+	totalBytesCount := 0
+	for i := 0; i < datasourceArrayLength; i++ {
+		x := datasource[i]
 
-	rawBytes, err := thriftBinarySerializer.Write(ctx, x)
-	if err != nil {
-		b.Fatalf("Error: %s", err)
+		rawBytes, err := thriftBinarySerializer.Write(ctx, x.Item)
+		if err != nil {
+			t.Fatalf("Error: %s", err)
+		}
+
+		totalBytesCount += len(rawBytes)
 	}
 
-	fmt.Printf("** ThriftBinary %d bytes\n", len(rawBytes))
+	fmt.Printf("** ThriftBinary %d bytes\n", totalBytesCount)
 }

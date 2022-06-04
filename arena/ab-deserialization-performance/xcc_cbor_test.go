@@ -12,11 +12,13 @@ func Benchmark___Deserialization___Cbor(b *testing.B) {
 	datasourceArrayLength := len(datasource)
 
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
-		bytes := datasource[i%datasourceArrayLength]
+	for iteration := 0; iteration < b.N; iteration++ {
+		i := iteration % datasourceArrayLength
 
-		item := &arena.FooItem{}
-		err := cbor.Unmarshal(bytes, item)
+		newitem := arena.MainDatasource[i].NewEmptyItem()
+		rawbytes := datasource[i]
+
+		err := cbor.Unmarshal(rawbytes, newitem)
 		if err != nil {
 			b.Fatalf("Error: %s", err)
 		}

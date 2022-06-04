@@ -1,14 +1,12 @@
 package arena
 
 import (
-	"time"
-
 	"github.com/klauspost/compress/arena/thfooitem"
 )
 
-func ConvertFooItemToTHFooItem(x FooItem) thfooitem.THFooItem {
-	nowBytes, _ := time.Now().UTC().MarshalText()
-	nowTimestampString := thfooitem.Timestamp(nowBytes)
+func ConvertFooItemToThrift(x *FooItem) *thfooitem.THFooItem {
+	createdAtBytes, _ := x.CreatedAt.UTC().MarshalText()
+	nowTimestampString := thfooitem.Timestamp(createdAtBytes)
 
 	y := thfooitem.NewTHFooItem()
 	y.ID = x.ID
@@ -30,5 +28,5 @@ func ConvertFooItemToTHFooItem(x FooItem) thfooitem.THFooItem {
 	y.Profile.Location.Lat = x.Profile.Location.Lat
 	y.Profile.Location.Long = x.Profile.Location.Long
 
-	return *y
+	return y
 }
