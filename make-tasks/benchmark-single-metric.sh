@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -o errexit
+
 benchmark_dirname="${1}"
 title="${2}"
 y_label="${3}"

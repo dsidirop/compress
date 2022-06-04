@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -o errexit
+
 benchmark_dirname="${1}"
 cpu_count="${2}"
 configFile="${3:-../plot.gp}"
